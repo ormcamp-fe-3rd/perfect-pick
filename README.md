@@ -9,8 +9,7 @@
 
 ## 기술 스택
 
-<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
-<img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white">
 <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
@@ -24,8 +23,7 @@
 
 ## 협업툴
 
-<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
-<img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"><img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
 <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
 <img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white">
 
@@ -33,9 +31,9 @@
 
 ## 👍 팀구성
 
-[![김민섭](https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png)](https://github.com/mycreature)
-[![박정혜](https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png)](https://github.com/YellowFiber)
-[![조지연](https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png)](https://github.com/oratio100)
+[![김민섭](src/assets/git/kim.png)](https://github.com/mycreature)
+[![박정혜](src/assets/git/park.png)](https://github.com/YellowFiber)
+[![조지연](src/assets/git/jo.png)](https://github.com/oratio100)
 
 <br>
 

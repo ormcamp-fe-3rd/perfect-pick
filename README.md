@@ -37,10 +37,12 @@
 
 <br>
 
-## [작업 진행 상황](https://github.com/ormcamp-fe-3rd/perfect-pick/wiki/%EC%9E%91%EC%97%85-%EC%A7%84%ED%96%89-%EC%83%81%ED%99%A9)
+## [개발 일정](https://github.com/ormcamp-fe-3rd/perfect-pick/wiki/%EA%B0%9C%EB%B0%9C-%EC%9D%BC%EC%A0%95)
+
+## [주요 기능](https://github.com/ormcamp-fe-3rd/perfect-pick/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5)
 
 ## [팀 컨벤션](https://github.com/ormcamp-fe-3rd/perfect-pick/wiki/%ED%8C%80-%EC%BB%A8%EB%B2%A4%EC%85%98)
 
-## [팀 컨벤션](https://github.com/ormcamp-fe-3rd/perfect-pick/wiki/%ED%94%BC%EB%93%9C%EB%B0%B1)
+## [피드백](https://github.com/ormcamp-fe-3rd/perfect-pick/wiki/%ED%94%BC%EB%93%9C%EB%B0%B1)
 
-## [회의록](https://github.com/ormcamp-fe-3rd/perfect-pick/wiki/%ED%94%BC%EB%93%9C%EB%B0%B1)
+## [회의록](https://github.com/ormcamp-fe-3rd/perfect-pick/wiki/%ED%9A%8C%EC%9D%98%EB%A1%9D)

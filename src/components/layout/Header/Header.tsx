@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import HeaderNav from './HeaderNav';
+import MenuButton from './MenuButton';
+import RightMenu from './RightMenu';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(true);
@@ -21,37 +23,11 @@ export default function Header() {
         <h1>PERFECT PICK</h1>
       </Link>
 
-      <button
-        className="absolute left-[15px] top-1/2 hidden -translate-y-1/2 lg:block"
-        onClick={toggleMenu}
-      >
-        <img src="../images/header/ico-menu.svg" alt="모바일 메뉴" />
-      </button>
+      <MenuButton onClick={toggleMenu} isMenuOpen={isMenuOpen} />
 
       <HeaderNav isMenuOpen={isMenuOpen} />
 
-      <ul className="flex lg:absolute lg:right-[15px]">
-        <li className={`mr-[25px] sm:mr-[10px] ${isMenuOpen ? '' : 'hidden'}`}>
-          <Link to={''}>
-            <img src="../images/header/ico-search.svg" alt="통합검색" />
-          </Link>
-        </li>
-        <li className={`mr-[25px] lg:mr-0 ${isMenuOpen ? '' : 'hidden'}`}>
-          <Link to={'/cart'}>
-            <img src="../images/header/ico-cart.svg" alt="장바구니" />
-          </Link>
-        </li>
-        <li className={`mr-[25px] ${isMenuOpen ? 'lg:hidden' : 'lg:block'}`}>
-          <Link to={'/mypage'}>
-            <img src="../images/header/ico-mypage.svg" alt="마이페이지" />
-          </Link>
-        </li>
-        <li className={`${isMenuOpen ? 'lg:hidden' : 'lg:block'}`}>
-          <Link to={'/login'}>
-            <img src="../images/header/ico-login.svg" alt="로그인" />
-          </Link>
-        </li>
-      </ul>
+      <RightMenu isMenuOpen={isMenuOpen} />
     </header>
   );
 }

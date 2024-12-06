@@ -36,3 +36,22 @@ body {
   font-weight: 400;
   letter-spacing: -5%;
 }
+
+.inner {
+  margin: 0 auto;
+  width: 1400px;
+  box-sizing: border-box;
+}
+
+@media all and (max-width: 1440px) {
+  .inner {
+    margin: 0 15px;
+    width: calc(100% - 30px);
+  }
+}
+@media all and (max-width: 568px) {
+  .inner {
+    margin: 0 10px;
+    width: calc(100% - 20px);
+  }
+}

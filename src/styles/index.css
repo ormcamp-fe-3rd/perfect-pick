@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 400;
+  src: url('../assets/fonts/SUIT-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 600;
+  src: url('../assets/fonts/SUIT-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 700;
+  src: url('../assets/fonts/SUIT-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 800;
+  src: url('../assets/fonts/SUIT-ExtraBold.ttf');
+}
+
+@font-face {
+  font-family: 'BagelFatOne';
+  src: url('../assets/fonts/BagelFatOne-Regular.ttf');
+}
+
+body {
+  font-family: 'SUIT';
+  font-weight: 400;
+  letter-spacing: -5%;
+}

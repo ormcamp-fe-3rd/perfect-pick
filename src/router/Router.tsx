@@ -1,16 +1,16 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import CartPage from '../pages/CartPage';
-import HomePage from '../pages/HomePage';
-import LoginPage from '../pages/LoginPage';
-import MyPage from '../pages/MyPage';
-import NonMemberPage from '../pages/NonMemberPage';
-import PaymentPage from '../pages/PaymentPage';
-import ProductDetailPage from '../pages/ProductDetailPage';
-import ProductSearchPage from '../pages/ProductSearchPage';
-import RecommendPage from '../pages/RecommendPage';
-import RegisterPage from '../pages/RegisterPage';
-import TotalSearchPage from '../pages/TotalSearchPage';
+import CartPage from '@/pages/CartPage';
+import HomePage from '@/pages/HomePage';
+import LoginPage from '@/pages/LoginPage';
+import MyPage from '@/pages/MyPage';
+import NonMemberPage from '@/pages/NonMemberPage';
+import PaymentPage from '@/pages/PaymentPage';
+import ProductDetailPage from '@/pages/ProductDetailPage';
+import ProductSearchPage from '@/pages/ProductSearchPage';
+import RecommendPage from '@/pages/RecommendPage';
+import RegisterPage from '@/pages/RegisterPage';
+import TotalSearchPage from '@/pages/TotalSearchPage';
 
 const Router = () => {
   return (

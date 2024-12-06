@@ -9,7 +9,7 @@ export default function Header() {
         </h1>
       </Link>
 
-      <nav>
+      <nav className="lg:hidden">
         <ul className="flex">
           <li className="mr-[60px]">
             <Link to={''} className="hover:text-red">

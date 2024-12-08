@@ -27,6 +27,11 @@ export default {
       SUIT: ['SUIT'],
       BagelFatOne: ['BagelFatOne'],
     },
+    screens: {
+      lg: { max: '1024px' },
+      md: { max: '568px' },
+      sm: { max: '430px' },
+    },
   },
   plugins: [],
 };

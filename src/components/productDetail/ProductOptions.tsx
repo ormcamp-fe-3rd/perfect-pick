@@ -1,4 +1,37 @@
 import { Select } from '@headlessui/react';
+import { useState } from 'react';
+
+function Stepper() {
+  const [amount, setAmount] = useState(1);
+
+  const adjustButtonClick = (action: number) => {
+    if (action === -1) {
+      setAmount(Math.max(1, amount - 1));
+    } else {
+      setAmount(Math.min(10, amount + 1));
+    }
+  };
+
+  return (
+    <div className="flex text-center text-lg font-semibold">
+      <button
+        className="flex size-10 items-center justify-center bg-[#D9D9D9]"
+        onClick={() => adjustButtonClick(-1)}
+      >
+        -
+      </button>
+      <div className="flex h-10 w-20 items-center justify-center border-gray">
+        {amount}
+      </div>
+      <button
+        className="flex size-10 items-center justify-center bg-[#D9D9D9]"
+        onClick={() => adjustButtonClick(1)}
+      >
+        +
+      </button>
+    </div>
+  );
+}
 
 export default function ProductOptions() {
   return (
@@ -51,8 +84,8 @@ export default function ProductOptions() {
         </div>
         <div className="border-y px-3 py-5">
           <div className="text-lg font-semibold">옵션: 컬러/용량/추가상품</div>
-          <div className="flex items-center justify-between">
-            <div>수량</div>
+          <div className="mt-5 flex items-center justify-between">
+            <Stepper />
             <div className="text-[36px] font-extrabold">총 금액</div>
           </div>
         </div>

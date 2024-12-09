@@ -5,7 +5,7 @@ function HomePage() {
   return (
     <>
       <div className="inner">
-        <div className="mt-[90px]">
+        <div className="mt-[90px] lg:mt-[57px] md:mt-10">
           <MainSlide />
         </div>
         <div>

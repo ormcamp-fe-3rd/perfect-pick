@@ -22,10 +22,16 @@ export default {
       pink: '#FFACD4',
       skyblue: '#74CCFF',
       red: '#FF4949',
+      green: '#50D75D',
     },
     fontFamily: {
       SUIT: ['SUIT'],
       BagelFatOne: ['BagelFatOne'],
+    },
+    screens: {
+      lg: { max: '1024px' },
+      md: { max: '568px' },
+      sm: { max: '430px' },
     },
   },
   plugins: [],

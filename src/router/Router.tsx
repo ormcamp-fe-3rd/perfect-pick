@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 
+import Footer from '@/components/layout/Footer/Footer';
 import Header from '@/components/layout/Header/Header';
 import CartPage from '@/pages/CartPage';
 import HomePage from '@/pages/HomePage';
@@ -28,6 +29,7 @@ const Layout = ({ children }: LayoutProps) => {
     <>
       {!excludedPaths.includes(location.pathname) && <Header />}
       {children}
+      <Footer />
     </>
   );
 };

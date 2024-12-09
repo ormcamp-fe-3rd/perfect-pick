@@ -20,7 +20,8 @@ export default function ProductImages() {
 
   return (
     <>
-      <div className="relative h-full w-full">
+      <span className="text-xl">Tablet &gt; Samsung</span>
+      <div className="relative mt-4 h-full w-full">
         <img
           src={imagesList[currentIndex].src}
           alt={imagesList[currentIndex].alt}

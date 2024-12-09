@@ -39,16 +39,16 @@ export default function ProductDescription() {
 
   return (
     <>
-      <TabGroup className="mb-8">
-        <TabList className="mb-9 flex h-11 w-full gap-24 border-b text-2xl font-extrabold text-gray">
+      <TabGroup className="mb-8 min-h-[800px]">
+        <TabList className="mb-9 flex h-11 w-full gap-24 border-b text-2xl font-extrabold text-gray md:justify-center md:gap-10">
           <Tab className="data-[selected]:text-black">제품 설명</Tab>
           <Tab className="data-[selected]:text-black">제품 스펙</Tab>
           <Tab className="data-[selected]:text-black">반품/교환 정보</Tab>
         </TabList>
         <TabPanels id="productDescription">
-          <TabPanel className="flex w-full justify-center px-40">
+          <TabPanel className="flex w-full justify-center px-10">
             <img
-              className="w-full"
+              className="w-full max-w-[1080px]"
               src="https://i.imgur.com/Jvh1OQmb.jpg"
               alt="image1"
             />
@@ -57,7 +57,7 @@ export default function ProductDescription() {
             <div className="my-10 flex flex-col gap-5">
               <div className="text-center text-3xl">제품 상세 스펙</div>
             </div>
-            <table className="flex w-full justify-center px-40">
+            <table className="flex w-full justify-center px-10">
               <tbody className="grid w-full grid-cols-2">
                 {productDetailsList.map((detail, index) => (
                   <tr
@@ -85,7 +85,7 @@ export default function ProductDescription() {
                 반품지 주소 등을 협의하신 후 반품상품을 발송해주시기 바랍니다.
               </div>
             </div>
-            <tbody className="flex w-full flex-col">
+            <tbody className="flex w-full flex-col px-10 text-left">
               {returnExchaneInfo.map((info) => (
                 <tr className="flex w-full border border-gray">
                   <th className="flex w-3/12 items-center bg-[#D9D9D9] py-4 pl-2">
@@ -104,7 +104,6 @@ export default function ProductDescription() {
           </TabPanel>
         </TabPanels>
       </TabGroup>
-      <div className="flex w-full justify-center px-40"></div>
     </>
   );
 }

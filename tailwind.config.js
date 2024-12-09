@@ -15,6 +15,7 @@ export default {
     },
     colors: {
       black: '#000000',
+      white: '#ffffff',
       pureblack: '#151515',
       gray: '#888888',
       salmon: '#FC8D78',
@@ -32,6 +33,9 @@ export default {
       lg: { max: '1024px' },
       md: { max: '568px' },
       sm: { max: '430px' },
+    },
+    boxShadow: {
+      md: '0 4px 10px 0 rgba(0, 0, 0, 0.05)',
     },
   },
   plugins: [],

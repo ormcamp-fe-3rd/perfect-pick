@@ -32,7 +32,7 @@ export default function ProductDescription() {
                     key={index}
                     className="flex h-9 w-full border border-gray"
                   >
-                    <th className="flex w-1/3 items-center bg-[lightgray] pl-2">
+                    <th className="flex w-1/3 items-center bg-[#D9D9D9] pl-2">
                       {detail.name}
                     </th>
                     <td className="flex w-2/3 items-center border-gray pl-2">

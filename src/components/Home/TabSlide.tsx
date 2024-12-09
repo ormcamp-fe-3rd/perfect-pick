@@ -2,12 +2,17 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 
 import TabSlider from '@/components/Home/TabSlider';
 
-export default function TabSlide() {
+interface TabSlideProps {
+  subTitle: string;
+  MainTitle: string;
+}
+
+export default function TabSlide({subTitle, MainTitle}: TabSlideProps) {
   return (
     <>
       <div className="mt-[190px]">
-        <strong className="text-xl font-bold">놓치면 안될 특가 상품</strong>
-        <h2 className="text-4xl font-extrabold leading-none">Hot Sale</h2>
+        <strong className="text-xl font-bold">{subTitle}</strong>
+        <h2 className="text-4xl font-extrabold leading-none">{MainTitle}</h2>
       </div>
 
       <TabGroup className="mt-[30px]">
@@ -29,9 +34,18 @@ export default function TabSlide() {
           <TabPanel>
             <TabSlider />
           </TabPanel>
-          <TabPanel>Content 2</TabPanel>
-          <TabPanel>Content 3</TabPanel>
-          <TabPanel>Content 4</TabPanel>
+          <TabPanel>
+            <p>2</p>
+            <TabSlider />
+          </TabPanel>
+          <TabPanel>
+            <p>3</p>
+            <TabSlider />
+          </TabPanel>
+          <TabPanel>
+            <p>4</p>
+            <TabSlider />
+          </TabPanel>
         </TabPanels>
       </TabGroup>
     </>

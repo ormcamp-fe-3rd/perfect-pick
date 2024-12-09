@@ -15,96 +15,98 @@ function LazyLoad() {
     initialSlide: 2,
     prevArrow: (
       <ArrowButton
-        MainSlidePrev
-        imgName="../images/home/ico-arrow-left-black.svg"
+        TabSlidePrev
+        imgName="../images/home/ico-arrow-left-white.svg"
         altText="이전 슬라이드 보기"
       />
     ),
     nextArrow: (
       <ArrowButton
-        MainSlideNext
-        imgName="../images/home/ico-arrow-right-black.svg"
+        TabSlideNext
+        imgName="../images/home/ico-arrow-right-white.svg"
         altText="다음 슬라이드 보기"
       />
     ),
   };
   return (
-    <div className="slider-container">
-      <Slider {...settings}>
-        <div>
-          <div className="h-[450px] w-[335px] overflow-hidden rounded-[10px]">
-            <img src={slide1} className="h-full w-full" />
-          </div>
+    <>
+      <div className="slider-container mt-[50px]">
+        <Slider {...settings}>
+          <div>
+            <div className="h-[450px] w-[335px] overflow-hidden rounded-[10px]">
+              <img src={slide1} className="h-full w-full" />
+            </div>
 
-          <div className="[&_*]:leading-none">
-            <p className="text-sm font-semibold text-gray">삼성</p>
-            <strong className="block text-lg font-semibold">
-              갤럭시 S24 FE 자급제
-            </strong>
-            <strong className="block text-2xl font-extrabold text-red">
-              896,000원
-            </strong>
-            <span className="relative font-semibold text-gray after:absolute after:left-0 after:top-1/2 after:h-[2px] after:w-full after:-translate-y-1/2 after:bg-gray">
-              946,000
-            </span>
+            <div className="px-[10px] pt-[25px] [&_*]:leading-none">
+              <p className="text-sm font-semibold text-gray">삼성</p>
+              <strong className="mb-[10px] mt-[6px] block text-lg font-semibold">
+                갤럭시 S24 FE 자급제
+              </strong>
+              <strong className="block text-2xl font-extrabold text-red">
+                896,000원
+              </strong>
+              <span className="relative font-semibold text-gray after:absolute after:left-0 after:top-1/2 after:h-[2px] after:w-full after:-translate-y-1/2 after:bg-gray">
+                946,000
+              </span>
+            </div>
           </div>
-        </div>
-        <div>
-          <div className="h-[450px] w-[335px] overflow-hidden rounded-[10px]">
-            <img src={slide2} className="h-full w-full" />
-          </div>
+          <div>
+            <div className="h-[450px] w-[335px] overflow-hidden rounded-[10px]">
+              <img src={slide2} className="h-full w-full" />
+            </div>
 
-          <div className="[&_*]:leading-none">
-            <p className="text-sm font-semibold text-gray">삼성</p>
-            <strong className="block text-lg font-semibold">
-              갤럭시 S24 FE 자급제
-            </strong>
-            <strong className="block text-2xl font-extrabold text-red">
-              896,000원
-            </strong>
-            <span className="relative font-semibold text-gray after:absolute after:left-0 after:top-1/2 after:h-[2px] after:w-full after:-translate-y-1/2 after:bg-gray">
-              946,000
-            </span>
+            <div className="px-[10px] pt-[25px] [&_*]:leading-none">
+              <p className="text-sm font-semibold text-gray">삼성</p>
+              <strong className="mb-[10px] mt-[6px] block text-lg font-semibold">
+                갤럭시 S24 FE 자급제
+              </strong>
+              <strong className="block text-2xl font-extrabold text-red">
+                896,000원
+              </strong>
+              <span className="relative font-semibold text-gray after:absolute after:left-0 after:top-1/2 after:h-[2px] after:w-full after:-translate-y-1/2 after:bg-gray">
+                946,000
+              </span>
+            </div>
           </div>
-        </div>
-        <div>
-          <div className="h-[450px] w-[335px] overflow-hidden rounded-[10px]">
-            <img src={slide3} className="h-full w-full" />
-          </div>
+          <div>
+            <div className="h-[450px] w-[335px] overflow-hidden rounded-[10px]">
+              <img src={slide3} className="h-full w-full" />
+            </div>
 
-          <div className="[&_*]:leading-none">
-            <p className="text-sm font-semibold text-gray">삼성</p>
-            <strong className="block text-lg font-semibold">
-              갤럭시 S24 FE 자급제
-            </strong>
-            <strong className="block text-2xl font-extrabold text-red">
-              896,000원
-            </strong>
-            <span className="relative font-semibold text-gray after:absolute after:left-0 after:top-1/2 after:h-[2px] after:w-full after:-translate-y-1/2 after:bg-gray">
-              946,000
-            </span>
+            <div className="px-[10px] pt-[25px] [&_*]:leading-none">
+              <p className="text-sm font-semibold text-gray">삼성</p>
+              <strong className="mb-[10px] mt-[6px] block text-lg font-semibold">
+                갤럭시 S24 FE 자급제
+              </strong>
+              <strong className="block text-2xl font-extrabold text-red">
+                896,000원
+              </strong>
+              <span className="relative font-semibold text-gray after:absolute after:left-0 after:top-1/2 after:h-[2px] after:w-full after:-translate-y-1/2 after:bg-gray">
+                946,000
+              </span>
+            </div>
           </div>
-        </div>
-        <div>
-          <div className="h-[450px] w-[335px] overflow-hidden rounded-[10px]">
-            <img src={slide4} className="h-full w-full" />
-          </div>
+          <div>
+            <div className="h-[450px] w-[335px] overflow-hidden rounded-[10px]">
+              <img src={slide4} className="h-full w-full" />
+            </div>
 
-          <div className="[&_*]:leading-none">
-            <p className="text-sm font-semibold text-gray">삼성</p>
-            <strong className="block text-lg font-semibold">
-              갤럭시 S24 FE 자급제
-            </strong>
-            <strong className="block text-2xl font-extrabold text-red">
-              896,000원
-            </strong>
-            <span className="relative font-semibold text-gray after:absolute after:left-0 after:top-1/2 after:h-[2px] after:w-full after:-translate-y-1/2 after:bg-gray">
-              946,000
-            </span>
+            <div className="px-[10px] pt-[25px] [&_*]:leading-none">
+              <p className="text-sm font-semibold text-gray">삼성</p>
+              <strong className="mb-[10px] mt-[6px] block text-lg font-semibold">
+                갤럭시 S24 FE 자급제
+              </strong>
+              <strong className="block text-2xl font-extrabold text-red">
+                896,000원
+              </strong>
+              <span className="relative font-semibold text-gray after:absolute after:left-0 after:top-1/2 after:h-[2px] after:w-full after:-translate-y-1/2 after:bg-gray">
+                946,000
+              </span>
+            </div>
           </div>
-        </div>
-      </Slider>
-    </div>
+        </Slider>
+      </div>
+    </>
   );
 }
 

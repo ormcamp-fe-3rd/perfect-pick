@@ -582,8 +582,8 @@ video {
   margin-bottom: 0.5rem;
 }
 
-.mr-\[25px\] {
-  margin-right: 25px;
+.ml-\[25px\] {
+  margin-left: 25px;
 }
 
 .mt-10 {
@@ -888,10 +888,6 @@ body {
     top: 176px;
   }
 
-  .lg\:mr-0 {
-    margin-right: 0px;
-  }
-
   .lg\:block {
     display: block;
   }
@@ -1013,8 +1009,12 @@ body {
 }
 
 @media (max-width: 430px) {
-  .sm\:mr-\[10px\] {
-    margin-right: 10px;
+  .sm\:ml-\[\] {
+    margin-left: ;
+  }
+
+  .sm\:ml-\[15px\] {
+    margin-left: 15px;
   }
 
   .sm\:text-2xl {

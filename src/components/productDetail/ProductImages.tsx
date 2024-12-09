@@ -28,11 +28,16 @@ export default function ProductImages() {
         />
         <div className="absolute bottom-6 right-6 flex flex-col gap-4">
           {imagesList.map((image, index) => (
-            <div
-              className="size-5 rounded-full bg-yellow"
-              id={image.id}
+            <button
+              className="size-5 rounded-full"
+              style={
+                index === currentIndex
+                  ? { backgroundColor: 'gray' }
+                  : { backgroundColor: '#D9D9D9' }
+              }
+              key={image.id}
               onClick={() => handleButtonClick(index)}
-            ></div>
+            ></button>
           ))}
         </div>
       </div>

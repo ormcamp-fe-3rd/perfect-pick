@@ -22,6 +22,7 @@ export default {
       pink: '#FFACD4',
       skyblue: '#74CCFF',
       red: '#FF4949',
+      green: '#50D75D',
     },
     fontFamily: {
       SUIT: ['SUIT'],

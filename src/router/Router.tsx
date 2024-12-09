@@ -29,7 +29,7 @@ const Layout = ({ children }: LayoutProps) => {
     <>
       {!excludedPaths.includes(location.pathname) && <Header />}
       {children}
-      <Footer />
+      {!excludedPaths.includes(location.pathname) && <Footer />}
     </>
   );
 };

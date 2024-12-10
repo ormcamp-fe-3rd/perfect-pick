@@ -602,6 +602,10 @@ video {
   margin-left: 25px;
 }
 
+.mt-44 {
+  margin-top: 11rem;
+}
+
 .mt-\[190px\] {
   margin-top: 190px;
 }
@@ -620,10 +624,6 @@ video {
 
 .mt-\[90px\] {
   margin-top: 90px;
-}
-
-.mt-44 {
-  margin-top: 11rem;
 }
 
 .box-border {
@@ -738,6 +738,11 @@ video {
   background-color: rgb(255 172 212 / var(--tw-bg-opacity, 1));
 }
 
+.bg-pureblack {
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 21 21 / var(--tw-bg-opacity, 1));
+}
+
 .bg-salmon {
   --tw-bg-opacity: 1;
   background-color: rgb(252 141 120 / var(--tw-bg-opacity, 1));
@@ -755,11 +760,6 @@ video {
 .bg-yellow {
   --tw-bg-opacity: 1;
   background-color: rgb(254 217 69 / var(--tw-bg-opacity, 1));
-}
-
-.bg-pureblack {
-  --tw-bg-opacity: 1;
-  background-color: rgb(21 21 21 / var(--tw-bg-opacity, 1));
 }
 
 .px-\[10px\] {
@@ -797,6 +797,10 @@ video {
   font-size: 1.375rem;
 }
 
+.text-3xl {
+  font-size: 2.875rem;
+}
+
 .text-4xl {
   font-size: 3.5rem;
 }
@@ -821,10 +825,6 @@ video {
   font-size: 1.25rem;
 }
 
-.text-3xl {
-  font-size: 2.875rem;
-}
-
 .font-bold {
   font-weight: 700;
 }
@@ -846,6 +846,11 @@ video {
   color: rgb(31 44 62 / var(--tw-text-opacity, 1));
 }
 
+.text-\[\#666\] {
+  --tw-text-opacity: 1;
+  color: rgb(102 102 102 / var(--tw-text-opacity, 1));
+}
+
 .text-gray {
   --tw-text-opacity: 1;
   color: rgb(136 136 136 / var(--tw-text-opacity, 1));
@@ -856,22 +861,9 @@ video {
   color: rgb(255 73 73 / var(--tw-text-opacity, 1));
 }
 
-.text-\[\#666\] {
-  --tw-text-opacity: 1;
-  color: rgb(102 102 102 / var(--tw-text-opacity, 1));
-}
-
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-}
-
-.text-\[\] {
-  color: ;
-}
-
-.text-\[\#\] {
-  color: #;
 }
 
 .shadow-md {
@@ -1135,10 +1127,6 @@ body {
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
-  .lg\:flex-col {
-    flex-direction: column;
-  }
-
   .lg\:flex-col-reverse {
     flex-direction: column-reverse;
   }
@@ -1182,10 +1170,6 @@ body {
   .lg\:bg-yellow {
     --tw-bg-opacity: 1;
     background-color: rgb(254 217 69 / var(--tw-bg-opacity, 1));
-  }
-
-  .lg\:pt-\[30px\] {
-    padding-top: 30px;
   }
 
   .lg\:pt-\[35px\] {

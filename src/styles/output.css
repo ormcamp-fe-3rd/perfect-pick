@@ -1009,10 +1009,6 @@ body {
 }
 
 @media (max-width: 430px) {
-  .sm\:ml-\[\] {
-    margin-left: ;
-  }
-
   .sm\:ml-\[15px\] {
     margin-left: 15px;
   }

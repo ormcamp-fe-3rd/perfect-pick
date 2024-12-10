@@ -1,5 +1,5 @@
 import CartTable from '@/components/cart/CartTable';
-import CheckBox from '@/components/cart/CheckBox';
+import CartCheckBox from '@/components/cart/CartCheckBox';
 
 function CartPage() {
   return (
@@ -7,14 +7,10 @@ function CartPage() {
       <div className="mt-16 w-full text-center text-3xl font-extrabold">
         장바구니
       </div>
-      <div className="mb-6 mt-5 flex w-full gap-4">
-        <CheckBox
-          size="size-6"
-          checkedColor="bg-yellow"
-          labelStyle="text-2xl leading-0"
-        >
+      <div className="mb-6 ml-6 mt-5 flex w-full gap-4">
+        <CartCheckBox style="size-5" label="ml-6 text-2xl">
           모두 선택
-        </CheckBox>
+        </CartCheckBox>
         <button className="h-[35px] w-[126px] rounded-[50px] bg-[#D9D9D9] text-2xl">
           선택 삭제
         </button>

@@ -38,9 +38,9 @@
 
 조원|담당 업무
 :---:|------------------------------
-[![김민섭](src/assets/git/kim.png)](https://github.com/mycreature)<p>**김민섭(팀장)**</p>|-상품 검색 및 조회 페이지 <br>-맞춤형 제품 추천 페이지 <br>-통합검색 페이지
-[![박정혜](src/assets/git/park.png)](https://github.com/YellowFiber)<p>**박정혜**</p>|-메인페이지 <br>-회원가입 <br>-로그인 <br>-비회원 구매조회
-[![조지연](src/assets/git/jo.png)](https://github.com/oratio100)<p>**조지연**</p>|-제품 상세페이지 <br>-장바구니 <br>-결제 페이지 <br>-마이페이지
+[![김민섭](https://github.com/user-attachments/assets/77a4ef38-20cb-4e8d-a71e-029d151185c5)](https://github.com/mycreature)<p>**김민섭(팀장)**</p>|-상품 검색 및 조회 페이지 <br>-맞춤형 제품 추천 페이지 <br>-통합검색 페이지
+[![박정혜](https://github.com/user-attachments/assets/4b3f3cb3-6605-4cf8-9f5e-cf3713d95f09)](https://github.com/YellowFiber)<p>**박정혜**</p>|-메인페이지 <br>-회원가입 <br>-로그인 <br>-비회원 구매조회
+[![조지연](https://github.com/user-attachments/assets/8b747168-c63b-4f6b-94ca-000c0a5157a0)](https://github.com/oratio100)<p>**조지연**</p>|-제품 상세페이지 <br>-장바구니 <br>-결제 페이지 <br>-마이페이지
 
 - 백엔드 및 DB 과정은 모든 팀원이 공동으로 설계, 개발, 테스트 및  검증을 참여한다.
 - 다만 각 작업 단계에서는 팀원들의 역할에 따라 업무 분담을 한다.

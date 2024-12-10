@@ -1,9 +1,9 @@
 import { Fragment, useState } from 'react';
-import { Checkbox } from '@headlessui/react';
+import { Checkbox, Label } from '@headlessui/react';
 import clsx from 'clsx';
 
 interface CartCheckBoxProps {
-  checked?: boolean;
+  checkedFormula?: boolean;
   onChange?: (isChecked: boolean) => void;
   style?: string;
   label?: string;
@@ -11,13 +11,13 @@ interface CartCheckBoxProps {
 }
 
 export default function CartCheckBox({
-  checked,
+  checkedFormula = false,
   onChange,
   style = 'size-6',
   label = 'hidden',
   children,
 }: CartCheckBoxProps) {
-  const [enabled, setEnabled] = useState(checked || false);
+  const [enabled, setEnabled] = useState(checkedFormula);
 
   const handleChange = (isChecked: boolean) => {
     if (onChange) {
@@ -27,10 +27,14 @@ export default function CartCheckBox({
     }
   };
 
+  const handleLabelClick = () => {
+    handleChange(!enabled);
+  };
+
   return (
     <div className="flex items-center">
       <Checkbox
-        checked={checked !== undefined ? checked : enabled}
+        checked={checkedFormula !== undefined ? checkedFormula : enabled}
         onChange={handleChange}
         as={Fragment}
       >
@@ -61,8 +65,9 @@ export default function CartCheckBox({
           </span>
         )}
       </Checkbox>
-      <span className={label}>{children}</span>
-      {/* <span className="pl-6 text-2xl">{children}</span> */}
+      <span className={label} onClick={handleLabelClick}>
+        {children}
+      </span>
     </div>
   );
 }

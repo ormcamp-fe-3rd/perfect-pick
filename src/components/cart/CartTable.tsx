@@ -37,8 +37,8 @@ export default function CartTable() {
     },
   ];
 
-  const initialCheckedItems = new Set(cartList.map((item) => item.id));
-  const [checkedItems, setCheckedItems] = useState(initialCheckedItems);
+  const allItems = new Set(cartList.map((item) => item.id));
+  const [checkedItems, setCheckedItems] = useState(allItems);
 
   const handleCheckboxChange = (itemId: number, isChecked: boolean) => {
     setCheckedItems((prevCheckedItems) => {
@@ -48,6 +48,14 @@ export default function CartTable() {
         return new Set([...prevCheckedItems].filter((item) => item !== itemId));
       }
     });
+  };
+
+  const handleSelectAllChange = (isChecked: boolean) => {
+    if (isChecked) {
+      setCheckedItems(allItems);
+    } else {
+      setCheckedItems(new Set());
+    }
   };
 
   const selectedItems = cartList.filter((item) => checkedItems.has(item.id));
@@ -67,24 +75,32 @@ export default function CartTable() {
   return (
     <>
       <div className="mb-6 ml-6 mt-5 flex w-full gap-4">
-        <CartCheckBox label="ml-6 text-2xl">모두 선택</CartCheckBox>
+        <CartCheckBox
+          checkedFormula={checkedItems.size === cartList.length}
+          label="ml-6 text-2xl"
+          onChange={(isChecked) => handleSelectAllChange(isChecked)}
+        >
+          모두 선택
+        </CartCheckBox>
         <button className="h-[35px] w-[126px] rounded-[50px] bg-[#D9D9D9] text-2xl">
           선택 삭제
         </button>
       </div>
       <table>
         <thead className="h-12 border-y bg-[#D9D9D9] text-2xl font-semibold">
-          <th className="w-3/6">상품정보</th>
-          <th className="w-1/6">수량</th>
-          <th className="w-1/6">상품금액</th>
-          <th className="w-1/6">배송비</th>
+          <tr>
+            <th className="w-3/6">상품정보</th>
+            <th className="w-1/6">수량</th>
+            <th className="w-1/6">상품금액</th>
+            <th className="w-1/6">배송비</th>
+          </tr>
         </thead>
         <tbody>
           {cartList.map((item, index) => (
             <tr key={index} className="h-[150px] border-b">
               <td className="ml-6 flex h-[150px] items-center gap-6 border-r">
                 <CartCheckBox
-                  checked={checkedItems.has(item.id)}
+                  checkedFormula={checkedItems.has(item.id)}
                   onChange={(isChecked) =>
                     handleCheckboxChange(item.id, isChecked)
                   }

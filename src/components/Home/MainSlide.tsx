@@ -20,7 +20,6 @@ export default function MainSlide({ settings }: SlideProps) {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    initialSlide: 2,
     arrows: true,
     prevArrow: (
       <ArrowButton
@@ -41,19 +40,35 @@ export default function MainSlide({ settings }: SlideProps) {
   const combinedSettings = { ...defaultSettings, ...settings };
 
   return (
-    <div className="slider-container overflow-hidden rounded-[30px]">
+    <div className="slider-container h-[640px] overflow-hidden rounded-[30px] lg:h-[600px] md:h-[415px]">
       <Slider {...combinedSettings}>
         <div>
-          <img src={slide1} className="h-[640px]" alt="Slide 1" />
+          <img
+            src={slide1}
+            className="h-[640px] w-full object-cover lg:h-[600px] md:h-[415px]"
+            alt="Slide 1"
+          />
         </div>
         <div>
-          <img src={slide2} className="h-[640px]" alt="Slide 2" />
+          <img
+            src={slide2}
+            className="h-[640px] w-full object-cover lg:h-[600px] md:h-[415px]"
+            alt="Slide 2"
+          />
         </div>
         <div>
-          <img src={slide3} className="h-[640px]" alt="Slide 3" />
+          <img
+            src={slide3}
+            className="h-[640px] w-full object-cover lg:h-[600px] md:h-[415px]"
+            alt="Slide 3"
+          />
         </div>
         <div>
-          <img src={slide4} className="h-[640px]" alt="Slide 4" />
+          <img
+            src={slide4}
+            className="h-[640px] w-full object-cover lg:h-[600px] md:h-[415px]"
+            alt="Slide 4"
+          />
         </div>
       </Slider>
     </div>

@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 
-import RegisterInput from './RegisterInput';
+import RegisterInput from '@/components/register/RegisterInput';
 
 export default function RegisterMain() {
   return (
-    <div className="h-screen bg-[#f4f4f4] pt-[120px]">
+    <div className="bg-[#f4f4f4] py-[120px]">
       <div className="mx-auto box-border flex w-[1200px] flex-col justify-center rounded-[20px] bg-white px-[100px] pb-[130px] pt-[85px]">
         <Link
           to={'/'}
@@ -22,10 +22,55 @@ export default function RegisterMain() {
                 <RegisterInput
                   type="text"
                   placeholder="이름을 입력해주세요."
-                  checkText="한글 / 영문"
+                  checkTexts={['영문 / 한글']}
+                />
+              </li>
+              <li>
+                <RegisterInput
+                  type="text"
+                  placeholder="아이디를 입력해주세요."
+                  checkTexts={['영문 / 한글', '6~20자 내외']}
+                  showButton={true}
+                  buttonText="중복확인"
+                />
+              </li>
+              <li>
+                <RegisterInput
+                  type="password"
+                  placeholder="비밀번호를 입력해주세요."
+                  checkTexts={[
+                    '영문',
+                    '숫자',
+                    '특수문자 (!@$%^*_+~)',
+                    '8~20자 내외',
+                  ]}
+                />
+              </li>
+              <li>
+                <RegisterInput
+                  type="password"
+                  placeholder="주소 찾기로 입력해주세요."
+                  checkTexts={['주소 / 상세주소']}
+                  showButton={true}
+                  addressInput={true}
+                  disableInput={true}
+                />
+              </li>
+              <li>
+                <RegisterInput
+                  type="text"
+                  placeholder="이메일을 입력해주세요"
+                  checkTexts={['이메일 형식']}
                 />
               </li>
             </ul>
+
+            <button
+              className="mt-[107px] h-[70px] w-full rounded-full bg-black text-center text-2xl font-semibold text-white"
+              type="submit"
+            >
+              가입
+            </button>
           </form>
         </div>
       </div>

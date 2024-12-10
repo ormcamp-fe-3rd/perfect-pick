@@ -4,15 +4,15 @@ import RegisterInput from '@/components/register/RegisterInput';
 
 export default function RegisterMain() {
   return (
-    <div className="bg-[#f4f4f4] py-[120px]">
-      <div className="mx-auto box-border flex w-[1200px] flex-col justify-center rounded-[20px] bg-white px-[100px] pb-[130px] pt-[85px]">
+    <div className="white-wrap bg-[#f4f4f4] py-[120px] lg:py-[75px] md:pt-[35px]">
+      <div className="white-box mx-auto box-border flex flex-col justify-center rounded-[20px] bg-white px-[100px] pb-[130px] pt-[85px] lg:px-[50px] md:px-[10px] md:pb-[70px] md:pt-[50px]">
         <Link
           to={'/'}
-          className="lg:leading-2 inline-block text-center font-BagelFatOne text-[2.5rem] text-[#1F2C3E]"
+          className="lg:leading-2 inline-block text-center font-BagelFatOne text-[2.5rem] text-[#1F2C3E] md:text-[30px]"
         >
           <h1>PERFECT PICK</h1>
         </Link>
-        <h2 className="pt-[70px] text-center text-3xl font-extrabold">
+        <h2 className="pt-[70px] text-center text-3xl font-extrabold lg:pt-[50px] md:pt-[25px] md:text-[30px]">
           회원가입
         </h2>
         <div>
@@ -54,6 +54,7 @@ export default function RegisterMain() {
                   showButton={true}
                   addressInput={true}
                   disableInput={true}
+                  buttonText="주소찾기"
                 />
               </li>
               <li>
@@ -66,7 +67,7 @@ export default function RegisterMain() {
             </ul>
 
             <button
-              className="mt-[107px] h-[70px] w-full rounded-full bg-black text-center text-2xl font-semibold text-white"
+              className="mt-[107px] h-[70px] w-full rounded-full bg-black text-center text-2xl font-semibold text-white md:mt-[50px]"
               type="submit"
             >
               가입

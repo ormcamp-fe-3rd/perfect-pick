@@ -60,9 +60,22 @@ li {
   background: #f8f7f1;
 }
 
+.white-box {
+  width: 1200px;
+}
+
 @media all and (max-width: 1440px) {
   .inner {
     padding: 0 15px;
+    width: 100%;
+  }
+}
+@media all and (max-width: 1220px) {
+  .white-wrap {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .white-box {
     width: 100%;
   }
 }
@@ -77,5 +90,9 @@ li {
   }
   .menu-bg::after {
     height: 100vh;
+  }
+  .white-wrap {
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }

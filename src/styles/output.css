@@ -651,6 +651,10 @@ video {
   margin-top: 90px;
 }
 
+.mr-5 {
+  margin-right: 1.25rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -701,10 +705,6 @@ video {
 
 .w-16 {
   width: 4rem;
-}
-
-.w-\[1200px\] {
-  width: 1200px;
 }
 
 .w-\[170px\] {
@@ -1054,9 +1054,24 @@ li {
   background: #f8f7f1;
 }
 
+.white-box {
+  width: 1200px;
+}
+
 @media all and (max-width: 1440px) {
   .inner {
     padding: 0 15px;
+    width: 100%;
+  }
+}
+
+@media all and (max-width: 1220px) {
+  .white-wrap {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .white-box {
     width: 100%;
   }
 }
@@ -1074,6 +1089,11 @@ li {
 
   .menu-bg::after {
     height: 100vh;
+  }
+
+  .white-wrap {
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
 
@@ -1303,8 +1323,22 @@ li {
     background-color: rgb(254 217 69 / var(--tw-bg-opacity, 1));
   }
 
+  .lg\:px-\[50px\] {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  .lg\:py-\[75px\] {
+    padding-top: 75px;
+    padding-bottom: 75px;
+  }
+
   .lg\:pt-\[35px\] {
     padding-top: 35px;
+  }
+
+  .lg\:pt-\[50px\] {
+    padding-top: 50px;
   }
 
   .lg\:text-left {
@@ -1351,8 +1385,24 @@ li {
     margin-top: 2.5rem;
   }
 
+  .md\:mt-\[15px\] {
+    margin-top: 15px;
+  }
+
+  .md\:mt-\[\] {
+    margin-top: ;
+  }
+
+  .md\:mt-\[50px\] {
+    margin-top: 50px;
+  }
+
   .md\:h-\[415px\] {
     height: 415px;
+  }
+
+  .md\:h-\[60px\] {
+    height: 60px;
   }
 
   .md\:h-\[83px\] {
@@ -1361,6 +1411,10 @@ li {
 
   .md\:w-1\/4 {
     width: 25%;
+  }
+
+  .md\:w-full {
+    width: 100%;
   }
 
   .md\:flex-wrap {
@@ -1385,6 +1439,31 @@ li {
     padding-right: 0.25rem;
   }
 
+  .md\:px-\[10px\] {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .md\:pb-\[70px\] {
+    padding-bottom: 70px;
+  }
+
+  .md\:pt-\[50px\] {
+    padding-top: 50px;
+  }
+
+  .md\:pt-\[\] {
+    padding-top: ;
+  }
+
+  .md\:pt-\[25px\] {
+    padding-top: 25px;
+  }
+
+  .md\:pt-\[35px\] {
+    padding-top: 35px;
+  }
+
   .md\:text-\[1\.875rem\] {
     font-size: 1.875rem;
   }
@@ -1399,6 +1478,10 @@ li {
 
   .md\:text-sm {
     font-size: 0.875rem;
+  }
+
+  .md\:text-lg {
+    font-size: 1.125rem;
   }
 }
 

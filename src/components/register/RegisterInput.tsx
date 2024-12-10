@@ -27,12 +27,12 @@ export default function RegisterInput({
         <input
           type={type}
           placeholder={placeholder}
-          className={`h-[70px] rounded-[10px] border-[1px] border-black px-[25px] disabled:bg-[#e3e3e3] ${showButton == false ? 'w-full' : 'w-[calc(100%-188px)]'}`}
+          className={`h-[70px] rounded-[10px] border-[1px] border-black px-[25px] disabled:bg-[#e3e3e3] ${showButton == false ? 'w-full' : 'w-[calc(100%-188px)] md:w-full'}`}
           disabled={disableInput}
         />
         {showButton && (
           <button
-            className={`h-[70px] rounded-full bg-black text-center text-2xl font-semibold text-white ${buttonFullSize == false ? 'w-[170px]' : 'w-full'}`}
+            className={`h-[70px] rounded-full bg-black text-center text-2xl font-semibold text-white md:mt-[15px] md:h-[60px] md:text-lg ${buttonFullSize == false ? 'w-[170px] md:w-full' : 'w-full'}`}
             onClick={onButtonClick}
           >
             {buttonText}
@@ -47,9 +47,9 @@ export default function RegisterInput({
         )}
       </div>
 
-      <ul className="mt-[22px] flex">
+      <ul className="mt-[22px] flex flex-wrap">
         {checkTexts.map((text, index) => (
-          <li key={index} className={`flex ${index > 0 ? 'ml-5' : ''}`}>
+          <li key={index} className="mr-5 flex">
             <img
               src="../images/register/ico-check-gray.svg"
               alt="체크 아이콘"

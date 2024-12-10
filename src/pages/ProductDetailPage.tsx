@@ -1,7 +1,9 @@
+import ProductDetails from '../components/productDetail/ProductDetails';
+
 function ProductDetailPage() {
   return (
     <>
-      <h1>상품목록</h1>
+      <ProductDetails />
     </>
   );
 }

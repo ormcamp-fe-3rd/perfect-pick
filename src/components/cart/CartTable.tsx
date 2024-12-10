@@ -86,68 +86,90 @@ export default function CartTable() {
           선택 삭제
         </button>
       </div>
-      <table>
-        <thead className="h-12 border-y bg-[#D9D9D9] text-2xl font-semibold">
-          <tr>
-            <th className="w-3/6">상품정보</th>
-            <th className="w-1/6">수량</th>
-            <th className="w-1/6">상품금액</th>
-            <th className="w-1/6">배송비</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cartList.map((item, index) => (
-            <tr key={index} className="h-[150px] border-b">
-              <td className="ml-6 flex h-[150px] items-center gap-6 border-r">
-                <CartCheckBox
-                  checkedFormula={checkedItems.has(item.id)}
-                  onChange={(isChecked) =>
-                    handleCheckboxChange(item.id, isChecked)
-                  }
+      <div className="grid h-12 grid-cols-7 items-center border-y bg-[#D9D9D9] lg:grid-cols-1">
+        <div className="col-span-4 border-r text-center text-2xl font-semibold lg:border-0">
+          상품정보
+        </div>
+        <div className="border-r text-center text-2xl font-semibold lg:hidden">
+          수량
+        </div>
+        <div className="border-r text-center text-2xl font-semibold lg:hidden">
+          상품금액
+        </div>
+        <div className="text-center text-2xl font-semibold lg:hidden">
+          배송비
+        </div>
+      </div>
+      {cartList.map((item) => (
+        <div className="grid grid-cols-7 items-center border-b lg:grid-cols-1">
+          <div className="col-span-4 lg:col-span-1">
+            <div className="flex items-center gap-6 border-r p-6 lg:border-0 lg:px-10">
+              <CartCheckBox
+                checkedFormula={checkedItems.has(item.id)}
+                onChange={(isChecked) =>
+                  handleCheckboxChange(item.id, isChecked)
+                }
+              />
+              <div className="flex items-center gap-11 lg:gap-6">
+                <img
+                  className="size-[110px] rounded-[10px]"
+                  src={item.src}
+                  alt={`${item.name}'s image`}
                 />
-                <div className="flex items-center gap-11">
-                  <img
-                    className="size-[110px]"
-                    src={item.src}
-                    alt={`${item.name}'s image`}
-                  />
-                  <div className="flex flex-col justify-center gap-6">
-                    <div className="text-2xl font-semibold">{item.name}</div>
-                    <div className="text-lg font-semibold">
-                      옵션: {Object.values(item.options).join('/')}
-                    </div>
+                <div className="flex flex-col justify-center gap-6">
+                  <div className="text-2xl font-semibold">{item.name}</div>
+                  <div className="text-lg font-semibold">
+                    옵션: {Object.values(item.options).join('/')}
                   </div>
                 </div>
-              </td>
-              <td className="border-r">
-                <div className="flex justify-center">
-                  <CustomStepper
-                    shape="round"
-                    fontSize="text-2xl"
-                    defaultValue={item.amount}
-                  />
-                </div>
-              </td>
-              <td className="border-r text-center text-2xl font-semibold">
-                {(
-                  (item.price?.productPrice ?? 0) +
-                  (item.price?.accessoriesPrice ?? 0)
-                ).toLocaleString()}
-                원
-              </td>
-              <td className="text-center text-2xl font-semibold">
-                {item.price?.deliveryFee ?? 0}원
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div className="flex h-20 w-full items-center justify-end gap-12 border-b pr-12 text-2xl font-semibold">
-        <span>상품금액 {totalPrice.toLocaleString()}원</span>
-        <span>+</span>
-        <span>배송비 {totalDeliveryFee.toLocaleString()}원</span>
-        <span>=</span>
-        <span>총 {(totalPrice + totalDeliveryFee).toLocaleString()}원</span>
+              </div>
+            </div>
+          </div>
+          <div className="relative flex h-full items-center justify-center border-r lg:border-0">
+            <div className="absolute left-20 hidden text-2xl lg:block">
+              수량:
+            </div>
+            <div className="flex w-full lg:w-52">
+              <CustomStepper
+                shape="round"
+                size="size-10 lg:size-7"
+                fontSize="text-2xl lg:text-xl"
+                defaultValue={item.amount}
+              />
+            </div>
+          </div>
+          <div className="relative flex h-full items-center justify-center border-r py-3 text-2xl lg:border-0 lg:text-xl">
+            <div className="absolute left-20 hidden text-2xl lg:block">
+              상품금액:
+            </div>
+            {(
+              (item.price?.productPrice ?? 0) +
+              (item.price?.accessoriesPrice ?? 0)
+            ).toLocaleString()}
+            원
+          </div>
+          <div className="relative flex h-full items-center justify-center py-3 text-2xl lg:text-xl">
+            <div className="absolute left-20 hidden text-2xl lg:block">
+              배송비:
+            </div>
+            <div className="text-center text-2xl lg:text-xl">
+              {item.price?.deliveryFee ?? 0}원
+            </div>
+          </div>
+        </div>
+      ))}
+      <div className="flex w-full items-center justify-end gap-12 border-b py-2 pr-12 text-2xl font-semibold md:text-xl lg:flex-col lg:items-center lg:gap-3 lg:pr-6">
+        <div className="flex gap-12 md:flex-col lg:gap-3">
+          <span>상품금액 {totalPrice.toLocaleString()}원</span>
+          <div className="flex justify-center gap-12 lg:gap-3">
+            <span>+</span>
+            <span>배송비 {totalDeliveryFee.toLocaleString()}원</span>
+          </div>
+        </div>
+        <div className="flex gap-12 lg:gap-3">
+          <span>=</span>
+          <span>총 {(totalPrice + totalDeliveryFee).toLocaleString()}원</span>
+        </div>
       </div>
     </>
   );

@@ -2,7 +2,7 @@ import CartTable from '@/components/cart/CartTable';
 
 function CartPage() {
   return (
-    <div className="mx-auto flex w-full max-w-[1400px] flex-col">
+    <div className="mx-auto flex w-full max-w-[1400px] flex-col lg:px-5">
       <div className="mt-16 w-full text-center text-3xl font-extrabold">
         장바구니
       </div>
@@ -22,11 +22,11 @@ function CartPage() {
           </li>
         </ul>
       </div>
-      <div className="mb-20 flex justify-center gap-16">
-        <button className="h-20 w-[226px] rounded-[50px] bg-gray text-2xl text-[white] lg:h-10 lg:w-[140px] lg:text-lg">
+      <div className="mb-20 flex justify-center gap-16 md:gap-5">
+        <button className="h-20 w-[226px] rounded-[50px] bg-gray text-2xl text-[white] md:w-[160px]">
           쇼핑 계속하기
         </button>
-        <button className="h-20 w-[226px] rounded-[50px] bg-red text-2xl text-[white] lg:h-10 lg:w-[140px] lg:text-lg">
+        <button className="h-20 w-[226px] rounded-[50px] bg-red text-2xl text-[white] md:w-[160px]">
           구매하기
         </button>
       </div>

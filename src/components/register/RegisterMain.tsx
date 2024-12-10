@@ -3,6 +3,20 @@ import { Link } from 'react-router-dom';
 import RegisterInput from '@/components/register/RegisterInput';
 
 export default function RegisterMain() {
+  const usernameValidation = (value: string) =>
+    /^[a-zA-Z가-힣]{1,20}$/.test(value);
+
+  const useridValidation = (value: string) =>
+    /^[a-zA-Z가-힣]{6,20}$/.test(value);
+
+  const passwordValidation = (value: string) =>
+    /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@$%^*_+~])[a-zA-Z\d!@$%^*_+~]{8,20}$/.test(
+      value,
+    );
+
+  const emailValidation = (value: string) =>
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
+
   return (
     <div className="white-wrap bg-[#f4f4f4] py-[120px] lg:py-[75px] md:pt-[35px]">
       <div className="white-box mx-auto box-border flex flex-col justify-center rounded-[20px] bg-white px-[100px] pb-[130px] pt-[85px] lg:px-[50px] md:px-[10px] md:pb-[70px] md:pt-[50px]">
@@ -23,6 +37,7 @@ export default function RegisterMain() {
                   type="text"
                   placeholder="이름을 입력해주세요."
                   checkTexts={['영문 / 한글']}
+                  validation={usernameValidation}
                 />
               </li>
               <li>
@@ -32,6 +47,7 @@ export default function RegisterMain() {
                   checkTexts={['영문 / 한글', '6~20자 내외']}
                   showButton={true}
                   buttonText="중복확인"
+                  validation={useridValidation}
                 />
               </li>
               <li>
@@ -44,6 +60,7 @@ export default function RegisterMain() {
                     '특수문자 (!@$%^*_+~)',
                     '8~20자 내외',
                   ]}
+                  validation={passwordValidation}
                 />
               </li>
               <li>
@@ -62,6 +79,7 @@ export default function RegisterMain() {
                   type="text"
                   placeholder="이메일을 입력해주세요"
                   checkTexts={['이메일 형식']}
+                  validation={emailValidation}
                 />
               </li>
             </ul>

@@ -1,3 +1,4 @@
+import OrderDetails from '@/components/payment/OrderDetails';
 import ShippingAddress from '@/components/payment/ShippingAddress';
 
 function PaymentPage() {
@@ -8,8 +9,8 @@ function PaymentPage() {
         <ShippingAddress />
       </div>
       <div>
-        <div className="text-[36px] lg:text-center">주문 정보</div>
-        <span>컴포넌트</span>
+        <div className="mb-10 text-[36px] lg:text-center">주문 정보</div>
+        <OrderDetails />
       </div>
       <div className="flex justify-between">
         <div className="">

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+import NonMemberInfo from '@/components/non-member/NonMemberInfo';
 import NonMemberSectionTitle from '@/components/non-member/NonMemberSectionTitle';
 
 function NonMemberPage() {
@@ -17,6 +18,7 @@ function NonMemberPage() {
         </h2>
         <div>
           <NonMemberSectionTitle title="회원정보" firstSection={true} />
+          <NonMemberInfo />
         </div>
         <div>
           <NonMemberSectionTitle title="주문 상세 내역" />

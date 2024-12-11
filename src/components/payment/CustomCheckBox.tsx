@@ -4,15 +4,25 @@ import { Fragment, useState } from 'react';
 
 interface CheckBoxProps {
   style?: string;
+  boxSize?: string;
   boxStyle?: string;
+  checkedStyle?: string;
+  strokeColor?: string;
+  strokeDefault?: string;
   label?: string;
+  onClick?: (isChecked: boolean) => void;
   children?: string;
 }
 
 export default function CustomCheckBox({
   style,
-  boxStyle = 'size-6',
+  boxSize = 'size-6',
+  boxStyle = 'bg-white rounded border',
+  checkedStyle,
+  strokeColor = 'black',
+  strokeDefault = 'opacity-0',
   label,
+  onClick = () => {},
   children,
 }: CheckBoxProps) {
   const [enabled, setEnabled] = useState(false);
@@ -20,6 +30,7 @@ export default function CustomCheckBox({
   const handleLabelClick = () => {
     const isChecked = !enabled;
     setEnabled(isChecked);
+    onClick(isChecked);
   };
 
   return (
@@ -28,16 +39,13 @@ export default function CustomCheckBox({
         {({ checked, disabled }) => (
           <span
             className={clsx(
-              `bg-white block ${boxStyle} rounded border`,
-              checked && !disabled && 'bg-black',
+              `block ${boxSize} ${boxStyle}`,
+              checked && !disabled && `${checkedStyle}`,
               disabled && 'cursor-not-allowed opacity-50',
             )}
           >
             <svg
-              className={clsx(
-                'stroke-black',
-                checked ? 'opacity-100' : 'opacity-0',
-              )}
+              className={clsx(checked ? strokeColor : strokeDefault)}
               viewBox="0 0 14 14"
               fill="none"
             >

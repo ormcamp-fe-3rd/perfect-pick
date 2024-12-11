@@ -1,14 +1,10 @@
-import CustomCheckBox from '@/components/payment/CustomCheckBox';
 import ShippingAddress from '@/components/payment/ShippingAddress';
 
 function PaymentPage() {
   return (
-    <div className="mx-24 mt-16 flex flex-col gap-24">
+    <div className="mx-auto mt-16 box-content flex max-w-[1204px] flex-col gap-24 px-5">
       <div>
         <div className="text-[36px] lg:text-center">구매자/배송지 정보</div>
-        <CustomCheckBox style="flex right-0 gap-6 text-2xl leading-none justify-end">
-          기본 배송지 적용
-        </CustomCheckBox>
         <ShippingAddress />
       </div>
       <div>

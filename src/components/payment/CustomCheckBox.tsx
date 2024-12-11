@@ -19,7 +19,7 @@ export default function CustomCheckBox({
   boxSize = 'size-6',
   boxStyle = 'bg-white rounded border',
   checkedStyle,
-  strokeColor = 'black',
+  strokeColor = 'stroke-black',
   strokeDefault = 'opacity-0',
   label,
   onClick = () => {},

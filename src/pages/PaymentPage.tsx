@@ -6,15 +6,15 @@ import DiscountApply from '@/components/payment/DiscountApply';
 function PaymentPage() {
   return (
     <div className="mx-auto mt-16 box-content flex max-w-[1204px] flex-col gap-24 px-5">
-      <div>
+      <div className="lg:px-10">
         <div className="text-[36px] lg:text-center">구매자/배송지 정보</div>
         <ShippingAddress />
       </div>
-      <div>
+      <div className="lg:px-10">
         <div className="mb-10 text-[36px] lg:text-center">주문 정보</div>
         <OrderDetails />
       </div>
-      <div className="flex justify-between gap-20">
+      <div className="flex justify-between gap-20 lg:flex-col lg:gap-24 lg:px-10">
         <div className="flex-grow-[2]">
           <div className="mb-10 text-[36px] lg:text-center">결제 수단</div>
           <PaymentOptions />

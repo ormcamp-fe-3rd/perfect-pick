@@ -47,7 +47,7 @@ export default function OrderDetails() {
 
   return (
     <>
-      <div className="grid h-12 grid-cols-10 items-center border-b text-center text-xl font-semibold">
+      <div className="grid h-12 grid-cols-10 items-center text-center text-xl font-semibold lg:hidden">
         <div className="col-span-3 border-r">상품명</div>
         <div className="col-span-4 border-r">옵션</div>
         <div className="col-span-1 border-r">수량</div>
@@ -56,14 +56,18 @@ export default function OrderDetails() {
       {currentOrderList.map((item) => (
         <div
           key={item.id}
-          className="grid grid-cols-10 items-center border-b py-5 text-xl font-semibold"
+          className="grid grid-cols-10 items-center border-t py-5 text-xl font-semibold lg:grid-cols-1 lg:gap-2 lg:px-12"
         >
-          <div className="col-span-3">{item.name}</div>
-          <div className="col-span-4">
-            {Object.values(item.options).join('/')}
+          <div className="col-span-3 lg:col-span-1 lg:font-extrabold">
+            {item.name}
           </div>
-          <div className="col-span-1 text-center">{item.amount}</div>
-          <div className="col-span-2 text-end">
+          <div className="col-span-4 lg:col-span-1">
+            옵션: {Object.values(item.options).join('/')}
+          </div>
+          <div className="col-span-1 text-center lg:col-span-1 lg:text-start">
+            {item.amount}개
+          </div>
+          <div className="col-span-2 text-end lg:col-span-1 lg:text-start">
             {(
               (item.price?.productPrice ?? 0) +
               (item.price?.accessoriesPrice ?? 0)
@@ -72,7 +76,7 @@ export default function OrderDetails() {
           </div>
         </div>
       ))}
-      <div className="flex w-full items-center justify-end gap-12 border-b py-4 pr-12 text-xl font-semibold md:text-xl lg:flex-col lg:items-center lg:gap-3 lg:pr-6">
+      <div className="flex w-full items-center justify-end gap-12 border-y px-12 py-4 text-xl font-semibold md:text-xl lg:flex-col lg:items-center lg:gap-3">
         <div className="flex gap-12 md:flex-col lg:gap-3">
           <span>상품금액 {totalPrice.toLocaleString()}원</span>
           <div className="flex justify-center gap-12 lg:gap-3">

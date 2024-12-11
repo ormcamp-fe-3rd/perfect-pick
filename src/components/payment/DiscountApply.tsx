@@ -56,26 +56,26 @@ export default function DiscountApply() {
 
   return (
     <div className="flex flex-col gap-6 text-xl font-semibold">
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-5">
         <div>주문금액</div>
         <div>{(totalPrice + totalDeliveryFee).toLocaleString()}원</div>
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-5">
         <div>즉시 할인</div>
         <div>- {totalDiscountedPrice.toLocaleString()}원</div>
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-5">
         <div>결제수단 할인</div>
         <div>- 0원</div>
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-5">
         <div>포인트 사용</div>
         <input
           className="w-1/2 rounded-[10px] border px-4 py-2 text-end"
           placeholder="보유 포인트"
         ></input>
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-5">
         <div>최종 결제 금액</div>
         <div>
           {(

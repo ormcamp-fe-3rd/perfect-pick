@@ -631,6 +631,10 @@ video {
   margin-top: 90px;
 }
 
+.mt-\[60px\] {
+  margin-top: 60px;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -677,6 +681,10 @@ video {
 
 .h-\[70px\] {
   height: 70px;
+}
+
+.h-20 {
+  height: 5rem;
 }
 
 .w-16 {
@@ -1335,6 +1343,10 @@ body {
     height: 83px;
   }
 
+  .md\:h-\[60px\] {
+    height: 60px;
+  }
+
   .md\:w-1\/4 {
     width: 25%;
   }
@@ -1400,6 +1412,10 @@ body {
 
   .md\:text-sm {
     font-size: 0.875rem;
+  }
+
+  .md\:text-lg {
+    font-size: 1.125rem;
   }
 }
 

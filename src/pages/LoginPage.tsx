@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+import LoginButton from '@/components/login/LoginButton';
 import LoginInput from '@/components/login/LoginInput';
 import LoginTitle from '@/components/login/LoginTitle';
 
@@ -17,11 +18,19 @@ function LoginPage() {
         <LoginTitle title="로그인" />
 
         <div>
-          <LoginInput
-            type="text"
-            name="아이디"
-            errorText="※ 영문 또는 숫자 6~20자로 입력해주세요."
-          />
+          <form action="">
+            <LoginInput
+              type="text"
+              name="아이디"
+              errorText="※ 영문 또는 숫자 6~20자로 입력해주세요."
+            />
+            <LoginInput
+              type="password"
+              name="비밀번호"
+              errorText="비밀번호를 입력해주세요."
+            />
+            <LoginButton name="로그인" />
+          </form>
         </div>
       </div>
     </div>

@@ -1,7 +1,9 @@
+import ProductSearch from "../components/productSearch/ProductSearch"
+
 function ProductSearchPage() {
   return (
     <>
-      <h1>상품조회</h1>
+      <ProductSearch />
     </>
   );
 }

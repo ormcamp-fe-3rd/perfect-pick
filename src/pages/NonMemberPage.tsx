@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+import BackMainButton from '@/components/non-member/BackMainButton';
 import NonMemberCartList from '@/components/non-member/NonMemberCartList';
 import NonMemberInfo from '@/components/non-member/NonMemberInfo';
 import NonMemberSectionTitle from '@/components/non-member/NonMemberSectionTitle';
@@ -25,6 +26,8 @@ function NonMemberPage() {
           <NonMemberSectionTitle title="주문 상세 내역" />
           <NonMemberCartList />
         </div>
+
+        <BackMainButton />
       </div>
     </div>
   );

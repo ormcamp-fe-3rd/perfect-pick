@@ -37,6 +37,11 @@ body {
   letter-spacing: -5%;
 }
 
+li {
+  list-style-type: none;
+  list-style: none;
+}
+
 .inner {
   margin: 0 auto;
   width: 1400px;
@@ -55,9 +60,22 @@ body {
   background: #f8f7f1;
 }
 
+.white-box {
+  width: 1200px;
+}
+
 @media all and (max-width: 1440px) {
   .inner {
     padding: 0 15px;
+    width: 100%;
+  }
+}
+@media all and (max-width: 1220px) {
+  .white-wrap {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .white-box {
     width: 100%;
   }
 }
@@ -72,5 +90,9 @@ body {
   }
   .menu-bg::after {
     height: 100vh;
+  }
+  .white-wrap {
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }

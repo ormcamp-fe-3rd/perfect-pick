@@ -1,6 +1,7 @@
 import OrderDetails from '@/components/payment/OrderDetails';
 import PaymentOptions from '@/components/payment/PaymentOptions';
 import ShippingAddress from '@/components/payment/ShippingAddress';
+import DiscountApply from '@/components/payment/DiscountApply';
 
 function PaymentPage() {
   return (
@@ -14,16 +15,18 @@ function PaymentPage() {
         <OrderDetails />
       </div>
       <div className="flex justify-between gap-20">
-        <div className="flex-grow">
+        <div className="flex-grow-[2]">
           <div className="mb-10 text-[36px] lg:text-center">결제 수단</div>
           <PaymentOptions />
         </div>
         <div className="flex-grow">
           <div className="mb-10 text-[36px] lg:text-center">할인 적용</div>
-          <span>컴포넌트</span>
+          <DiscountApply />
         </div>
       </div>
-      <div>결제하기</div>
+      <button className="m-auto h-20 w-[226px] rounded-[50px] bg-red text-2xl text-[white] md:w-[160px]">
+        결제하기
+      </button>
     </div>
   );
 }

@@ -15,12 +15,12 @@ export default function NonMemberInfo() {
         {List.map((list, index) => (
           <li
             key={index}
-            className={`${index < 2 ? 'mt-[35px]' : 'mt-[30px]'}`}
+            className={`flex ${index < 2 ? 'mt-[35px]' : 'mt-[30px]'}`}
           >
-            <strong className="inline-block w-40 font-bold">
-              {list.title}
-            </strong>
-            <span className="font-medium">{list.info}</span>
+            <strong className="block w-40 font-bold">{list.title}</strong>
+            <span className="block w-[calc(100%-160px)] font-medium">
+              {list.info}
+            </span>
           </li>
         ))}
       </ul>

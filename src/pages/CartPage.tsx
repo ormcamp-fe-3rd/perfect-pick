@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import CartTable from '@/components/cart/CartTable';
 
 function CartPage() {
@@ -23,12 +24,16 @@ function CartPage() {
         </ul>
       </div>
       <div className="flex justify-center gap-16 md:gap-5">
-        <button className="h-20 w-[226px] rounded-[50px] bg-gray text-2xl text-[white] md:w-[160px]">
-          쇼핑 계속하기
-        </button>
-        <button className="h-20 w-[226px] rounded-[50px] bg-red text-2xl text-[white] md:w-[160px]">
-          구매하기
-        </button>
+        <Link to="#" onClick={() => window.history.back()}>
+          <button className="h-20 w-[226px] rounded-[50px] bg-gray text-2xl text-[white] md:w-[160px]">
+            쇼핑 계속하기
+          </button>
+        </Link>
+        <Link to="/payment">
+          <button className="h-20 w-[226px] rounded-[50px] bg-red text-2xl text-[white] md:w-[160px]">
+            구매하기
+          </button>
+        </Link>
       </div>
     </div>
   );

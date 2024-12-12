@@ -81,8 +81,8 @@ export default function RegisterInput({
       </div>
 
       <ul className="mt-[22px] flex flex-wrap">
-        {checkTexts.map((text, index) => (
-          <li key={index} className="mr-5 flex">
+        {checkTexts.map((text) => (
+          <li className="mr-5 flex">
             <img
               src={`${
                 isValid

@@ -1,5 +1,5 @@
-import DefaultOption from './Options/DefaultOption';
-import MobileOption from './Options/MobileOption';
+import DefaultOption from '../Options/DefaultOption';
+import MobileOption from '../Options/MobileOption';
 
 function ProductSearch() {
   return (

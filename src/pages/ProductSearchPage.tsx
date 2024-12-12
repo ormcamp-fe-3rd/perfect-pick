@@ -1,4 +1,4 @@
-import ProductSearch from "../components/productSearch/ProductSearch"
+import ProductSearch from '../components/productSearch/ProductSearch';
 
 function ProductSearchPage() {
   return (

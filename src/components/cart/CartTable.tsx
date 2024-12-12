@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import CartCheckBox from './CartCheckBox';
-import CustomStepper from './CustomStepper';
+import CartCheckBox from '@/components/cart/CartCheckBox';
+import CustomStepper from '@/components/cart/CustomStepper';
 
 export default function CartTable() {
   const cartList = [
@@ -73,8 +73,8 @@ export default function CartTable() {
   }, 0);
 
   return (
-    <>
-      <div className="mb-6 ml-6 mt-5 flex w-full gap-4">
+    <div>
+      <div className="mb-6 ml-6 mt-5 flex w-full gap-4 md:ml-2">
         <CartCheckBox
           checkedFormula={checkedItems.size === cartList.length}
           label="ml-6 text-2xl"
@@ -103,7 +103,7 @@ export default function CartTable() {
       {cartList.map((item) => (
         <div className="grid grid-cols-7 items-center border-b lg:grid-cols-1">
           <div className="col-span-4 lg:col-span-1">
-            <div className="flex items-center gap-6 border-r p-6 lg:border-0 lg:px-10">
+            <div className="flex items-center gap-6 border-r p-6 md:px-2 lg:border-0 lg:px-10">
               <CartCheckBox
                 checkedFormula={checkedItems.has(item.id)}
                 onChange={(isChecked) =>
@@ -171,6 +171,6 @@ export default function CartTable() {
           <span>총 {(totalPrice + totalDeliveryFee).toLocaleString()}원</span>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -3,9 +3,9 @@ import CartTable from '@/components/cart/CartTable';
 function CartPage() {
   return (
     <div className="mx-auto flex w-full max-w-[1400px] flex-col lg:px-5">
-      <div className="mt-16 w-full text-center text-3xl font-extrabold">
+      <h2 className="mt-16 w-full text-center text-3xl font-extrabold">
         장바구니
-      </div>
+      </h2>
       <CartTable />
       <div className="mx-5 my-20 rounded-[10px] bg-[#D9D9D9] px-4 py-5 text-2xl">
         <ul className="list-disc pl-10">
@@ -22,7 +22,7 @@ function CartPage() {
           </li>
         </ul>
       </div>
-      <div className="mb-20 flex justify-center gap-16 md:gap-5">
+      <div className="flex justify-center gap-16 md:gap-5">
         <button className="h-20 w-[226px] rounded-[50px] bg-gray text-2xl text-[white] md:w-[160px]">
           쇼핑 계속하기
         </button>

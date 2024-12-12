@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react';
-import { Checkbox, Label } from '@headlessui/react';
+import { Checkbox } from '@headlessui/react';
 import clsx from 'clsx';
 
 interface CartCheckBoxProps {

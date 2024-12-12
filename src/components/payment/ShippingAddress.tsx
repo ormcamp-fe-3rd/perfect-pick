@@ -1,5 +1,5 @@
 import CustomCheckBox from '@/components/payment/CustomCheckBox';
-import ShippingInput from './ShippingInput';
+import ShippingInput from '@/components/payment/ShippingInput';
 
 export default function ShippingAddress() {
   return (

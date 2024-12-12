@@ -1,4 +1,4 @@
-import PaymentPrivacyModal from './PaymentPrivacyModal';
+import PaymentPrivacyModal from '@/components/payment/PaymentPrivacyModal';
 
 export default function PaymentOptions() {
   return (

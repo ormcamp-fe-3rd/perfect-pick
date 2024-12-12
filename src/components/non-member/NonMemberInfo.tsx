@@ -13,10 +13,7 @@ export default function NonMemberInfo() {
     <>
       <ul>
         {List.map((list, index) => (
-          <li
-            key={index}
-            className={`flex ${index < 2 ? 'mt-[35px]' : 'mt-[30px]'}`}
-          >
+          <li className={`flex ${index < 2 ? 'mt-[35px]' : 'mt-[30px]'}`}>
             <strong className="block w-40 font-bold">{list.title}</strong>
             <span className="block w-[calc(100%-160px)] font-medium">
               {list.info}

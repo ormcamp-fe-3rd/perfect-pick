@@ -8,6 +8,8 @@ import {
   usernameValidation,
 } from '@/utils/validations';
 
+import RegisterSuccess from './RegisterSuccess';
+
 export default function RegisterForm() {
   const [formValues, setFormValues] = useState({
     username: '',
@@ -101,7 +103,7 @@ export default function RegisterForm() {
       >
         가입
       </button>
-      {isSuccess && <p>가입 성공!</p>}
+      {isSuccess && <RegisterSuccess />}
     </form>
   );
 }

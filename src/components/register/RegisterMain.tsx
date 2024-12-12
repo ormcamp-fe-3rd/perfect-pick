@@ -4,7 +4,7 @@ import RegisterForm from './RegisterForm';
 
 export default function RegisterMain() {
   return (
-    <div className="white-wrap bg-[#f4f4f4] py-[120px] lg:py-[75px] md:pt-[35px]">
+    <div className="white-wrap relative bg-[#f4f4f4] py-[120px] lg:py-[75px] md:pt-[35px]">
       <div className="white-box mx-auto box-border flex flex-col justify-center rounded-[20px] bg-white px-[100px] pb-[130px] pt-[85px] lg:px-[50px] md:px-[10px] md:pb-[70px] md:pt-[50px]">
         <Link
           to={'/'}

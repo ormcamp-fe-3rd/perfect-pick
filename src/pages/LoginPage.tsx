@@ -15,22 +15,50 @@ function LoginPage() {
           <h1>PERFECT PICK</h1>
         </Link>
 
-        <LoginTitle title="로그인" />
-
         <div>
-          <form action="">
-            <LoginInput
-              type="text"
-              name="아이디"
-              errorText="※ 영문 또는 숫자 6~20자로 입력해주세요."
-            />
-            <LoginInput
-              type="password"
-              name="비밀번호"
-              errorText="비밀번호를 입력해주세요."
-            />
-            <LoginButton name="로그인" />
-          </form>
+          <LoginTitle title="로그인" />
+
+          <div>
+            <form action="">
+              <LoginInput
+                type="text"
+                name="아이디"
+                errorText="※ 영문 또는 숫자 6~20자로 입력해주세요."
+              />
+              <LoginInput
+                type="password"
+                name="비밀번호"
+                errorText="※ 영문/숫자/특수문자 포함 8~20자로  입력해주세요."
+              />
+              <LoginButton name="로그인" />
+            </form>
+            <p className="mt-[37px] text-center text-lg">
+              퍼펙트픽이 처음이신가요?{' '}
+              <Link to={'/register'} className="font-semibold">
+                회원가입
+              </Link>
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-[84px] lg:mt-10 md:mt-[30px]">
+          <LoginTitle title="비회원 주문조회" />
+
+          <div>
+            <form action="">
+              <LoginInput
+                type="text"
+                name="주문번호 "
+                errorText="※ 주문번호 형식에 맞게 입력해주세요."
+              />
+              <LoginInput
+                type="text"
+                name="핸드폰 번호"
+                errorText="※ 올바른 핸드폰 번호를 입력해주세요."
+              />
+              <LoginButton name="주문조회" />
+            </form>
+          </div>
         </div>
       </div>
     </div>

@@ -2,18 +2,18 @@ import UserInfoInput from './UserInfoInput';
 
 export default function UserInfo() {
   return (
-    <div className="mt-[15px] flex flex-col gap-[30px] text-nowrap border-t pt-[35px] font-bold">
+    <div className="mt-[15px] flex flex-col gap-[30px] border-t pt-[35px] font-bold">
       <div className="flex">
-        <div className="w-1/4">아이디</div>
-        <div className="w-3/4">{`아이디`}</div>
+        <div className="w-1/3">아이디</div>
+        <div className="w-2/3">{`아이디`}</div>
       </div>
       <div className="flex">
-        <div className="w-1/4">이름</div>
-        <div className="w-3/4">{`이름`}</div>
+        <div className="w-1/3">이름</div>
+        <div className="w-2/3">{`이름`}</div>
       </div>
       <div className="flex">
-        <div className="w-1/4">이메일</div>
-        <div className="w-3/4">{`이메일`}</div>
+        <div className="w-1/3">이메일</div>
+        <div className="w-2/3">{`이메일`}</div>
       </div>
       <div>
         <div>비밀번호</div>
@@ -25,11 +25,11 @@ export default function UserInfo() {
       </div>
       <div>
         <div>주소</div>
-        <div className="mt-5 flex flex-col gap-[5px]">
-          <div>
-            기존 주소 :{' '}
-            {`서울 강남구 강남대로 324 역삼디오슈페리움 2층 모두의연구소`}
-          </div>
+        <div className="mt-5">
+          기존 주소 :{' '}
+          {`서울 강남구 강남대로 324 역삼디오슈페리움 2층 모두의연구소`}
+        </div>
+        <div className="mt-[10px] flex flex-col gap-[5px]">
           <UserInfoInput
             placeholder="주소 찾기로 입력해주세요."
             showButton={true}

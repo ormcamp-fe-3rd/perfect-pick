@@ -48,7 +48,7 @@ export default function OrderHistory() {
   return (
     <>
       {orderHistory.map((item) => (
-        <div className="mt-[15px] flex items-center justify-between gap-5 border-t p-10 text-xl font-semibold md:flex-col md:items-start md:p-5">
+        <div className="mt-[15px] flex items-center justify-between gap-5 border-t p-5 text-xl font-semibold md:flex-col md:items-start">
           <div key={item.id} className="flex gap-5">
             <img
               className="size-[110px] rounded-[10px]"
@@ -63,7 +63,7 @@ export default function OrderHistory() {
               <div className="col-span-1 text-start">{item.amount}개</div>
             </div>
           </div>
-          <div>
+          <div className="text-nowrap md:w-full md:text-right">
             {(
               (item.price?.productPrice ?? 0) +
               (item.price?.accessoriesPrice ?? 0)
@@ -72,7 +72,7 @@ export default function OrderHistory() {
           </div>
         </div>
       ))}
-      <div className="flex w-full items-center justify-end gap-12 border-y px-12 py-4 text-xl font-extrabold">
+      <div className="flex w-full items-center justify-end gap-12 text-nowrap border-y px-12 py-4 text-xl font-extrabold">
         <span>총 주문금액 </span>
         <span className="text-red">
           {(totalPrice + totalDeliveryFee).toLocaleString()}원

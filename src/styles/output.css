@@ -668,6 +668,11 @@ video {
   margin-bottom: 2rem;
 }
 
+.my-5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
 .mb-10 {
   margin-bottom: 2.5rem;
 }
@@ -812,6 +817,14 @@ video {
   margin-top: 90px;
 }
 
+.mt-\[5px\] {
+  margin-top: 5px;
+}
+
+.mt-\[10px\] {
+  margin-top: 10px;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -928,8 +941,16 @@ video {
   height: 100%;
 }
 
+.max-h-full {
+  max-height: 100%;
+}
+
 .min-h-\[800px\] {
   min-height: 800px;
+}
+
+.min-h-\[240px\] {
+  min-height: 240px;
 }
 
 .w-1\/2 {
@@ -1014,6 +1035,10 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.min-w-\[392px\] {
+  min-width: 392px;
 }
 
 .max-w-\[1080px\] {
@@ -1102,6 +1127,10 @@ video {
   flex-wrap: wrap;
 }
 
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
 .items-end {
   align-items: flex-end;
 }
@@ -1180,6 +1209,10 @@ video {
 
 .gap-\[7px\] {
   gap: 7px;
+}
+
+.gap-\[10px\] {
+  gap: 10px;
 }
 
 .overflow-hidden {
@@ -1378,14 +1411,34 @@ video {
   stroke: #50D75D;
 }
 
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
 }
 
+.object-fill {
+  -o-object-fit: fill;
+     object-fit: fill;
+}
+
 .object-scale-down {
   -o-object-fit: scale-down;
      object-fit: scale-down;
+}
+
+.object-bottom {
+  -o-object-position: bottom;
+     object-position: bottom;
+}
+
+.object-right-bottom {
+  -o-object-position: right bottom;
+     object-position: right bottom;
 }
 
 .p-10 {
@@ -1398,6 +1451,10 @@ video {
 
 .p-6 {
   padding: 1.5rem;
+}
+
+.p-5 {
+  padding: 1.25rem;
 }
 
 .px-10 {
@@ -1524,6 +1581,10 @@ video {
 
 .pt-\[85px\] {
   padding-top: 85px;
+}
+
+.pt-5 {
+  padding-top: 1.25rem;
 }
 
 .text-left {
@@ -2002,6 +2063,10 @@ li {
     height: 100%;
   }
 
+  .lg\:h-auto {
+    height: auto;
+  }
+
   .lg\:w-3\/12 {
     width: 25%;
   }
@@ -2092,10 +2157,6 @@ li {
     gap: 1.75rem;
   }
 
-  .lg\:text-wrap {
-    text-wrap: wrap;
-  }
-
   .lg\:rounded-full {
     border-radius: 9999px;
   }
@@ -2127,6 +2188,15 @@ li {
   .lg\:bg-yellow {
     --tw-bg-opacity: 1;
     background-color: rgb(254 217 69 / var(--tw-bg-opacity, 1));
+  }
+
+  .lg\:object-cover {
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+
+  .lg\:p-5 {
+    padding: 1.25rem;
   }
 
   .lg\:px-10 {
@@ -2173,16 +2243,16 @@ li {
     padding-right: 1.5rem;
   }
 
+  .lg\:pt-5 {
+    padding-top: 1.25rem;
+  }
+
   .lg\:pt-\[35px\] {
     padding-top: 35px;
   }
 
   .lg\:pt-\[50px\] {
     padding-top: 50px;
-  }
-
-  .lg\:pt-5 {
-    padding-top: 1.25rem;
   }
 
   .lg\:text-left {
@@ -2278,6 +2348,10 @@ li {
     margin-top: 50px;
   }
 
+  .md\:h-\[240px\] {
+    height: 240px;
+  }
+
   .md\:h-\[400px\] {
     height: 400px;
   }
@@ -2298,8 +2372,8 @@ li {
     height: 87px;
   }
 
-  .md\:h-\[240px\] {
-    height: 240px;
+  .md\:h-auto {
+    height: auto;
   }
 
   .md\:w-1\/4 {
@@ -2330,6 +2404,10 @@ li {
     flex-wrap: wrap;
   }
 
+  .md\:flex-nowrap {
+    flex-wrap: nowrap;
+  }
+
   .md\:items-start {
     align-items: flex-start;
   }
@@ -2356,6 +2434,26 @@ li {
 
   .md\:gap-\[10px\] {
     gap: 10px;
+  }
+
+  .md\:object-cover {
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+
+  .md\:object-none {
+    -o-object-fit: none;
+       object-fit: none;
+  }
+
+  .md\:object-scale-down {
+    -o-object-fit: scale-down;
+       object-fit: scale-down;
+  }
+
+  .md\:object-bottom {
+    -o-object-position: bottom;
+       object-position: bottom;
   }
 
   .md\:p-5 {
@@ -2398,6 +2496,10 @@ li {
     padding-top: 50px;
   }
 
+  .md\:text-right {
+    text-align: right;
+  }
+
   .md\:text-\[1\.875rem\] {
     font-size: 1.875rem;
   }
@@ -2408,6 +2510,10 @@ li {
 
   .md\:text-\[30px\] {
     font-size: 30px;
+  }
+
+  .md\:text-\[36px\] {
+    font-size: 36px;
   }
 
   .md\:text-base {
@@ -2425,10 +2531,6 @@ li {
   .md\:text-xl {
     font-size: 1.25rem;
   }
-
-  .md\:text-\[36px\] {
-    font-size: 36px;
-  }
 }
 
 @media (max-width: 430px) {
@@ -2436,13 +2538,16 @@ li {
     margin-left: 15px;
   }
 
-  .sm\:h-\[240px\] {
-    height: 240px;
+  .sm\:hidden {
+    display: none;
   }
 
-  .sm\:bg-yellow {
-    --tw-bg-opacity: 1;
-    background-color: rgb(254 217 69 / var(--tw-bg-opacity, 1));
+  .sm\:h-auto {
+    height: auto;
+  }
+
+  .sm\:w-full {
+    width: 100%;
   }
 
   .sm\:text-2xl {
@@ -2451,10 +2556,6 @@ li {
 
   .sm\:text-base {
     font-size: 1rem;
-  }
-
-  .sm\:text-\[36px\] {
-    font-size: 36px;
   }
 }
 

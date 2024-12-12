@@ -7,20 +7,20 @@ function PaymentPage() {
   return (
     <div className="mx-auto mt-16 box-content flex max-w-[1204px] flex-col gap-24 px-5">
       <div className="lg:px-10">
-        <div className="text-[36px] lg:text-center">구매자/배송지 정보</div>
+        <h2 className="text-[36px] lg:text-center">구매자/배송지 정보</h2>
         <ShippingAddress />
       </div>
       <div className="lg:px-10">
-        <div className="mb-10 text-[36px] lg:text-center">주문 정보</div>
+        <h2 className="mb-10 text-[36px] lg:text-center">주문 정보</h2>
         <OrderDetails />
       </div>
       <div className="flex justify-between gap-20 lg:flex-col lg:gap-24 lg:px-10">
         <div className="flex-grow-[2]">
-          <div className="mb-10 text-[36px] lg:text-center">결제 수단</div>
+          <h2 className="mb-10 text-[36px] lg:text-center">결제 수단</h2>
           <PaymentOptions />
         </div>
         <div className="flex-grow">
-          <div className="mb-10 text-[36px] lg:text-center">할인 적용</div>
+          <h2 className="mb-10 text-[36px] lg:text-center">할인 적용</h2>
           <DiscountApply />
         </div>
       </div>

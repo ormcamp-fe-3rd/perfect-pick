@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-interface AddressInputProps {
+interface ShippingInputProps {
   type?: string;
   placeholder?: string;
   layout?: string;
@@ -12,7 +12,7 @@ export default function ShippingInput({
   placeholder,
   layout,
   style,
-}: AddressInputProps) {
+}: ShippingInputProps) {
   const [value, setValue] = useState('');
 
   return (

@@ -3,10 +3,10 @@ import { useState } from 'react';
 import RegisterInput from '@/components/register/RegisterInput';
 import RegisterSuccess from '@/components/register/RegisterSuccess';
 import {
-  emailValidation,
-  passwordValidation,
-  useridValidation,
-  usernameValidation,
+  emailValidator,
+  passwordValidator,
+  useridValidator,
+  usernameValidator,
 } from '@/utils/validator';
 
 interface User {
@@ -34,10 +34,10 @@ export default function RegisterForm() {
   };
 
   const validator = ({ username, userid, password, email }: User) =>
-    usernameValidation(username) &&
-    useridValidation(userid) &&
-    passwordValidation(password) &&
-    emailValidation(email);
+    usernameValidator(username) &&
+    useridValidator(userid) &&
+    passwordValidator(password) &&
+    emailValidator(email);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -60,7 +60,7 @@ export default function RegisterForm() {
             type="text"
             placeholder="이름을 입력해주세요."
             checkTexts={['영문 / 한글']}
-            validation={usernameValidation}
+            validation={usernameValidator}
             onChange={(value) => handleInputChange('username', value)}
           />
         </li>
@@ -71,7 +71,7 @@ export default function RegisterForm() {
             checkTexts={['영문 / 숫자', '6~20자 내외']}
             showButton={true}
             buttonText="중복확인"
-            validation={useridValidation}
+            validation={useridValidator}
             onChange={(value) => handleInputChange('userid', value)}
           />
         </li>
@@ -80,7 +80,7 @@ export default function RegisterForm() {
             type="password"
             placeholder="비밀번호를 입력해주세요."
             checkTexts={['영문', '숫자', '특수문자 (!@$%^*_+~)', '8~20자 내외']}
-            validation={passwordValidation}
+            validation={passwordValidator}
             onChange={(value) => handleInputChange('password', value)}
           />
         </li>
@@ -89,7 +89,7 @@ export default function RegisterForm() {
             type="text"
             placeholder="이메일을 입력해주세요"
             checkTexts={['이메일 형식']}
-            validation={emailValidation}
+            validation={emailValidator}
             onChange={(value) => handleInputChange('email', value)}
           />
         </li>

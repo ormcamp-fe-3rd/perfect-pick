@@ -1,5 +1,5 @@
 import CustomStepper from '@/components/productDetail/CustomStepper';
-import SelectOptions from '@/components/productDetail/SelectOptions';
+import SelectOption from '@/components/productDetail/SelectOption';
 
 export default function ProductOptions() {
   const optionsList: Record<string, string[]> = {
@@ -33,7 +33,7 @@ export default function ProductOptions() {
       </div>
       <div className="my-8 flex flex-col gap-5 text-lg md:my-5 md:gap-3">
         {Object.keys(optionsList).map((key) => (
-          <SelectOptions name={key} options={optionsList[key]} />
+          <SelectOption name={key} options={optionsList[key]} />
         ))}
       </div>
       <div className="flex flex-col gap-6 border-y px-3 py-5 md:gap-4 md:px-2 md:py-4">

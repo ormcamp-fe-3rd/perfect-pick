@@ -1,30 +1,22 @@
 import { Select } from '@headlessui/react';
 
-interface SelectOptionsProps {
+interface SelectOptionProps {
   name: string;
   options: string[];
   height?: string;
 }
 
-export default function SelectOptions({
+export default function SelectOption({
   name,
   height = 'h-12 md:h-9',
   options,
-}: SelectOptionsProps) {
-  let label = '';
-  switch (name) {
-    case 'color':
-      label = '색상';
-      break;
-    case 'storage':
-      label = '용량';
-      break;
-    case 'additional':
-      label = '추가상품';
-      break;
-    default:
-      label = name;
-  }
+}: SelectOptionProps) {
+  const labels: Record<string, string> = {
+    color: '색상',
+    storage: '용량',
+    additional: '추가상품',
+  };
+
   return (
     <>
       <Select
@@ -32,7 +24,7 @@ export default function SelectOptions({
         aria-label={`${name} choice`}
         className={`${height} rounded-xl border border-gray`}
       >
-        <option value="label">{label}</option>
+        <option value={name}>{labels[name] ? labels[name] : name}</option>
         {options.map((option) => (
           <option value={`${option}`}>{option}</option>
         ))}

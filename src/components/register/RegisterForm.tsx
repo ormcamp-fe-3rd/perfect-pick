@@ -1,17 +1,23 @@
 import { useState } from 'react';
 
 import RegisterInput from '@/components/register/RegisterInput';
+import RegisterSuccess from '@/components/register/RegisterSuccess';
 import {
   emailValidation,
   passwordValidation,
   useridValidation,
   usernameValidation,
-} from '@/utils/validations';
+} from '@/utils/validator';
 
-import RegisterSuccess from './RegisterSuccess';
+interface User {
+  username: string;
+  userid: string;
+  password: string;
+  email: string;
+}
 
 export default function RegisterForm() {
-  const [formValues, setFormValues] = useState({
+  const [formValues, setFormValues] = useState<User>({
     username: '',
     userid: '',
     password: '',
@@ -27,22 +33,25 @@ export default function RegisterForm() {
     }));
   };
 
+  const validator = ({ username, userid, password, email }: User) =>
+    usernameValidation(username) &&
+    useridValidation(userid) &&
+    passwordValidation(password) &&
+    emailValidation(email);
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-
-    const isValid =
-      usernameValidation(formValues.username) &&
-      useridValidation(formValues.userid) &&
-      passwordValidation(formValues.password) &&
-      emailValidation(formValues.email);
+    const isValid = validator(formValues);
 
     if (isValid) {
+      // TODO: 서버에서 회원가입 요청 및 에러 핸들링 추가
       setIsSuccess(true);
     } else {
       setIsSuccess(false);
       alert('입력 정보를 다시 확인해주세요.');
     }
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <ul>
@@ -75,17 +84,6 @@ export default function RegisterForm() {
             onChange={(value) => handleInputChange('password', value)}
           />
         </li>
-        {/* <li>
-                <RegisterInput
-                  type="password"
-                  placeholder="주소 찾기로 입력해주세요."
-                  checkTexts={['주소 / 상세주소']}
-                  showButton={true}
-                  addressInput={true}
-                  disableInput={true}
-                  buttonText="주소찾기"
-                />
-              </li> */}
         <li>
           <RegisterInput
             type="text"

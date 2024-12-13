@@ -28,7 +28,7 @@ export default function RegisterInput({
   onChange, // onChange 핸들러를 props로 받음
 }: RegisterProps) {
   const [value, setValue] = useState('');
-  const [isValid, setIsValid] = useState<boolean | null>(null);
+  const [isValid, setIsValid] = useState<boolean>(false);
 
   const handleBlur = () => {
     const result = validation(value);
@@ -48,14 +48,8 @@ export default function RegisterInput({
           type={type}
           placeholder={placeholder}
           className={`h-[70px] rounded-[10px] border-[1px] px-[25px] disabled:bg-[#e3e3e3] ${
-            showButton === false ? 'w-full' : 'w-[calc(100%-188px)] md:w-full'
-          } ${
-            isValid === false
-              ? 'border-red'
-              : isValid === true
-                ? 'border-black'
-                : ''
-          }`}
+            !showButton ? 'w-full' : 'w-[calc(100%-188px)] md:w-full'
+          } ${isValid ? 'border-red' : !isValid ? 'border-black' : ''}`}
           disabled={disableInput}
           value={value}
           onChange={handleChange} // 변경된 값 처리
@@ -64,7 +58,7 @@ export default function RegisterInput({
         {showButton && (
           <button
             className={`h-[70px] rounded-full bg-black text-center text-2xl font-semibold text-white md:mt-[15px] md:h-[60px] md:text-lg ${
-              buttonFullSize === false ? 'w-[170px] md:w-full' : 'w-full'
+              !buttonFullSize ? 'w-[170px] md:w-full' : 'w-full'
             }`}
             onClick={onButtonClick}
           >
@@ -84,11 +78,7 @@ export default function RegisterInput({
         {checkTexts.map((text) => (
           <li className="mr-5 flex">
             <img
-              src={`${
-                isValid
-                  ? '../images/register/ico-check-green.svg'
-                  : '../images/register/ico-check-gray.svg'
-              }`}
+              src={`../images/register/ico-check-${isValid ? 'green' : 'gray'}.svg`}
               alt="체크 아이콘"
             />
             <p className={`ml-[5px] ${isValid ? 'text-green' : 'text-gray'}`}>

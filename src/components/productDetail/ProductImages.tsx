@@ -1,9 +1,5 @@
 import { useState } from 'react';
 
-// interface ProductImagesProp {
-//   imagesList: { id: string; src: string; alt: string }[];
-// }
-
 export default function ProductImages() {
   const imagesList = [
     { id: '1', src: 'https://i.imgur.com/Jvh1OQmb.jpg', alt: 'image1' },
@@ -21,11 +17,11 @@ export default function ProductImages() {
   return (
     <>
       <span className="text-xl">Tablet &gt; Samsung</span>
-      <div className="relative mt-4 h-full w-full">
+      <div className="relative pt-4">
         <img
           src={imagesList[currentIndex].src}
           alt={imagesList[currentIndex].alt}
-          className="h-full w-full rounded-3xl object-cover"
+          className="h-full max-h-[630px] w-full rounded-3xl object-cover"
         />
         <div className="absolute bottom-6 right-6 flex flex-col gap-4">
           {imagesList.map((image, index) => (

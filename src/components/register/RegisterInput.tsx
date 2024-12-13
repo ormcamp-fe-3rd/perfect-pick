@@ -11,7 +11,7 @@ interface RegisterProps {
   addressInput?: boolean;
   disableInput?: boolean;
   validation: (value: string) => boolean;
-  onChange?: (value: string) => void; // onChange 이벤트 추가
+  onChange?: (value: string) => void;
 }
 
 export default function RegisterInput({
@@ -25,12 +25,14 @@ export default function RegisterInput({
   addressInput = false,
   disableInput = false,
   validation,
-  onChange, // onChange 핸들러를 props로 받음
+  onChange,
 }: RegisterProps) {
   const [value, setValue] = useState('');
   const [isValid, setIsValid] = useState<boolean>(false);
+  const [touched, setTouched] = useState<boolean>(false); // 입력 필드가 클릭되었는지 여부
 
   const handleBlur = () => {
+    setTouched(true); // 입력 필드가 한 번이라도 포커스를 잃으면 touched를 true로 설정
     const result = validation(value);
     setIsValid(result);
   };
@@ -49,10 +51,16 @@ export default function RegisterInput({
           placeholder={placeholder}
           className={`h-[70px] rounded-[10px] border-[1px] px-[25px] disabled:bg-[#e3e3e3] ${
             !showButton ? 'w-full' : 'w-[calc(100%-188px)] md:w-full'
-          } ${isValid ? 'border-red' : !isValid ? 'border-black' : ''}`}
+          } ${
+            touched && !isValid
+              ? 'border-red'
+              : touched && isValid
+                ? 'border-black'
+                : ''
+          }`}
           disabled={disableInput}
           value={value}
-          onChange={handleChange} // 변경된 값 처리
+          onChange={handleChange}
           onBlur={handleBlur}
         />
         {showButton && (
@@ -76,7 +84,7 @@ export default function RegisterInput({
 
       <ul className="mt-[22px] flex flex-wrap">
         {checkTexts.map((text) => (
-          <li className="mr-5 flex">
+          <li key={text} className="mr-5 flex">
             <img
               src={`../images/register/ico-check-${isValid ? 'green' : 'gray'}.svg`}
               alt="체크 아이콘"

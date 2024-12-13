@@ -1,5 +1,6 @@
 import CustomStepper from '@/components/productDetail/CustomStepper';
 import SelectOption from '@/components/productDetail/SelectOption';
+import ActionButton from '@/components/productDetail/ActionButton';
 
 export default function ProductOptions() {
   const optionsList: Record<string, string[]> = {
@@ -48,12 +49,18 @@ export default function ProductOptions() {
         </div>
       </div>
       <div className="mt-4 flex justify-around gap-4">
-        <button className="h-16 w-[220px] rounded-[50px] bg-gray text-2xl text-[#FFFFFF] md:h-10 md:w-[140px] md:text-lg">
-          장바구니 담기
-        </button>
-        <button className="h-16 w-[220px] rounded-[50px] bg-red text-2xl text-[#FFFFFF] md:h-10 md:w-[140px] md:text-lg">
-          구매하기
-        </button>
+        <ActionButton
+          buttonName="장바구니 담기"
+          buttonStyle="bg-gray"
+          type="openModal"
+          path="/cart"
+        />
+        <ActionButton
+          buttonName="구매하기"
+          buttonStyle="bg-red"
+          type="moveLink"
+          path="/payment"
+        />
       </div>
     </div>
   );

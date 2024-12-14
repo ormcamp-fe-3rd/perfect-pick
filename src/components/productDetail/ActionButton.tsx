@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import Modal from '@/components/productDetail/Modal';
+import { ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Modal from '@/components/productDetail/Modal';
 
 interface ActionButtonProps {
   buttonName: string;
@@ -8,7 +8,8 @@ interface ActionButtonProps {
   type?: 'openModal' | 'moveLink' | 'default';
   path?: string;
   onClick?: () => void;
-  modalContent?: string;
+  modalContent?: ReactNode;
+  disableModal?: boolean;
 }
 
 export default function ActionButton({
@@ -18,12 +19,16 @@ export default function ActionButton({
   path = '/',
   onClick,
   modalContent,
+  disableModal = false,
 }: ActionButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleButtonClick = (path: string) => {
-    if (type === 'openModal') {
+    if (disableModal) {
+      setIsModalOpen(false);
+      alert('필수 옵션을 선택해주세요');
+    } else if (type === 'openModal') {
       setIsModalOpen(true);
     } else if (type === 'moveLink') {
       navigate(path);

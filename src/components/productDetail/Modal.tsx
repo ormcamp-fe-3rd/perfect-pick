@@ -1,6 +1,8 @@
+import { ReactNode } from 'react';
+
 interface ModalProps {
   title?: string;
-  content?: string;
+  content?: ReactNode;
   textStyle?: string;
   isOpen: boolean;
   buttonType?: 'single' | 'double';

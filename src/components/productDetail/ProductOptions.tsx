@@ -4,11 +4,22 @@ import SelectOption from '@/components/productDetail/SelectOption';
 import ActionButton from '@/components/productDetail/ActionButton';
 
 // 임시: 추후 서버 연결
+const productInfo = {
+  id: 1,
+  name: '갤럭시 S24 FE 자급제',
+  brand: 'Samsung',
+  price: {
+    originalPrice: 946000,
+    discountRate: '14%',
+    discountedPrice: 869000,
+  },
+};
+
 const optionPrices: Record<string, Record<string, number>> = {
   color: {
-    white: 896000,
-    black: 896000,
-    blue: 896000,
+    white: 0,
+    black: 0,
+    blue: 0,
   },
   storage: {
     '128GB': 0,
@@ -24,8 +35,18 @@ const optionPrices: Record<string, Record<string, number>> = {
 };
 
 export default function ProductOptions() {
-  const [selectedOptions, setSelectedOptions] = useState({});
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [selectedOptions, setSelectedOptions] = useState(
+    Object.keys(optionPrices).reduce(
+      (acc, key) => {
+        acc[key] = '';
+        return acc;
+      },
+      {} as Record<string, string>,
+    ),
+  );
+  const [totalPrice, setTotalPrice] = useState(
+    productInfo.price.discountedPrice,
+  );
 
   const handleSelectedOptions = (key: string, value: string) => {
     const updatedOptions = { ...selectedOptions, [key]: value };
@@ -41,7 +62,7 @@ export default function ProductOptions() {
     .join('/');
 
   const calculateTotalPrice = (selectedOptions: Record<string, string>) => {
-    let total = 0;
+    let total = productInfo.price.discountedPrice;
     for (let key in selectedOptions) {
       if (selectedOptions[key]) {
         total += optionPrices[key][selectedOptions[key]];
@@ -50,26 +71,30 @@ export default function ProductOptions() {
     return total;
   };
 
+  const checkRequiredOptionsSelected = Object.entries(selectedOptions)
+    .filter(([key]) => key !== 'additional')
+    .every(([, value]) => value);
+
   return (
     <div className="w-full">
       <div className="flex flex-col gap-6 md:items-center md:gap-4">
         <span className="text-xl leading-none text-gray md:text-base">
-          Samsung
+          {productInfo.brand}
         </span>
         <div className="text-3xl font-semibold leading-none md:text-[30px]">
-          갤럭시 S24 FE 자급제
+          {productInfo.name}
         </div>
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:gap-10 sm:gap-5">
           <div className="flex gap-20 lg:gap-10 md:gap-5">
             <span className="text-[36px] leading-none text-red md:text-2xl">
-              14%
+              {productInfo.price.discountRate}
             </span>
             <span className="text-[36px] font-extrabold leading-none text-red md:text-2xl">
-              896,000원
+              {productInfo.price.discountedPrice.toLocaleString()}원
             </span>
           </div>
           <span className="text-2xl font-semibold leading-none text-gray line-through md:text-base">
-            946,000원
+            {productInfo.price.originalPrice.toLocaleString()}원
           </span>
         </div>
       </div>
@@ -100,6 +125,14 @@ export default function ProductOptions() {
           buttonStyle="bg-gray"
           type="openModal"
           path="/cart"
+          modalContent={
+            <>
+              <div>상품명: {productInfo.name}</div>
+              <div>옵션: {SelectiedOptionsLabel}</div>
+              <div>금액: {totalPrice.toLocaleString()}원</div>
+            </>
+          }
+          disableModal={!checkRequiredOptionsSelected}
         />
         <ActionButton
           buttonName="구매하기"

@@ -2,26 +2,30 @@ import { useState } from 'react';
 
 interface CustomStepperProps {
   shape?: 'round' | 'square';
-  defaultValue?: number;
   style?: string;
   numberStyle?: string;
   buttonStyle?: string;
+  onAdjust?: (action: number) => void;
 }
 
 export default function CustomStepper({
   shape = 'square',
-  defaultValue = 1,
   style,
   numberStyle,
   buttonStyle,
+  onAdjust,
 }: CustomStepperProps) {
-  const [amount, setAmount] = useState(defaultValue);
+  const [amount, setAmount] = useState(1);
 
   const adjustButtonClick = (action: number) => {
-    if (action === -1) {
-      setAmount(Math.max(1, amount - 1));
-    } else {
-      setAmount(Math.min(10, amount + 1));
+    if (onAdjust) {
+      onAdjust(action);
+    }
+
+    if (action < 0) {
+      setAmount(Math.max(1, amount + action));
+    } else if (action > 0) {
+      setAmount(Math.min(10, amount + action));
     }
   };
 

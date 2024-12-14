@@ -44,15 +44,31 @@ export default function ProductOptions() {
       {} as Record<string, string>,
     ),
   );
+
   const [totalPrice, setTotalPrice] = useState(
     productInfo.price.discountedPrice,
   );
+
+  const [itemCount, setItemCount] = useState(1);
 
   const handleSelectedOptions = (key: string, value: string) => {
     const updatedOptions = { ...selectedOptions, [key]: value };
     setSelectedOptions(updatedOptions);
 
-    const price = calculateTotalPrice(updatedOptions);
+    const price = calculateTotalPrice(updatedOptions) * itemCount;
+    setTotalPrice(price);
+  };
+
+  const handleChangeItemCount = (action: number) => {
+    let updatedCount = itemCount;
+    if (action < 0) {
+      updatedCount = Math.max(1, itemCount + action);
+    } else if (action > 0) {
+      updatedCount = Math.min(10, itemCount + action);
+    }
+    setItemCount(updatedCount);
+
+    const price = calculateTotalPrice(selectedOptions) * updatedCount;
     setTotalPrice(price);
   };
 
@@ -60,6 +76,10 @@ export default function ProductOptions() {
     .filter(([, value]) => value)
     .map(([, value]) => value)
     .join('/');
+
+  const checkRequiredOptionsSelected = Object.entries(selectedOptions)
+    .filter(([key]) => key !== 'additional')
+    .every(([, value]) => value);
 
   const calculateTotalPrice = (selectedOptions: Record<string, string>) => {
     let total = productInfo.price.discountedPrice;
@@ -70,10 +90,6 @@ export default function ProductOptions() {
     }
     return total;
   };
-
-  const checkRequiredOptionsSelected = Object.entries(selectedOptions)
-    .filter(([key]) => key !== 'additional')
-    .every(([, value]) => value);
 
   return (
     <div className="w-full">
@@ -113,7 +129,7 @@ export default function ProductOptions() {
           {`옵션: ${SelectiedOptionsLabel}`}
         </div>
         <div className="flex items-center justify-between">
-          <CustomStepper style="max-w-48" />
+          <CustomStepper style="max-w-48" onAdjust={handleChangeItemCount} />
           <div className="w-full text-end text-[36px] font-extrabold leading-none md:text-[28px]">
             {totalPrice.toLocaleString()}원
           </div>
@@ -129,6 +145,7 @@ export default function ProductOptions() {
             <>
               <div>상품명: {productInfo.name}</div>
               <div>옵션: {SelectiedOptionsLabel}</div>
+              <div>수량: {itemCount}</div>
               <div>금액: {totalPrice.toLocaleString()}원</div>
             </>
           }

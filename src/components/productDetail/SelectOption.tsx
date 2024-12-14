@@ -3,13 +3,15 @@ import { Select } from '@headlessui/react';
 interface SelectOptionProps {
   name: string;
   options: string[];
-  height?: string;
+  onChange: (key: string, value: string) => void;
+  style?: string;
 }
 
 export default function SelectOption({
   name,
-  height = 'h-12 md:h-9',
   options,
+  onChange,
+  style,
 }: SelectOptionProps) {
   const labels: Record<string, string> = {
     color: '색상',
@@ -22,11 +24,14 @@ export default function SelectOption({
       <Select
         name={name}
         aria-label={`${name} choice`}
-        className={`${height} rounded-xl border border-gray`}
+        className={`${style} h-12 rounded-xl border border-gray md:h-9`}
+        onChange={(e) => onChange(name, e.target.value)}
       >
-        <option value={name}>{labels[name] ? labels[name] : name}</option>
-        {options.map((option) => (
-          <option value={`${option}`}>{option}</option>
+        <option value="">{labels[name]}</option>
+        {options.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
         ))}
       </Select>
     </>

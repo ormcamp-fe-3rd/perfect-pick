@@ -1,12 +1,53 @@
+import { useState } from 'react';
 import CustomStepper from '@/components/productDetail/CustomStepper';
 import SelectOption from '@/components/productDetail/SelectOption';
 import ActionButton from '@/components/productDetail/ActionButton';
 
+// 임시: 추후 서버 연결
+const optionPrices: Record<string, Record<string, number>> = {
+  color: {
+    white: 896000,
+    black: 896000,
+    blue: 896000,
+  },
+  storage: {
+    '128GB': 0,
+    '256GB(+100)': 100,
+    '512GB(+200)': 200,
+    '1TB(+300)': 300,
+  },
+  additional: {
+    'charger_A(+30)': 30,
+    'charger_B(+50)': 50,
+    'cable(+10)': 10,
+  },
+};
+
 export default function ProductOptions() {
-  const optionsList: Record<string, string[]> = {
-    color: ['white', 'black', 'blue'],
-    storage: ['128GB', '256GB', '512G', '1TB'],
-    additional: ['charger1', 'charger2', 'cable'],
+  const [selectedOptions, setSelectedOptions] = useState({});
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const handleSelectedOptions = (key: string, value: string) => {
+    const updatedOptions = { ...selectedOptions, [key]: value };
+    setSelectedOptions(updatedOptions);
+
+    const price = calculateTotalPrice(updatedOptions);
+    setTotalPrice(price);
+  };
+
+  const SelectiedOptionsLabel = Object.entries(selectedOptions)
+    .filter(([, value]) => value)
+    .map(([, value]) => value)
+    .join('/');
+
+  const calculateTotalPrice = (selectedOptions: Record<string, string>) => {
+    let total = 0;
+    for (let key in selectedOptions) {
+      if (selectedOptions[key]) {
+        total += optionPrices[key][selectedOptions[key]];
+      }
+    }
+    return total;
   };
 
   return (
@@ -18,8 +59,8 @@ export default function ProductOptions() {
         <div className="text-3xl font-semibold leading-none md:text-[30px]">
           갤럭시 S24 FE 자급제
         </div>
-        <div className="flex flex-col gap-6 sm:gap-5 lg:flex-row lg:items-center lg:gap-10">
-          <div className="flex gap-20 md:gap-5 lg:gap-10">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:gap-10 sm:gap-5">
+          <div className="flex gap-20 lg:gap-10 md:gap-5">
             <span className="text-[36px] leading-none text-red md:text-2xl">
               14%
             </span>
@@ -33,18 +74,23 @@ export default function ProductOptions() {
         </div>
       </div>
       <div className="my-8 flex flex-col gap-5 text-lg md:my-5 md:gap-3">
-        {Object.keys(optionsList).map((key) => (
-          <SelectOption name={key} options={optionsList[key]} />
+        {Object.keys(optionPrices).map((key, index) => (
+          <SelectOption
+            key={index}
+            name={key}
+            options={Object.keys(optionPrices[key])}
+            onChange={handleSelectedOptions}
+          />
         ))}
       </div>
       <div className="flex flex-col gap-6 border-y px-3 py-5 md:gap-4 md:px-2 md:py-4">
         <div className="text-2xl font-semibold leading-none md:text-lg">
-          옵션: 컬러/용량/추가상품
+          {`옵션: ${SelectiedOptionsLabel}`}
         </div>
         <div className="flex items-center justify-between">
-          <CustomStepper />
+          <CustomStepper style="max-w-48" />
           <div className="w-full text-end text-[36px] font-extrabold leading-none md:text-[28px]">
-            총 금액
+            {totalPrice.toLocaleString()}원
           </div>
         </div>
       </div>

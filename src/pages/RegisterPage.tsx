@@ -1,9 +1,7 @@
-import RegisterMain from '@/components/register/RegisterMain';
-
 function RegisterPage() {
   return (
     <>
-      <RegisterMain />
+      <h1>회원가입</h1>
     </>
   );
 }

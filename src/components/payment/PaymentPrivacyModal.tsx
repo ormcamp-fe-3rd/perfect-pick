@@ -1,15 +1,22 @@
 import { useState } from 'react';
 import CustomCheckBox from '@/components/payment/CustomCheckBox';
 
-export default function PaymentPrivacyModal() {
+interface PaymentPrivacyModalProps {
+  isChecked: boolean;
+  onCheckBoxChange: () => void;
+}
+
+export default function PaymentPrivacyModal({
+  isChecked,
+  onCheckBoxChange,
+}: PaymentPrivacyModalProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckBoxClick = () => {
     if (!isChecked) {
       setIsOpen(true);
     }
-    setIsChecked(!isChecked);
+    onCheckBoxChange();
   };
 
   const handleModalButton = () => {
@@ -23,6 +30,7 @@ export default function PaymentPrivacyModal() {
         boxStyle="border-0 size-6"
         strokeColor="stroke-green"
         strokeDefault="stroke-gray"
+        checked={isChecked}
         onClick={handleCheckBoxClick}
       >
         [필수] 결제 서비스 이용 약관, 개인정보 처리 동의 ＞

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import PaymentPrivacyModal from '@/components/payment/PaymentPrivacyModal';
 
 interface PaymentMethodSelectorProps {
@@ -7,13 +6,19 @@ interface PaymentMethodSelectorProps {
   style?: string;
 }
 
-export default function PaymentOptions() {
-  const [selectedPayment, setSelectedPayment] = useState('');
+interface PaymentOptionsProps {
+  selectedPayment: string;
+  onPaymentSelect: (paymentMethod: string) => void;
+  isChecked: boolean;
+  onCheckBoxChange: () => void;
+}
 
-  const handlePaymentSelect = (paymentMethod: string) => {
-    setSelectedPayment(paymentMethod);
-  };
-
+export default function PaymentOptions({
+  selectedPayment,
+  onPaymentSelect,
+  isChecked,
+  onCheckBoxChange,
+}: PaymentOptionsProps) {
   const PaymentMethodSelector = ({
     id,
     label,
@@ -30,7 +35,7 @@ export default function PaymentOptions() {
             name="payment"
             value={id}
             checked={selectedPayment === id}
-            onChange={() => handlePaymentSelect(id)}
+            onChange={() => onPaymentSelect(id)}
             className="hidden"
           ></input>
           <label htmlFor={id}>{label}</label>
@@ -48,7 +53,10 @@ export default function PaymentOptions() {
           <PaymentMethodSelector id="NaverPay" label="네이버페이" />
           <PaymentMethodSelector id="bankTransfer" label="무통장입금" />
         </div>
-        <PaymentPrivacyModal />
+        <PaymentPrivacyModal
+          isChecked={isChecked}
+          onCheckBoxChange={onCheckBoxChange}
+        />
       </div>
     </>
   );

@@ -34,7 +34,7 @@ export default function CartCheckBox({
   return (
     <div className="flex items-center">
       <Checkbox
-        checked={checkedFormula !== undefined ? checkedFormula : enabled}
+        checked={checkedFormula ?? enabled}
         onChange={handleChange}
         as={Fragment}
       >

@@ -38,24 +38,26 @@ const cartList = [
 ];
 
 export default function CartTable() {
-  const allItems = new Set(cartList.map((item) => item.id));
-  const [checkedItems, setCheckedItems] = useState(allItems);
+  const allItemsID = new Set(cartList.map((item) => item.id));
+  const [checkedItemsID, setCheckedItemsID] = useState(allItemsID);
 
+  // 상품별 체크박스 선택 시 동작
   const handleCheckboxChange = (itemId: number, isChecked: boolean) => {
-    setCheckedItems((prevCheckedItems) => {
+    setCheckedItemsID((prev) => {
       if (isChecked) {
-        return new Set([...prevCheckedItems, itemId]);
+        return new Set([...prev, itemId]);
       } else {
-        return new Set([...prevCheckedItems].filter((item) => item !== itemId));
+        return new Set([...prev].filter((item) => item !== itemId));
       }
     });
   };
 
+  // 전체상품 체크박스 선택 시 동작
   const handleSelectAllChange = (isChecked: boolean) => {
     if (isChecked) {
-      setCheckedItems(allItems);
+      setCheckedItemsID(allItemsID);
     } else {
-      setCheckedItems(new Set());
+      setCheckedItemsID(new Set());
     }
   };
 
@@ -77,7 +79,7 @@ export default function CartTable() {
     <div>
       <div className="mb-6 ml-6 mt-5 flex w-full gap-4 md:ml-2">
         <CartCheckBox
-          checkedFormula={checkedItems.size === cartList.length}
+          checkedFormula={checkedItemsID.size === cartList.length}
           label="ml-6 text-2xl"
           onChange={(isChecked) => handleSelectAllChange(isChecked)}
         >
@@ -104,7 +106,7 @@ export default function CartTable() {
       {cartList.map((item) => (
         <CartListItem
           item={item}
-          checkedItems={checkedItems}
+          checkedItems={checkedItemsID}
           onCheckboxChange={handleCheckboxChange}
         />
       ))}

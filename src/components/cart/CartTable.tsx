@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import CartCheckBox from '@/components/cart/CartCheckBox';
 import CartListItem from './CartListItem';
 
@@ -61,19 +61,28 @@ export default function CartTable() {
     }
   };
 
-  const selectedItems = cartList.filter((item) => checkedItems.has(item.id));
+  // 선택된 상품의 데이터
+  const selectedItems = useMemo(() => {
+    return cartList.filter((item) => checkedItemsID.has(item.id));
+  }, [cartList, checkedItemsID]);
 
-  const totalPrice = selectedItems.reduce((sum, item) => {
-    const total =
-      (item.price?.productPrice + (item.price?.accessoriesPrice ?? 0)) *
-      item.amount;
-    return sum + total;
-  }, 0);
+  // 선택된 상품의 총 상품금액
+  const totalPrice = useMemo(() => {
+    return selectedItems.reduce((sum, item) => {
+      const total =
+        (item.price?.productPrice + (item.price?.accessoriesPrice ?? 0)) *
+        item.amount;
+      return sum + total;
+    }, 0);
+  }, [selectedItems]);
 
-  const totalDeliveryFee = selectedItems.reduce((sum, item) => {
-    const total = item.price?.deliveryFee ?? 0;
-    return sum + total;
-  }, 0);
+  // 선택된 상품의 총 배송비
+  const totalDeliveryFee = useMemo(() => {
+    return selectedItems.reduce((sum, item) => {
+      const total = item.price?.deliveryFee ?? 0;
+      return sum + total;
+    }, 0);
+  }, [selectedItems]);
 
   return (
     <div>

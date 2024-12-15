@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import CustomCheckBox from './CustomCheckBox';
+import CustomCheckBox from '@/components/payment/CustomCheckBox';
 
 export default function PaymentPrivacyModal() {
   const [isOpen, setIsOpen] = useState(false);

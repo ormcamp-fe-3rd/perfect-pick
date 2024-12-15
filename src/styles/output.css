@@ -901,6 +901,14 @@ video {
   border-width: 0px;
 }
 
+.border-2 {
+  border-width: 2px;
+}
+
+.border-4 {
+  border-width: 4px;
+}
+
 .border-y {
   border-top-width: 1px;
   border-bottom-width: 1px;
@@ -912,6 +920,11 @@ video {
 
 .border-t {
   border-top-width: 1px;
+}
+
+.border-green {
+  --tw-border-opacity: 1;
+  border-color: rgb(80 215 93 / var(--tw-border-opacity, 1));
 }
 
 .bg-\[\#D9D9D9\] {
@@ -1024,6 +1037,10 @@ video {
 
 .text-end {
   text-align: end;
+}
+
+.align-middle {
+  vertical-align: middle;
 }
 
 .font-BagelFatOne {
@@ -1252,6 +1269,11 @@ li {
 
 .checked\:flex:checked {
   display: flex;
+}
+
+.checked\:border-green:checked {
+  --tw-border-opacity: 1;
+  border-color: rgb(80 215 93 / var(--tw-border-opacity, 1));
 }
 
 .hover\:text-red:hover {

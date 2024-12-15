@@ -2,6 +2,7 @@ import OrderDetails from '@/components/payment/OrderDetails';
 import PaymentOptions from '@/components/payment/PaymentOptions';
 import ShippingAddress from '@/components/payment/ShippingAddress';
 import DiscountApply from '@/components/payment/DiscountApply';
+import PaymentButtonModal from '@/components/payment/PaymentButtonModal';
 
 function PaymentPage() {
   return (
@@ -24,9 +25,7 @@ function PaymentPage() {
           <DiscountApply />
         </div>
       </div>
-      <button className="m-auto h-20 w-[226px] rounded-[50px] bg-red text-2xl text-[white] md:w-[160px]">
-        결제하기
-      </button>
+      <PaymentButtonModal />
     </div>
   );
 }

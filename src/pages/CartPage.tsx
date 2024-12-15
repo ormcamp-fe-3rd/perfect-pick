@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import CartTable from '@/components/cart/CartTable';
+import { CART_PAGE } from '@/constants/option';
 
 function CartPage() {
   return (
@@ -10,8 +11,13 @@ function CartPage() {
       <CartTable />
       <div className="mx-5 my-20 rounded-[10px] bg-[#D9D9D9] px-4 py-5 text-2xl">
         <ul className="list-disc pl-10">
-          <li>장바구니에 최대 200개의 상품을 담을 수 있습니다.</li>
-          <li>장바구니 상품은 최대 90일간 저장됩니다.</li>
+          <li>
+            장바구니에 최대 {CART_PAGE.MAX_CART_ITEMS}개의 상품을 담을 수
+            있습니다.
+          </li>
+          <li>
+            장바구니 상품은 최대 {CART_PAGE.MAX_STORAGE_DAYS}일간 저장됩니다.
+          </li>
           <li>가격, 옵션 등 정보가 변경된 경우 주문이 불가할 수 있습니다.</li>
           <li>
             출발 정보는 판매자가 설정한 정보에 의해 제공되며, 물류위탁 상품인

@@ -10,7 +10,8 @@ interface CheckBoxProps {
   strokeColor?: string;
   strokeDefault?: string;
   label?: string;
-  onClick?: (isChecked: boolean) => void;
+  onClick?: () => void;
+  checked?: boolean;
   children?: string;
 }
 
@@ -23,19 +24,16 @@ export default function CustomCheckBox({
   strokeDefault = 'opacity-0',
   label,
   onClick = () => {},
+  checked,
   children,
 }: CheckBoxProps) {
-  const [enabled, setEnabled] = useState(false);
-
-  const handleLabelClick = () => {
-    const isChecked = !enabled;
-    setEnabled(isChecked);
-    onClick(isChecked);
+  const handleCheckboxClick = () => {
+    onClick();
   };
 
   return (
     <div className={style}>
-      <Checkbox checked={enabled} onChange={setEnabled} as={Fragment}>
+      <Checkbox checked={checked} onChange={handleCheckboxClick} as={Fragment}>
         {({ checked, disabled }) => (
           <span
             className={clsx(
@@ -59,7 +57,7 @@ export default function CustomCheckBox({
           </span>
         )}
       </Checkbox>
-      <span className={label} onClick={handleLabelClick}>
+      <span className={label} onClick={handleCheckboxClick}>
         {children}
       </span>
     </div>

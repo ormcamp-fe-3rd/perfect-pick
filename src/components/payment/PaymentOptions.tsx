@@ -1,22 +1,62 @@
 import PaymentPrivacyModal from '@/components/payment/PaymentPrivacyModal';
 
-export default function PaymentOptions() {
+interface PaymentMethodSelectorProps {
+  id: string;
+  label: string;
+  style?: string;
+}
+
+interface PaymentOptionsProps {
+  selectedPayment: string;
+  onPaymentSelect: (paymentMethod: string) => void;
+  isChecked: boolean;
+  onCheckBoxChange: () => void;
+}
+
+export default function PaymentOptions({
+  selectedPayment,
+  onPaymentSelect,
+  isChecked,
+  onCheckBoxChange,
+}: PaymentOptionsProps) {
+  const PaymentMethodSelector = ({
+    id,
+    label,
+    style,
+  }: PaymentMethodSelectorProps) => {
+    return (
+      <>
+        <div
+          className={`${style} flex h-20 w-full items-center justify-center rounded-[10px] border ${selectedPayment === id ? 'border-4 border-green' : 'border'}`}
+        >
+          <input
+            type="radio"
+            id={id}
+            name="payment"
+            value={id}
+            checked={selectedPayment === id}
+            onChange={() => onPaymentSelect(id)}
+            className="hidden"
+          ></input>
+          <label htmlFor={id}>{label}</label>
+        </div>
+      </>
+    );
+  };
+
   return (
     <>
       <div className="flex flex-col gap-5 text-2xl">
-        <button className="h-20 rounded-[10px] border">신용/체크카드</button>
-        <div className="flex justify-between gap-3">
-          <button className="h-20 flex-1 rounded-[10px] border">
-            토스페이
-          </button>
-          <button className="h-20 flex-1 rounded-[10px] border">
-            네이버페이
-          </button>
-          <button className="h-20 flex-1 rounded-[10px] border">
-            무통장입금
-          </button>
+        <PaymentMethodSelector id="creditCard" label="신용/체크카드" />
+        <div className="flex w-full justify-between gap-2">
+          <PaymentMethodSelector id="TossPay" label="토스페이" />
+          <PaymentMethodSelector id="NaverPay" label="네이버페이" />
+          <PaymentMethodSelector id="bankTransfer" label="무통장입금" />
         </div>
-        <PaymentPrivacyModal />
+        <PaymentPrivacyModal
+          isChecked={isChecked}
+          onCheckBoxChange={onCheckBoxChange}
+        />
       </div>
     </>
   );

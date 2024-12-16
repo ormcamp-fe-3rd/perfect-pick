@@ -14,8 +14,8 @@ import RegisterPage from '@/pages/RegisterPage';
 import MobileSearchPage from '@/pages/Search/MobileSearchPage';
 import NotebookSearchPage from '@/pages/Search/NotebookSearchPage';
 import TabletSearchPage from '@/pages/Search/TabletSearchPage';
+import TotalSearchPage from '@/pages/Search/TotalSearchPage';
 import WearableSearchPage from '@/pages/Search/WearableSearchPage';
-import TotalSearchPage from '@/pages/TotalSearchPage';
 
 interface LayoutProps {
   children: ReactNode;
@@ -132,6 +132,14 @@ const Router = () => {
             element={
               <Layout>
                 <ProductDetailPage />
+              </Layout>
+            }
+          />
+          <Route
+            path="total"
+            element={
+              <Layout>
+                <TotalSearchPage />
               </Layout>
             }
           />

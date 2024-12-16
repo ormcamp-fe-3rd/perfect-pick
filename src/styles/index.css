@@ -34,7 +34,12 @@
 body {
   font-family: 'SUIT';
   font-weight: 400;
-  letter-spacing: -5%;
+  letter-spacing: -0.05em;
+}
+
+li {
+  list-style-type: none;
+  list-style: none;
 }
 
 li {

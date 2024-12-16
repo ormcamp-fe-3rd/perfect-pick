@@ -1,7 +1,8 @@
 import { useState } from 'react';
+
+import ActionButton from '@/components/productDetail/ActionButton';
 import CustomStepper from '@/components/productDetail/CustomStepper';
 import SelectOption from '@/components/productDetail/SelectOption';
-import ActionButton from '@/components/productDetail/ActionButton';
 
 // 임시: 추후 서버 연결
 const productInfo = {
@@ -83,7 +84,7 @@ export default function ProductOptions() {
 
   const calculateTotalPrice = (selectedOptions: Record<string, string>) => {
     let total = productInfo.price.discountedPrice;
-    for (let key in selectedOptions) {
+    for (const key in selectedOptions) {
       if (selectedOptions[key]) {
         total += optionPrices[key][selectedOptions[key]];
       }

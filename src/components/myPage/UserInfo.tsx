@@ -38,7 +38,7 @@ export default function UserInfo() {
           <UserInfoInput placeholder="상세 주소를 입력해주세요." />
         </div>
       </div>
-      <button className="text-white h-[60px] w-full rounded-[50px] bg-black text-center">
+      <button className="h-[60px] w-full rounded-[50px] bg-black text-center text-white">
         수정하기
       </button>
     </div>

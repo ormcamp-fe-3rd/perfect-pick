@@ -1,6 +1,6 @@
+import ProductDescription from '@/components/productDetail/ProductDescription';
 import ProductImages from '@/components/productDetail/ProductImages';
 import ProductOptions from '@/components/productDetail/ProductOptions';
-import ProductDescription from '@/components/productDetail/ProductDescription';
 
 function ProductDetailPage() {
   return (

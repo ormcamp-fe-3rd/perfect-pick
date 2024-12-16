@@ -16,7 +16,7 @@ export default function Footer() {
           <div className="text-right lg:mb-[30px] lg:text-left">
             <a
               href="tel:1544-0015"
-              className="text-white block text-3xl font-semibold md:text-[30px]"
+              className="block text-3xl font-semibold text-white md:text-[30px]"
             >
               1544-0015
             </a>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import CustomCheckBox from '@/components/payment/CustomCheckBox';
 import ShippingInput from '@/components/payment/ShippingInput';
 
@@ -15,7 +16,7 @@ export default function ShippingAddress() {
   const [memberAdressChecked, setMemberAdressChecked] = useState(false);
 
   const handleInputChange = (key: string, value: string) => {
-    let updatedInputValues = { ...inputValues, [key]: value };
+    const updatedInputValues = { ...inputValues, [key]: value };
     setInputValues(updatedInputValues);
 
     // 배송메세지를 제외하고 수동 입력 시, 체크박스 해제
@@ -77,7 +78,7 @@ export default function ShippingAddress() {
                 }
                 enabled={false}
               />
-              <button className="text-white ml-4 w-[170px] rounded-[50px] border bg-black text-center text-2xl font-semibold">
+              <button className="ml-4 w-[170px] rounded-[50px] border bg-black text-center text-2xl font-semibold text-white">
                 주소 찾기
               </button>
             </div>

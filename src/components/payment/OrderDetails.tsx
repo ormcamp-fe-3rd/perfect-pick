@@ -76,8 +76,8 @@ export default function OrderDetails() {
           </div>
         </div>
       ))}
-      <div className="flex w-full items-center justify-end gap-12 border-y px-12 py-4 text-xl font-semibold md:text-xl lg:flex-col lg:items-center lg:gap-3">
-        <div className="flex gap-12 md:flex-col lg:gap-3">
+      <div className="flex w-full items-center justify-end gap-12 border-y px-12 py-4 text-xl font-semibold lg:flex-col lg:items-center lg:gap-3 md:text-xl">
+        <div className="flex gap-12 lg:gap-3 md:flex-col">
           <span>상품금액 {totalPrice.toLocaleString()}원</span>
           <div className="flex justify-center gap-12 lg:gap-3">
             <span>+</span>

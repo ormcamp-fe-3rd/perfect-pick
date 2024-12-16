@@ -1,7 +1,7 @@
 export default function WelcomeMessage() {
   return (
-    <div className="flex h-[529px] justify-between text-nowrap rounded-[20px] bg-[#F74927] md:h-[240px] lg:h-[305px]">
-      <div className="text-white ml-11 mt-11 flex flex-col gap-4">
+    <div className="flex h-[529px] justify-between text-nowrap rounded-[20px] bg-[#F74927] lg:h-[305px] md:h-[240px]">
+      <div className="ml-11 mt-11 flex flex-col gap-4 text-white">
         <p className="font-bold">퍼펙트픽</p>
         <div className="text-3xl font-extrabold md:text-[36px]">
           <p>안녕하세요!</p>

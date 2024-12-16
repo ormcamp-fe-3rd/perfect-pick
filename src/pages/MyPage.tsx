@@ -1,6 +1,6 @@
-import WelcomeMessage from '@/components/myPage/WelcomeMessage';
-import UserInfo from '@/components/myPage/UserInfo';
 import OrderHistory from '@/components/myPage/OrderHistory';
+import UserInfo from '@/components/myPage/UserInfo';
+import WelcomeMessage from '@/components/myPage/WelcomeMessage';
 
 function MyPage() {
   return (

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import CustomCheckBox from '@/components/payment/CustomCheckBox';
 
 interface PaymentPrivacyModalProps {
@@ -38,7 +39,7 @@ export default function PaymentPrivacyModal({
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black opacity-50" />
-          <div className="bg-white absolute left-1/2 top-1/2 flex w-2/3 max-w-[680px] -translate-x-1/2 -translate-y-1/2 transform flex-col items-center gap-12 rounded-2xl px-10 py-20 text-lg font-semibold text-gray checked:flex">
+          <div className="absolute left-1/2 top-1/2 flex w-2/3 max-w-[680px] -translate-x-1/2 -translate-y-1/2 transform flex-col items-center gap-12 rounded-2xl bg-white px-10 py-20 text-lg font-semibold text-gray checked:flex">
             <div>[필수] 개인정보 제공 동의(판매자)</div>
             <div>
               퍼펙트픽을 이용하여 퍼펙트픽 가맹점에서 제공하는 상품 및 서비스를

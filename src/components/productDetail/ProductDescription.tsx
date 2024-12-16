@@ -1,13 +1,14 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 
-export default function ProductDescription() {
-  const productDetailsList = [
-    { name: '제조회사', value: '삼성전자' },
-    { name: '등록년월', value: '2024년 01월' },
-    { name: '휴대폰타입', value: '스마트폰(바형)' },
-    { name: '통신망', value: '5G' },
-  ];
+// 임시: 추후 서버 연결
+const productDetailsList = [
+  { name: '제조회사', value: '삼성전자' },
+  { name: '등록년월', value: '2024년 01월' },
+  { name: '휴대폰타입', value: '스마트폰(바형)' },
+  { name: '통신망', value: '5G' },
+];
 
+export default function ProductDescription() {
   const returnExchaneInfo = [
     { name: '판매자 지정택배사', value: 'CJ대한통운' },
     { name: '반품배송비', value: '편도 3,000원' },
@@ -67,7 +68,7 @@ export default function ProductDescription() {
                     <th className="flex w-1/3 items-center bg-[#D9D9D9] pl-2">
                       {detail.name}
                     </th>
-                    <td className="flex w-2/3 items-center border-gray pl-2">
+                    <td className="flex w-2/3 items-center pl-2">
                       {detail.value}
                     </td>
                   </tr>
@@ -86,12 +87,12 @@ export default function ProductDescription() {
               </div>
             </div>
             <tbody className="flex w-full flex-col px-10 text-left">
-              {returnExchaneInfo.map((info) => (
-                <tr className="flex w-full border border-gray">
+              {returnExchaneInfo.map((info, index) => (
+                <tr key={index} className="flex w-full border border-gray">
                   <th className="flex w-3/12 items-center bg-[#D9D9D9] py-4 pl-2">
                     {info.name}
                   </th>
-                  <td className="flex w-9/12 items-center border-gray py-4 pl-2">
+                  <td className="flex w-9/12 items-center py-4 pl-2">
                     <div className="flex flex-col">
                       {Array.isArray(info.value)
                         ? info.value.map((value, i) => <li key={i}>{value}</li>)

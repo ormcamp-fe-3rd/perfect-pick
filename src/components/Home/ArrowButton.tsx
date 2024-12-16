@@ -18,12 +18,12 @@ export default function ArrowButton({
   altText,
 }: ArrowButtonProps) {
   const buttonClass = [
-    'flex h-16 w-16 rounded-full text-[0px] items-center justify-center',
+    'flex h-16 w-16 rounded-full text-[0px] items-center justify-center lg:hidden absolute',
     MainSlidePrev
-      ? 'bg-white/40 hover:bg-white absolute left-6 top-1/2 z-10 -translate-y-1/2 shadow-md transition-all'
+      ? 'bg-white/40 hover:bg-white left-6 top-1/2 z-10 -translate-y-1/2 shadow-md transition-all'
       : '',
     MainSlideNext
-      ? 'bg-white/40 hover:bg-white absolute right-6 top-1/2 z-10 -translate-y-1/2 shadow-md transition-all'
+      ? 'bg-white/40 hover:bg-white right-6 top-1/2 z-10 -translate-y-1/2 shadow-md transition-all'
       : '',
     TabSlidePrev ? 'bg-black absolute top-[-114px] right-[74px]' : '',
     TabSlideNext ? 'bg-black absolute top-[-114px] right-0' : '',

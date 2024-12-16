@@ -33,7 +33,6 @@ export default function NonMemberCartList() {
       <ul>
         {List.map((list, index) => (
           <li
-            key={index}
             className={`box-border flex items-center justify-between px-5 py-[35px] lg:px-[10px] md:items-start md:py-[25px] ${index === List.length - 1 ? 'border-b-2 border-b-black' : 'border-b border-[#ddd]'}`}
           >
             <div className="pic w-[176px] overflow-hidden rounded-[10px] md:h-[87px] md:w-[87px]">

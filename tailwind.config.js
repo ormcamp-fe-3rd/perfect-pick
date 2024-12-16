@@ -4,13 +4,13 @@ export default {
   theme: {
     extend: {
       fontSize: {
-        sm: '0.875rem', //14px
-        base: '1rem', //16px
-        lg: '1.125rem', //18px
-        xl: '1.25rem', //20px
-        '2xl': '1.375rem', //22px
-        '3xl': '2.875rem', //46px
-        '4xl': '3.5rem', //56px
+        sm: '0.875rem', // 14px
+        base: '1rem', // 16px
+        lg: '1.125rem', // 18px
+        xl: '1.25rem', // 20px
+        '2xl': '1.375rem', // 22px
+        '3xl': '2.875rem', // 46px
+        '4xl': '3.5rem', // 56px
       },
     },
     colors: {

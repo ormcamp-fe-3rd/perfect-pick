@@ -1,0 +1,4 @@
+export const CART_PAGE = {
+  MAX_CART_ITEMS: 200,
+  MAX_STORAGE_DAYS: 90,
+};

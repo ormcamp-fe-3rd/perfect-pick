@@ -1,42 +1,24 @@
 import { useState } from 'react';
 
-import {
-  CATEGORIES_MOBILE,
-  CATEGORIES_NOTEBOOK,
-  CATEGORIES_TABLET,
-  CATEGORIES_WERABLE,
-} from '@/constants/optionsData';
-
+import optionsData from '../../../constants/optionsData.json';
+import { CategoryData, OptionsData } from '../../../constants/optionsData.ts';
 import BottomSheet from '../Feature/BottomSheet';
-import BottomSheetButton from '../Feature/BottomSheetFeature';
+import BottomSheetFeature from '../Feature/BottomSheetFeature';
 import ButtonLayout from '../Feature/ProductBtn';
+import { DefaultOptionProps } from './DefaultOption';
 
-interface MobileOptionProps {
-  type:
-    | 'CATEGORIES_MOBILE'
-    | 'CATEGORIES_TABLET'
-    | 'CATEGORIES_WERABLE'
-    | 'CATEGORIES_NOTEBOOK';
-}
+const typedOptionsData: OptionsData = optionsData;
 
-function MobileOption({ type }: MobileOptionProps) {
+function MobileOption({ type }: DefaultOptionProps) {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-  const [bottomSheetCategory, setBottomSheetCategory] = useState<
-    | 'CATEGORIES_MOBILE'
-    | 'CATEGORIES_TABLET'
-    | 'CATEGORIES_WERABLE'
-    | 'CATEGORIES_NOTEBOOK'
-  >('CATEGORIES_MOBILE');
+  const [bottomSheetCategory, setBottomSheetCategory] =
+    useState<DefaultOptionProps['type']>('mobile');
   const [bottomSheetCategoryTag, setBottomSheetCategoryTag] = useState('');
   const [isPrice, setIsPrice] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
 
   const handleOpenBottomSheet = (
-    category:
-      | 'CATEGORIES_MOBILE'
-      | 'CATEGORIES_TABLET'
-      | 'CATEGORIES_WERABLE'
-      | 'CATEGORIES_NOTEBOOK',
+    category: DefaultOptionProps['type'],
     categoryTag: string,
   ) => {
     setBottomSheetCategory(category);
@@ -48,14 +30,8 @@ function MobileOption({ type }: MobileOptionProps) {
 
   const handleCloseBottomSheet = () => setIsBottomSheetOpen(false);
 
-  const CATEGORY = {
-    CATEGORIES_MOBILE: CATEGORIES_MOBILE,
-    CATEGORIES_TABLET: CATEGORIES_TABLET,
-    CATEGORIES_WERABLE: CATEGORIES_WERABLE,
-    CATEGORIES_NOTEBOOK: CATEGORIES_NOTEBOOK,
-  };
-
-  const options = CATEGORY[type];
+  const categoryData: CategoryData = typedOptionsData[type];
+  const categories = categoryData.categories;
 
   return (
     <div className="w-max-[548px] h-[148px] w-screen pb-3">
@@ -66,49 +42,31 @@ function MobileOption({ type }: MobileOptionProps) {
           width="w-[calc(25%-12px)]"
           fontSize="text-lg"
           text="정렬"
-        ></ButtonLayout>
-        <ButtonLayout
-          backgroundColor="bg-skyblue"
-          height="h-[45px]"
-          width="w-[calc(25%-12px)]"
-          fontSize="text-lg"
-          text={options[0]}
-          onClick={() => handleOpenBottomSheet(type, options[0])}
-        ></ButtonLayout>
-        <ButtonLayout
-          backgroundColor="bg-skyblue"
-          height="h-[45px]"
-          width="w-[calc(25%-12px)]"
-          fontSize="text-lg"
-          text={options[1]}
-          onClick={() => handleOpenBottomSheet(type, options[1])}
-        ></ButtonLayout>
-        <ButtonLayout
-          backgroundColor="bg-skyblue"
-          height="h-[45px]"
-          width="w-[calc(25%-12px)]"
-          fontSize="text-lg"
-          text={options[2]}
-          onClick={() => handleOpenBottomSheet(type, options[2])}
-        ></ButtonLayout>
+        />
+        {categories.slice(0, 3).map((option, index) => (
+          <ButtonLayout
+            key={index}
+            backgroundColor="bg-skyblue"
+            height="h-[45px]"
+            width="w-[calc(25%-12px)]"
+            fontSize="text-lg"
+            text={option}
+            onClick={() => handleOpenBottomSheet(type, option)}
+          />
+        ))}
       </div>
       <div className="flex justify-center gap-3 px-[10px] pt-3">
-        <ButtonLayout
-          backgroundColor="bg-skyblue"
-          height="h-[45px]"
-          width="w-[calc(25%-12px)]"
-          fontSize="text-lg"
-          text={options[3]}
-          onClick={() => handleOpenBottomSheet(type, options[3])}
-        ></ButtonLayout>
-        <ButtonLayout
-          backgroundColor="bg-skyblue"
-          height="h-[45px]"
-          width="w-[calc(25%-12px)]"
-          fontSize="text-lg"
-          text={options[4]}
-          onClick={() => handleOpenBottomSheet(type, options[4])}
-        ></ButtonLayout>
+        {categories.slice(3, 5).map((option, index) => (
+          <ButtonLayout
+            key={index}
+            backgroundColor="bg-skyblue"
+            height="h-[45px]"
+            width="w-[calc(25%-12px)]"
+            fontSize="text-lg"
+            text={option}
+            onClick={() => handleOpenBottomSheet(type, option)}
+          />
+        ))}
         <ButtonLayout
           backgroundColor="bg-skyblue"
           height="h-[45px]"
@@ -136,12 +94,12 @@ function MobileOption({ type }: MobileOptionProps) {
         ></ButtonLayout>
       </div>
       <BottomSheet isOpen={isBottomSheetOpen} onClose={handleCloseBottomSheet}>
-        <BottomSheetButton
+        <BottomSheetFeature
           category={bottomSheetCategory}
           categoryTag={bottomSheetCategoryTag}
           price={isPrice}
           search={isSearch}
-        ></BottomSheetButton>
+        ></BottomSheetFeature>
       </BottomSheet>
     </div>
   );

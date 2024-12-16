@@ -3,53 +3,33 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import Slider from 'react-slick';
 
-import {
-  CATEGORIES_MOBILE,
-  CATEGORIES_NOTEBOOK,
-  CATEGORIES_TABLET,
-  CATEGORIES_WERABLE,
-  MOBILE_DATA,
-  NOTEBOOK_DATA,
-  TABLET_DATA,
-  WERABLE_DATA,
-} from '../../../constants/optionsData.ts';
+import optionsData from '../../../constants/optionsData.json';
+import { CategoryData, OptionsData } from '../../../constants/optionsData.ts';
 import Check from '../Feature/CheckBox.tsx';
 import InputString from '../Feature/InputString.tsx';
 import ButtonLayout from '../Feature/ProductBtn.tsx';
 
-interface DefaultOptionProps {
-  type:
-    | 'CATEGORIES_MOBILE'
-    | 'CATEGORIES_TABLET'
-    | 'CATEGORIES_WERABLE'
-    | 'CATEGORIES_NOTEBOOK';
+const typedOptionsData: OptionsData = optionsData;
+
+export interface DefaultOptionProps {
+  type: 'mobile' | 'tablet' | 'wearable' | 'notebook';
 }
 
 function DefaultOption({ type }: DefaultOptionProps) {
-  const categories = {
-    CATEGORIES_MOBILE: CATEGORIES_MOBILE,
-    CATEGORIES_TABLET: CATEGORIES_TABLET,
-    CATEGORIES_WERABLE: CATEGORIES_WERABLE,
-    CATEGORIES_NOTEBOOK: CATEGORIES_NOTEBOOK,
-  }[type];
-
-  const data = {
-    CATEGORIES_MOBILE: MOBILE_DATA,
-    CATEGORIES_TABLET: TABLET_DATA,
-    CATEGORIES_WERABLE: WERABLE_DATA,
-    CATEGORIES_NOTEBOOK: NOTEBOOK_DATA,
-  }[type];
+  const categoryData: CategoryData = typedOptionsData[type];
+  const categories = categoryData.categories;
+  const data = categoryData.data;
 
   const sliderSettings = {
     infinite: false,
     speed: 500,
-    slidesToShow: type === 'CATEGORIES_NOTEBOOK' ? 5 : 4,
+    slidesToShow: type === 'notebook' ? 5 : 4,
     slidesToScroll: 2,
   };
 
   return (
     <div
-      className={`h-[600px] ${type === 'CATEGORIES_NOTEBOOK' ? 'w-full' : 'w-[1000px]'} rounded-xl border-2 border-black text-xl font-semibold lg:mx-auto lg:w-[calc(100%-30px)] lg:overflow-hidden`}
+      className={`h-[600px] ${type === 'notebook' ? 'w-full' : 'w-[1000px]'} rounded-xl border-2 border-black text-xl font-semibold lg:mx-auto lg:w-[calc(100%-30px)] lg:overflow-hidden`}
     >
       {categories.map((category, rowIndex) => (
         <div key={rowIndex} className="flex w-full">
@@ -59,38 +39,27 @@ function DefaultOption({ type }: DefaultOptionProps) {
 
           <div className="mr-10 w-full min-w-[850px] flex-1 overflow-hidden pt-[30px]">
             <Slider {...sliderSettings}>
-              <div className="flex items-center">
-                <div className="flex items-center gap-[17px]">
-                  <Check />
-                  <p>{data[rowIndex][0]}</p>
+              {data[rowIndex].slice(0, 4).map(
+                (
+                  item,
+                  index, // 0부터 3번째 요소까지 렌더링
+                ) => (
+                  <div key={index} className="flex items-center">
+                    <div className="flex items-center gap-[17px]">
+                      <Check />
+                      <p>{item}</p>
+                    </div>
+                  </div>
+                ),
+              )}
+              {data[rowIndex][4] && ( // 5번째 요소가 존재하는 경우에만 렌더링
+                <div className="flex w-[180px] items-center">
+                  <div className="flex items-center gap-[17px]">
+                    <Check />
+                    <p>{data[rowIndex][4]}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center">
-                <div className="flex items-center gap-[17px]">
-                  <Check />
-                  <p>{data[rowIndex][1]}</p>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <div className="flex items-center gap-[17px]">
-                  <Check />
-                  <p>{data[rowIndex][2]}</p>
-                </div>
-              </div>
-              <div className="flex w-[180px] items-center">
-                <div className="flex items-center gap-[17px]">
-                  <Check />
-                  <p>{data[rowIndex][3]}</p>
-                </div>
-              </div>
-              <div
-                className={`flex w-[180px] items-center ${!data[rowIndex][4] ? 'invisible' : ''}`}
-              >
-                <div className="flex items-center gap-[17px]">
-                  <Check />
-                  <p>{data[rowIndex][4]}</p>
-                </div>
-              </div>
+              )}
             </Slider>
           </div>
         </div>

@@ -9,9 +9,12 @@ import MyPage from '@/pages/MyPage';
 import NonMemberPage from '@/pages/NonMemberPage';
 import PaymentPage from '@/pages/PaymentPage';
 import ProductDetailPage from '@/pages/ProductDetailPage';
-import ProductSearchPage from '@/pages/ProductSearchPage';
 import RecommendPage from '@/pages/RecommendPage';
 import RegisterPage from '@/pages/RegisterPage';
+import MobileSearchPage from '@/pages/Search/MobileSearchPage';
+import NotebookSearchPage from '@/pages/Search/NotebookSearchPage';
+import TabletSearchPage from '@/pages/Search/TabletSearchPage';
+import WearableSearchPage from '@/pages/Search/WearableSearchPage';
 import TotalSearchPage from '@/pages/TotalSearchPage';
 
 interface LayoutProps {
@@ -35,7 +38,7 @@ const Layout = ({ children }: LayoutProps) => {
 const Router = () => {
   return (
     <BrowserRouter>
-      <Layout>
+      {/* <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -49,7 +52,123 @@ const Router = () => {
           <Route path="/total-search" element={<TotalSearchPage />} />
           <Route path="/cart" element={<CartPage />} />
         </Routes>
-      </Layout>
+      </Layout> */}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <HomePage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Layout>
+              <LoginPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/mypage"
+          element={
+            <Layout>
+              <MyPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/non-member"
+          element={
+            <Layout>
+              <NonMemberPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <Layout>
+              <PaymentPage />
+            </Layout>
+          }
+        />
+        <Route path="/product">
+          <Route
+            path="mobile"
+            element={
+              <Layout>
+                <MobileSearchPage />
+              </Layout>
+            }
+          />
+          <Route
+            path="tablet"
+            element={
+              <Layout>
+                <TabletSearchPage />
+              </Layout>
+            }
+          />
+          <Route
+            path="notebook"
+            element={
+              <Layout>
+                <NotebookSearchPage />
+              </Layout>
+            }
+          />
+          <Route
+            path="wearable"
+            element={
+              <Layout>
+                <WearableSearchPage />
+              </Layout>
+            }
+          />
+          <Route
+            path="detail"
+            element={
+              <Layout>
+                <ProductDetailPage />
+              </Layout>
+            }
+          />
+        </Route>
+        <Route
+          path="/recommend"
+          element={
+            <Layout>
+              <RecommendPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <Layout>
+              <RegisterPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/total-search"
+          element={
+            <Layout>
+              <TotalSearchPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <Layout>
+              <CartPage />
+            </Layout>
+          }
+        />
+      </Routes>
     </BrowserRouter>
   );
 };

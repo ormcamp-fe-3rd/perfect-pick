@@ -1,4 +1,4 @@
-import ButtonLayout from './ProductBtn';
+import ButtonLayout from '../Product/ProductBtn';
 
 interface SearchSideProps {
   imageSrc?: string;

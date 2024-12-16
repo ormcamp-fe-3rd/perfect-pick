@@ -2,9 +2,9 @@ import { Button } from '@headlessui/react';
 
 import optionsData from '../../../constants/optionsData.json';
 import { CategoryData, OptionsData } from '../../../constants/optionsData.ts';
+import InputString from '../Feature/InputString.tsx';
+import ButtonLayout from '../Product/ProductBtn.tsx';
 import BottomSheetContainer from './BottomSheetContainer.tsx';
-import InputString from './InputString';
-import ButtonLayout from './ProductBtn';
 
 const typedOptionsData: OptionsData = optionsData;
 

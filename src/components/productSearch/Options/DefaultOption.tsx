@@ -7,7 +7,7 @@ import optionsData from '../../../constants/optionsData.json';
 import { CategoryData, OptionsData } from '../../../constants/optionsData.ts';
 import Check from '../Feature/CheckBox.tsx';
 import InputString from '../Feature/InputString.tsx';
-import ButtonLayout from '../Feature/ProductBtn.tsx';
+import ButtonLayout from '../Product/ProductBtn.tsx';
 
 const typedOptionsData: OptionsData = optionsData;
 

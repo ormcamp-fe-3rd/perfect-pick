@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 import optionsData from '../../../constants/optionsData.json';
 import { CategoryData, OptionsData } from '../../../constants/optionsData.ts';
-import BottomSheet from '../Feature/BottomSheet';
-import BottomSheetFeature from '../Feature/BottomSheetFeature';
-import ButtonLayout from '../Feature/ProductBtn';
+import BottomSheet from '../BottomSheet/BottomSheet.tsx';
+import BottomSheetFeature from '../BottomSheet/BottomSheetFeature.tsx';
+import ButtonLayout from '../Product/ProductBtn.tsx';
 import { DefaultOptionProps } from './DefaultOption';
 
 const typedOptionsData: OptionsData = optionsData;
@@ -34,7 +34,7 @@ function MobileOption({ type }: DefaultOptionProps) {
   const categories = categoryData.categories;
 
   return (
-    <div className="w-max-[548px] h-[148px] w-screen pb-3">
+    <div className="w-max-[548px] h-[148px] w-full pb-3">
       <div className="flex justify-center gap-3 px-[10px]">
         <ButtonLayout
           backgroundColor="bg-skyblue"

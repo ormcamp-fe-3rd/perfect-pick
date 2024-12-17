@@ -17,7 +17,7 @@ export default function RightMenu({ isMenuOpen }: RightMenuListProps) {
       {List.map((List, index) => (
         <li
           key={index}
-          className={`${index < 2 ? (isMenuOpen ? '' : 'hidden') : isMenuOpen ? 'lg:hidden' : 'lg:block'} mr-[25px]`}
+          className={`${index < 2 ? (isMenuOpen ? '' : 'hidden') : isMenuOpen ? 'lg:hidden' : 'lg:block'} ml-[25px] sm:ml-[15px]`}
         >
           <Link to={List.to}>
             <img src={List.src} alt={List.alt} />

@@ -14,11 +14,11 @@ export default function Header() {
 
   return (
     <header
-      className={`inner relative z-10 flex h-[121px] flex-wrap items-center justify-between before:absolute before:bottom-0 before:left-1/2 before:h-[1px] before:w-full before:-translate-x-1/2 before:bg-black md:h-[83px] lg:before:w-[calc(100%-30px)] ${isMenuOpen ? '' : 'menu-bg'}`}
+      className={`inner relative z-10 flex h-[121px] flex-wrap items-center justify-between before:absolute before:bottom-0 before:left-1/2 before:h-[1px] before:w-full before:-translate-x-1/2 before:bg-black lg:before:w-[calc(100%-30px)] md:h-[83px] ${isMenuOpen ? '' : 'menu-bg'}`}
     >
       <Link
         to={'/'}
-        className="font-BagelFatOne lg:leading-2 text-[2.5rem] text-[#1F2C3E] sm:text-2xl md:text-[1.875rem] lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2"
+        className="lg:leading-2 font-BagelFatOne text-[2.5rem] text-[#1F2C3E] lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 md:text-[1.875rem] sm:text-2xl"
       >
         <h1>PERFECT PICK</h1>
       </Link>

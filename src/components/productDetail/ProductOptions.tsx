@@ -1,5 +1,4 @@
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 import ActionButton from '@/components/productDetail/ActionButton';
 import CustomStepper from '@/components/productDetail/CustomStepper';
 import SelectOption from '@/components/productDetail/SelectOption';

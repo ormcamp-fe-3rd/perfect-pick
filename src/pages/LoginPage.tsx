@@ -49,11 +49,14 @@ function LoginPage() {
     return null;
   };
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const usernameError = validateUsername(username);
     const passwordError = validatePassword(password);
+
+    console.log(usernameError);
+    console.log(passwordError);
 
     setErrors((prev) => ({
       ...prev,
@@ -62,7 +65,19 @@ function LoginPage() {
     }));
 
     if (!usernameError && !passwordError) {
-      alert('로그인 성공!');
+      try {
+        const { loginEmail } = await import('@/firebase');
+        await loginEmail(username, password);
+        alert('로그인 성공!');
+      } catch (error) {
+        if (error instanceof Error) {
+          setErrors((prev) => ({
+            ...prev,
+            password:
+              '※ 로그인에 실패했습니다. 아이디 또는 비밀번호를 확인해주세요.',
+          }));
+        }
+      }
     }
   };
 

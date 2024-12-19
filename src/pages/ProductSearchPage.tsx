@@ -1,11 +1,11 @@
-import ProductSearch from '../components/productSearch/ProductSearch';
+// import ProductSearch from '../components/productSearch/ProductSearch';
 
-function ProductSearchPage() {
-  return (
-    <>
-      <ProductSearch />
-    </>
-  );
-}
+// function ProductSearchPage() {
+//   return (
+//     <>
+//       <ProductSearch />
+//     </>
+//   );
+// }
 
-export default ProductSearchPage;
+// export default ProductSearchPage;

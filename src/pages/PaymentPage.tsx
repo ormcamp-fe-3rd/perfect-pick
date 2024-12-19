@@ -1,9 +1,10 @@
 import { useState } from 'react';
+
+import DiscountApply from '@/components/payment/DiscountApply';
 import OrderDetails from '@/components/payment/OrderDetails';
+import PaymentButtonModal from '@/components/payment/PaymentButtonModal';
 import PaymentOptions from '@/components/payment/PaymentOptions';
 import ShippingAddress from '@/components/payment/ShippingAddress';
-import DiscountApply from '@/components/payment/DiscountApply';
-import PaymentButtonModal from '@/components/payment/PaymentButtonModal';
 
 function PaymentPage() {
   const [selectedPayment, setSelectedPayment] = useState('');

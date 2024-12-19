@@ -64,7 +64,7 @@ export default function PaymentButtonModal({
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black opacity-50" />
-          <div className="bg-white absolute left-1/2 top-1/2 flex w-2/3 min-w-[500px] max-w-[680px] -translate-x-1/2 -translate-y-1/2 transform flex-col items-center gap-16 rounded-2xl px-10 py-20 text-lg font-semibold checked:flex">
+          <div className="absolute left-1/2 top-1/2 flex w-2/3 min-w-[500px] max-w-[680px] -translate-x-1/2 -translate-y-1/2 transform flex-col items-center gap-16 rounded-2xl bg-white px-10 py-20 text-lg font-semibold checked:flex">
             <div className="text-3xl">결제 비밀번호 입력</div>
             <div className="flex h-10 gap-2">
               {password.split('').map((_, index: number) => (
@@ -75,7 +75,7 @@ export default function PaymentButtonModal({
               {passwordKey.map((value, index) => (
                 <button
                   key={value}
-                  className="text-white w-full rounded-[10px] bg-black text-[30px]"
+                  className="w-full rounded-[10px] bg-black text-[30px] text-white"
                   onClick={() => handleInputChange(value)}
                 >
                   {passwordLable[index]}

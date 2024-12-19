@@ -1,5 +1,6 @@
 import Slider from 'react-slick';
 import ArrowButton from '@/components/Home/ArrowButton';
+import { Link } from 'react-router';
 
 interface Product {
   id: number | string;
@@ -78,7 +79,9 @@ export default function TabSlider({ products }: TabSliderProps) {
         {slides.map((item, index) => (
           <div key={index} className="flex px-2 md:px-0">
             <div className="h-[450px] overflow-hidden rounded-[10px] lg:h-[400px]">
-              <img src={item.src[1]} className="h-full w-full object-cover" />
+              <Link to={`product/${item.id}`}>
+                <img src={item.src[1]} className="h-full w-full object-cover" />
+              </Link>
             </div>
             <div className="px-[10px] pt-[25px] [&_*]:leading-none">
               <p className="text-sm font-semibold text-gray lg:text-sm">

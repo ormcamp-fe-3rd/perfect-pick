@@ -1,19 +1,78 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import { useState, useEffect } from 'react';
 
 import TabSlider from '@/components/Home/TabSlider';
 
+interface Product {
+  id: number | string;
+  title: string;
+  brand: string;
+  category_id: string;
+  isNew: boolean;
+  isSale: boolean;
+  opt_color: Record<string, number>;
+  opt_storage: Record<string, number>;
+  price_dis_rate: string;
+  price_origin: number;
+  price_sell: number;
+  src: Record<number | string, string>;
+  src_feature: Record<number | string, string>;
+}
 interface TabSlideProps {
   subTitle: string;
-  MainTitle: string;
+  mainTitle: string;
+  products: Product[];
 }
 
-export default function TabSlide({ subTitle, MainTitle }: TabSlideProps) {
+export default function TabSlide({
+  subTitle,
+  mainTitle,
+  products,
+}: TabSlideProps) {
+  const [mobileOnSale, setMobileOnSale] = useState<Product[]>([]);
+  const [tabletOnSale, setTabletOnSale] = useState<Product[]>([]);
+  const [notebookOnSale, setNotebookOnSale] = useState<Product[]>([]);
+  const [wearableOnSale, setWearableOnSale] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const categoryFilteredProducts = async () => {
+      const mobileItems = products.filter(
+        (product: Product) => product.category_id === 'mobile',
+      );
+      setMobileOnSale(mobileItems);
+
+      const tabletItems = products.filter(
+        (product: Product) => product.category_id === 'tablet',
+      );
+      setTabletOnSale(tabletItems);
+
+      const notebookItems = products.filter(
+        (product: Product) => product.category_id === 'notebook',
+      );
+      setNotebookOnSale(notebookItems);
+
+      const wearableItems = products.filter(
+        (product: Product) => product.category_id === 'wearable',
+      );
+      setWearableOnSale(wearableItems);
+
+      setLoading(false);
+    };
+
+    categoryFilteredProducts();
+  }, [products]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <div className="mt-[190px] lg:mt-[60px]">
         <strong className="text-xl font-bold lg:text-sm">{subTitle}</strong>
         <h2 className="text-4xl font-extrabold leading-none lg:text-[40px]">
-          {MainTitle}
+          {mainTitle}
         </h2>
       </div>
 
@@ -34,19 +93,16 @@ export default function TabSlide({ subTitle, MainTitle }: TabSlideProps) {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <TabSlider />
+            <TabSlider products={mobileOnSale} />
           </TabPanel>
           <TabPanel>
-            <p>2</p>
-            <TabSlider />
+            <TabSlider products={tabletOnSale} />
           </TabPanel>
           <TabPanel>
-            <p>3</p>
-            <TabSlider />
+            <TabSlider products={notebookOnSale} />
           </TabPanel>
           <TabPanel>
-            <p>4</p>
-            <TabSlider />
+            <TabSlider products={wearableOnSale} />
           </TabPanel>
         </TabPanels>
       </TabGroup>

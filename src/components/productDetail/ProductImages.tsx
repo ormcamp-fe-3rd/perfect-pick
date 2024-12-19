@@ -15,7 +15,9 @@ export default function ProductImages({ product }: { product: any }) {
 
   return (
     <>
-      <div className="mb-4 text-xl">Tablet &gt; Samsung</div>
+      <div className="mb-4 text-xl">
+        {`${product.category_id.toUpperCase()} > ${product.brand}`}
+      </div>
       <div className="relative">
         <img
           src={imagesList[currentIndex].src}

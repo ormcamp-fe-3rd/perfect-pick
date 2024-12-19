@@ -47,7 +47,7 @@ function ProductDetailPage() {
     return (
       <div className="mx-10">
         <div className="mx-auto mt-9 max-w-[1400px] lg:mt-6">
-          <div className="flex w-full flex-row gap-10 lg:flex-col">
+          <div className="flex gap-10 lg:flex-col">
             <div className="flex-grow">
               <ProductImages product={productData} />
             </div>

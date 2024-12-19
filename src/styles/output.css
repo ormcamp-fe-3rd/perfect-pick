@@ -1288,6 +1288,18 @@ video {
   max-width: 680px;
 }
 
+.max-w-10 {
+  max-width: 2.5rem;
+}
+
+.max-w-40 {
+  max-width: 10rem;
+}
+
+.max-w-20 {
+  max-width: 5rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -2878,6 +2890,10 @@ li {
 
   .md\:gap-\[10px\] {
     gap: 10px;
+  }
+
+  .md\:gap-2 {
+    gap: 0.5rem;
   }
 
   .md\:gap-y-\[10px\] {

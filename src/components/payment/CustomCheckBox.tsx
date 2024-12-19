@@ -1,6 +1,6 @@
 import { Checkbox } from '@headlessui/react';
 import clsx from 'clsx';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 
 interface CheckBoxProps {
   style?: string;

@@ -40,21 +40,6 @@ const Layout = ({ children }: LayoutProps) => {
 const Router = () => {
   return (
     <BrowserRouter>
-      {/* <Layout>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/non-member" element={<NonMemberPage />} />
-          <Route path="/payment" element={<PaymentPage />} />
-          <Route path="/product-detail" element={<ProductDetailPage />} />
-          <Route path="/product-search" element={<ProductSearchPage />} />
-          <Route path="/recommend" element={<RecommendPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/total-search" element={<TotalSearchPage />} />
-          <Route path="/cart" element={<CartPage />} />
-        </Routes>
-      </Layout> */}
       <Routes>
         <Route
           path="/"
@@ -130,7 +115,7 @@ const Router = () => {
             }
           />
           <Route
-            path="detail"
+            path=":id"
             element={
               <Layout>
                 <ProductDetailPage />

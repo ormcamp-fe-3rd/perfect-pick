@@ -1,26 +1,34 @@
 import { useState } from 'react';
 import ActionButton from '@/components/productDetail/ActionButton';
-import CustomStepper from '@/components/productDetail/CustomStepper';
+import CustomStepper from '@/components/common/CustomStepper';
 import SelectOption from '@/components/productDetail/SelectOption';
+import { db } from '@/firebase';
+import { collection, addDoc } from '@firebase/firestore';
 
 export default function ProductOptions({ product }: { product: any }) {
-  const optionalPrices: Record<string, Record<string, number>> = {
-    color: product.opt_color,
-    storage: product.opt_storage,
-  };
-
-  const [selectedOptions, setSelectedOptions] = useState(
-    Object.keys(optionalPrices).reduce(
-      (acc, key) => {
-        acc[key] = '';
+  const optionalPrices = Object.entries(product)
+    .filter(([key]) => key.startsWith('opt_'))
+    .reduce(
+      (acc, [key, value]) => {
+        const newKey = key.replace('opt_', '');
+        acc[newKey] = value as Record<string, number>;
         return acc;
       },
-      {} as Record<string, string>,
-    ),
+      {} as Record<string, Record<string, number>>,
+    );
+
+  const initialSelectedOptions = Object.entries(optionalPrices).reduce(
+    (acc, key) => {
+      acc[key[0]] = '';
+      return acc;
+    },
+    {} as Record<string, string>,
   );
 
-  const [totalPrice, setTotalPrice] = useState(product.price_sell);
-
+  const [selectedOptions, setSelectedOptions] = useState(
+    initialSelectedOptions,
+  );
+  const [totalPrice, setTotalPrice] = useState(0);
   const [itemCount, setItemCount] = useState(1);
 
   const handleSelectedOptions = (key: string, value: string) => {
@@ -44,6 +52,11 @@ export default function ProductOptions({ product }: { product: any }) {
     setTotalPrice(price);
   };
 
+  const removeSelectedOption = () => {
+    setSelectedOptions(initialSelectedOptions);
+    setTotalPrice(0);
+  };
+
   const SelectiedOptionsLabel = Object.entries(selectedOptions)
     .filter(([, value]) => value)
     .map(([, value]) => value)
@@ -54,13 +67,32 @@ export default function ProductOptions({ product }: { product: any }) {
     .every(([, value]) => value);
 
   const calculateTotalPrice = (selectedOptions: Record<string, string>) => {
-    let total = product.price_sell;
+    let total = 0;
     for (const key in selectedOptions) {
       if (selectedOptions[key]) {
+        total += product.price_sell;
         total += optionalPrices[key][selectedOptions[key]];
       }
     }
     return total * itemCount;
+  };
+
+  const productData = {
+    product_title: product.title,
+    product_id: product.id,
+    option: SelectiedOptionsLabel,
+    amount: itemCount,
+    price: totalPrice,
+    user_id: `추후연결`,
+  };
+
+  const saveProductData = async (productData: Record<string, any>) => {
+    try {
+      const docRef = await addDoc(collection(db, 'carts'), productData);
+      console.log('Document written with ID: ', docRef.id);
+    } catch (e) {
+      console.error('Error adding document: ', e);
+    }
   };
 
   return (
@@ -91,21 +123,29 @@ export default function ProductOptions({ product }: { product: any }) {
           <SelectOption
             key={index}
             name={key}
-            options={Object.keys(value)}
+            options={Object.keys(value).sort()}
             onChange={handleSelectedOptions}
           />
         ))}
       </div>
       <div className="flex flex-col gap-6 border-y px-3 py-5 md:gap-4 md:px-2 md:py-4">
         {SelectiedOptionsLabel && (
-          <div className="text-2xl font-semibold leading-none md:text-lg">
-            {`옵션: ${SelectiedOptionsLabel}`}
+          <div className="flex items-center gap-4">
+            <div className="text-2xl font-semibold md:text-lg">
+              {`옵션: ${SelectiedOptionsLabel}`}
+            </div>
+            <button
+              className="size-6 rounded-md border border-gray font-semibold"
+              onClick={removeSelectedOption}
+            >
+              X
+            </button>
           </div>
         )}
-        <div className="flex items-center justify-between">
+        <div className="flex">
           <CustomStepper style="max-w-48" onAdjust={handleChangeItemCount} />
-          <div className="w-full text-end text-[36px] font-extrabold leading-none md:text-[28px]">
-            {totalPrice.toLocaleString()}원
+          <div className="w-full text-end text-[36px] font-extrabold leading-none md:text-2xl">
+            {totalPrice === 0 ? '' : `${totalPrice.toLocaleString()}원`}
           </div>
         </div>
       </div>
@@ -114,7 +154,8 @@ export default function ProductOptions({ product }: { product: any }) {
           buttonName="장바구니 담기"
           buttonStyle="bg-gray"
           type="openModal"
-          path="/cart"
+          confirmLinkPath="/cart"
+          onConfirmClick={() => saveProductData(productData)}
           modalContent={
             <>
               <div>상품명: {product.title}</div>
@@ -129,7 +170,7 @@ export default function ProductOptions({ product }: { product: any }) {
           buttonName="구매하기"
           buttonStyle="bg-red"
           type="moveLink"
-          path="/payment"
+          moveLinkPath="/payment"
         />
       </div>
     </div>

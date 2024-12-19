@@ -4,14 +4,20 @@ import CustomStepper from '@/components/common/CustomStepper';
 import SelectOption from '@/components/productDetail/SelectOption';
 
 export default function ProductOptions({ product }: { product: any }) {
-  const optionalPrices: Record<string, Record<string, number>> = {
-    color: product.opt_color,
-    storage: product.opt_storage,
-  };
+  const optionalPrices = Object.entries(product)
+    .filter(([key]) => key.startsWith('opt_'))
+    .reduce(
+      (acc, [key, value]) => {
+        const newKey = key.replace('opt_', '');
+        acc[newKey] = value as Record<string, number>;
+        return acc;
+      },
+      {} as Record<string, Record<string, number>>,
+    );
 
-  const initialSelectedOptions = Object.keys(optionalPrices).reduce(
+  const initialSelectedOptions = Object.entries(optionalPrices).reduce(
     (acc, key) => {
-      acc[key] = '';
+      acc[key[0]] = '';
       return acc;
     },
     {} as Record<string, string>,
@@ -97,7 +103,7 @@ export default function ProductOptions({ product }: { product: any }) {
           <SelectOption
             key={index}
             name={key}
-            options={Object.keys(value)}
+            options={Object.keys(value).sort()}
             onChange={handleSelectedOptions}
           />
         ))}

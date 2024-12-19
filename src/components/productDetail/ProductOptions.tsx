@@ -2,6 +2,8 @@ import { useState } from 'react';
 import ActionButton from '@/components/productDetail/ActionButton';
 import CustomStepper from '@/components/common/CustomStepper';
 import SelectOption from '@/components/productDetail/SelectOption';
+import { db } from '@/firebase';
+import { collection, addDoc } from '@firebase/firestore';
 
 export default function ProductOptions({ product }: { product: any }) {
   const optionalPrices = Object.entries(product)
@@ -75,6 +77,24 @@ export default function ProductOptions({ product }: { product: any }) {
     return total * itemCount;
   };
 
+  const productData = {
+    product_title: product.title,
+    product_id: product.id,
+    option: SelectiedOptionsLabel,
+    amount: itemCount,
+    price: totalPrice,
+    user_id: `추후연결`,
+  };
+
+  const saveProductData = async (productData: Record<string, any>) => {
+    try {
+      const docRef = await addDoc(collection(db, 'carts'), productData);
+      console.log('Document written with ID: ', docRef.id);
+    } catch (e) {
+      console.error('Error adding document: ', e);
+    }
+  };
+
   return (
     <div className="w-full">
       <div className="flex flex-col gap-6 md:items-center md:gap-4">
@@ -134,7 +154,8 @@ export default function ProductOptions({ product }: { product: any }) {
           buttonName="장바구니 담기"
           buttonStyle="bg-gray"
           type="openModal"
-          path="/cart"
+          confirmLinkPath="/cart"
+          onConfirmClick={() => saveProductData(productData)}
           modalContent={
             <>
               <div>상품명: {product.title}</div>
@@ -149,7 +170,7 @@ export default function ProductOptions({ product }: { product: any }) {
           buttonName="구매하기"
           buttonStyle="bg-red"
           type="moveLink"
-          path="/payment"
+          moveLinkPath="/payment"
         />
       </div>
     </div>

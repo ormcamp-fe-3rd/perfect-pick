@@ -1,19 +1,42 @@
+import { useEffect, useState } from 'react';
+
+import { getUserInfo } from '@/firebase';
+
 import UserInfoInput from './UserInfoInput';
 
+interface User {
+  username: string | null;
+  email: string | null;
+}
+
 export default function UserInfo() {
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const userInfo = await getUserInfo();
+        setUser(userInfo);
+      } catch (error) {
+        console.log('사용자 정보를 가져오는 실패했습니다.', error);
+      }
+    };
+    fetchUserInfo();
+  }, []); // 랜더링시 최초 1회 사용
+
   return (
     <div className="mt-[15px] flex flex-col gap-[30px] border-t pt-[35px] font-bold">
       <div className="flex">
         <div className="w-1/3">아이디</div>
-        <div className="w-2/3">{`아이디`}</div>
+        <div className="w-2/3">{'임시'}</div>
       </div>
       <div className="flex">
         <div className="w-1/3">이름</div>
-        <div className="w-2/3">{`이름`}</div>
+        <div className="w-2/3">{user?.username}</div>
       </div>
       <div className="flex">
         <div className="w-1/3">이메일</div>
-        <div className="w-2/3">{`이메일`}</div>
+        <div className="w-2/3">{user?.email}</div>
       </div>
       <div>
         <div>비밀번호</div>

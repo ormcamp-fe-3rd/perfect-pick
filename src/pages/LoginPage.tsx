@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import LoginButton from '@/components/login/LoginButton';
 import LoginInput from '@/components/login/LoginInput';
 import LoginTitle from '@/components/login/LoginTitle';
+import { loginEmail } from '@/firebase';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -55,9 +56,6 @@ function LoginPage() {
     const usernameError = validateUsername(username);
     const passwordError = validatePassword(password);
 
-    console.log(usernameError);
-    console.log(passwordError);
-
     setErrors((prev) => ({
       ...prev,
       username: usernameError,
@@ -66,17 +64,19 @@ function LoginPage() {
 
     if (!usernameError && !passwordError) {
       try {
-        const { loginEmail } = await import('@/firebase');
-        await loginEmail(username, password);
+        // 아이디를 이메일로 변환
+        const emailFormatId = `${username}@example.com`;
+
+        // Firebase 로그인 요청
+        await loginEmail(emailFormatId, password);
         alert('로그인 성공!');
       } catch (error) {
-        if (error instanceof Error) {
-          setErrors((prev) => ({
-            ...prev,
-            password:
-              '※ 로그인에 실패했습니다. 아이디 또는 비밀번호를 확인해주세요.',
-          }));
-        }
+        console.error('로그인 실패:', error);
+        setErrors((prev) => ({
+          ...prev,
+          password:
+            '※ 로그인에 실패했습니다. 아이디 또는 비밀번호를 확인해주세요.',
+        }));
       }
     }
   };

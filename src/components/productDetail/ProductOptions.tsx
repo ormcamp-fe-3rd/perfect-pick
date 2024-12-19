@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ActionButton from '@/components/productDetail/ActionButton';
-import CustomStepper from '@/components/productDetail/CustomStepper';
+import CustomStepper from '@/components/common/CustomStepper';
 import SelectOption from '@/components/productDetail/SelectOption';
 
 export default function ProductOptions({ product }: { product: any }) {
@@ -102,9 +102,9 @@ export default function ProductOptions({ product }: { product: any }) {
             {`옵션: ${SelectiedOptionsLabel}`}
           </div>
         )}
-        <div className="flex items-center justify-between">
+        <div className="flex">
           <CustomStepper style="max-w-48" onAdjust={handleChangeItemCount} />
-          <div className="w-full text-end text-[36px] font-extrabold leading-none md:text-[28px]">
+          <div className="w-full text-end text-[36px] font-extrabold leading-none md:text-2xl">
             {totalPrice.toLocaleString()}원
           </div>
         </div>

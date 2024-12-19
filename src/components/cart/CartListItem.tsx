@@ -1,5 +1,5 @@
 import CartCheckBox from '@/components/cart/CartCheckBox';
-import CustomStepper from '@/components/cart/CustomStepper';
+import CustomStepper from '@/components/common/CustomStepper';
 
 interface CartProduct {
   id: number;
@@ -55,11 +55,11 @@ export default function CartListItem({
         </div>
         <div className="relative flex h-full items-center justify-center border-r lg:border-0">
           <div className="absolute left-20 hidden text-2xl lg:block">수량:</div>
-          <div className="flex w-full lg:w-52">
+          <div className="flex w-full justify-center lg:w-52">
             <CustomStepper
               shape="round"
-              size="size-10 lg:size-7"
-              fontSize="text-2xl lg:text-xl"
+              style="size-10 lg:size-7"
+              numberStyle="text-2xl lg:text-xl"
               defaultValue={item.amount}
             />
           </div>

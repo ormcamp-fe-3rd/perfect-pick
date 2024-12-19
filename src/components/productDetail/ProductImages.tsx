@@ -15,12 +15,12 @@ export default function ProductImages({ product }: { product: any }) {
 
   return (
     <>
-      <span className="text-xl">Tablet &gt; Samsung</span>
-      <div className="relative pt-4">
+      <div className="mb-4 text-xl">Tablet &gt; Samsung</div>
+      <div className="relative">
         <img
           src={imagesList[currentIndex].src}
           alt={imagesList[currentIndex].alt}
-          className="h-full max-h-[630px] w-full rounded-3xl object-cover"
+          className="w-full rounded-3xl object-contain"
         />
         <div className="absolute bottom-6 right-6 flex flex-col gap-4">
           {imagesList.map((image, index) => (

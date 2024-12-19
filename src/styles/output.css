@@ -1692,6 +1692,7 @@ video {
   stroke: #50D75D;
 }
 
+
 .object-contain {
   -o-object-fit: contain;
      object-fit: contain;
@@ -1895,6 +1896,11 @@ video {
 
 .pt-\[85px\] {
   padding-top: 85px;
+}
+
+
+.pb-6 {
+  padding-bottom: 1.5rem;
 }
 
 .text-left {
@@ -2685,6 +2691,10 @@ li {
     margin-top: 5px;
   }
 
+  .md\:mb-4 {
+    margin-bottom: 1rem;
+  }
+
   .md\:\!block {
     display: block !important;
   }
@@ -2853,6 +2863,10 @@ li {
 
   .md\:pt-\[50px\] {
     padding-top: 50px;
+  }
+
+  .md\:pb-4 {
+    padding-bottom: 1rem;
   }
 
   .md\:text-right {

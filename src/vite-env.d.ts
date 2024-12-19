@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+
 interface ImportMetaEnv {
   readonly VITE_APP_FIREBASE_APIKEY: string;
   readonly VITE_APP_FIREBASE_AUTH_DOMAIN: string;

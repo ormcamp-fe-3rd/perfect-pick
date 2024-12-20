@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 interface CustomStepperProps {
   shape?: 'round' | 'square';
-  style?: string;
+  frameStyle?: string;
   numberStyle?: string;
   buttonStyle?: string;
   defaultValue?: number;
@@ -11,7 +11,7 @@ interface CustomStepperProps {
 
 export default function CustomStepper({
   shape = 'square',
-  style = '',
+  frameStyle = '',
   numberStyle = '',
   buttonStyle = '',
   defaultValue = 1,
@@ -35,7 +35,7 @@ export default function CustomStepper({
 
   return (
     <div
-      className={`${style} flex w-full max-w-40 justify-between gap-5 text-center text-lg font-semibold`}
+      className={`${frameStyle} flex w-full max-w-40 justify-between gap-5 text-center text-lg font-semibold`}
     >
       <button
         className={`${buttonStyle} flex size-10 items-center justify-center ${shapeProp} bg-[#D9D9D9]`}

@@ -58,7 +58,7 @@ export default function CartListItem({
           <div className="flex w-full justify-center lg:w-52">
             <CustomStepper
               shape="round"
-              style="size-10 lg:size-7"
+              frameStyle="size-10 lg:size-7"
               numberStyle="text-2xl lg:text-xl"
               defaultValue={item.amount}
             />

@@ -38,7 +38,7 @@ export default function ProductOptions({
     initialSelectedOptions,
   );
   const [totalPrice, setTotalPrice] = useState(0);
-  const [itemCount, setItemCount] = useState(1);
+  const [itemCount, setItemCount] = useState(1); // 상품 수량 기본값 1
 
   const handleSelectedOptions = (key: string, value: string) => {
     const updatedOptions = { ...selectedOptions, [key]: value };
@@ -66,7 +66,7 @@ export default function ProductOptions({
     setTotalPrice(0);
   };
 
-  const SelectiedOptionsLabel = Object.entries(selectedOptions)
+  const selectiedOptionsLabel = Object.entries(selectedOptions)
     .filter(([, value]) => value)
     .sort()
     .map(([, value]) => value)
@@ -89,7 +89,7 @@ export default function ProductOptions({
   const productData = {
     product_title: product.title,
     product_id: product.id,
-    option: SelectiedOptionsLabel,
+    option: selectiedOptionsLabel,
     amount: itemCount,
     price: totalPrice,
     user_id: userId,
@@ -97,7 +97,7 @@ export default function ProductOptions({
 
   console.log(`productData`, productData);
 
-  const saveProductData = async (productData: Record<string, any>) => {
+  const saveProductData = async (productData: Record<string, string>) => {
     if (!userId) {
       alert('로그인하지 않으면 장바구니에 상품이 담기지 않습니다.');
       return;
@@ -145,10 +145,10 @@ export default function ProductOptions({
         ))}
       </div>
       <div className="flex flex-col gap-6 border-y px-3 py-5 md:gap-4 md:px-2 md:py-4">
-        {SelectiedOptionsLabel && (
+        {selectiedOptionsLabel && (
           <div className="flex items-center gap-4">
             <div className="text-2xl font-semibold md:text-lg">
-              {`옵션: ${SelectiedOptionsLabel}`}
+              {`옵션: ${selectiedOptionsLabel}`}
             </div>
             <button
               className="size-6 rounded-md border border-gray font-semibold"
@@ -178,7 +178,7 @@ export default function ProductOptions({
           modalContent={
             <>
               <div>상품명: {product.title}</div>
-              <div>옵션: {SelectiedOptionsLabel}</div>
+              <div>옵션: {selectiedOptionsLabel}</div>
               <div>수량: {itemCount}</div>
               <div>금액: {totalPrice.toLocaleString()}원</div>
             </>

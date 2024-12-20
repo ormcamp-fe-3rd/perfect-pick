@@ -1,5 +1,6 @@
 // import ProductSearch from '../components/productSearch/ProductSearch';
 
+
 // function ProductSearchPage() {
 //   return (
 //     <>
@@ -7,5 +8,7 @@
 //     </>
 //   );
 // }
+
+
 
 // export default ProductSearchPage;

@@ -1,43 +1,16 @@
 import { useState } from 'react';
-
 import ActionButton from '@/components/productDetail/ActionButton';
 import CustomStepper from '@/components/productDetail/CustomStepper';
 import SelectOption from '@/components/productDetail/SelectOption';
 
-// 임시: 추후 서버 연결
-const productInfo = {
-  id: 1,
-  name: '갤럭시 S24 FE 자급제',
-  brand: 'Samsung',
-  price: {
-    originalPrice: 946000,
-    discountRate: '14%',
-    discountedPrice: 869000,
-  },
-};
+export default function ProductOptions({ product }: { product: any }) {
+  const optionalPrices: Record<string, Record<string, number>> = {
+    color: product.opt_color,
+    storage: product.opt_storage,
+  };
 
-const optionPrices: Record<string, Record<string, number>> = {
-  color: {
-    white: 0,
-    black: 0,
-    blue: 0,
-  },
-  storage: {
-    '128GB': 0,
-    '256GB(+100)': 100,
-    '512GB(+200)': 200,
-    '1TB(+300)': 300,
-  },
-  additional: {
-    'charger_A(+30)': 30,
-    'charger_B(+50)': 50,
-    'cable(+10)': 10,
-  },
-};
-
-export default function ProductOptions() {
   const [selectedOptions, setSelectedOptions] = useState(
-    Object.keys(optionPrices).reduce(
+    Object.keys(optionalPrices).reduce(
       (acc, key) => {
         acc[key] = '';
         return acc;
@@ -46,9 +19,7 @@ export default function ProductOptions() {
     ),
   );
 
-  const [totalPrice, setTotalPrice] = useState(
-    productInfo.price.discountedPrice,
-  );
+  const [totalPrice, setTotalPrice] = useState(product.price_sell);
 
   const [itemCount, setItemCount] = useState(1);
 
@@ -83,52 +54,54 @@ export default function ProductOptions() {
     .every(([, value]) => value);
 
   const calculateTotalPrice = (selectedOptions: Record<string, string>) => {
-    let total = productInfo.price.discountedPrice;
+    let total = product.price_sell;
     for (const key in selectedOptions) {
       if (selectedOptions[key]) {
-        total += optionPrices[key][selectedOptions[key]];
+        total += optionalPrices[key][selectedOptions[key]];
       }
     }
-    return total;
+    return total * itemCount;
   };
 
   return (
     <div className="w-full">
       <div className="flex flex-col gap-6 md:items-center md:gap-4">
         <span className="text-xl leading-none text-gray md:text-base">
-          {productInfo.brand}
+          {product.brand}
         </span>
         <div className="text-3xl font-semibold leading-none md:text-[30px]">
-          {productInfo.name}
+          {product.title}
         </div>
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:gap-10 sm:gap-5">
           <div className="flex gap-20 lg:gap-10 md:gap-5">
             <span className="text-[36px] leading-none text-red md:text-2xl">
-              {productInfo.price.discountRate}
+              {product.price_dis_rate}
             </span>
             <span className="text-[36px] font-extrabold leading-none text-red md:text-2xl">
-              {productInfo.price.discountedPrice.toLocaleString()}원
+              {product.price_sell.toLocaleString()}원 ~
             </span>
           </div>
           <span className="text-2xl font-semibold leading-none text-gray line-through md:text-base">
-            {productInfo.price.originalPrice.toLocaleString()}원
+            {product.price_origin.toLocaleString()}원
           </span>
         </div>
       </div>
       <div className="my-8 flex flex-col gap-5 text-lg md:my-5 md:gap-3">
-        {Object.keys(optionPrices).map((key, index) => (
+        {Object.entries(optionalPrices).map(([key, value], index) => (
           <SelectOption
             key={index}
             name={key}
-            options={Object.keys(optionPrices[key])}
+            options={Object.keys(value)}
             onChange={handleSelectedOptions}
           />
         ))}
       </div>
       <div className="flex flex-col gap-6 border-y px-3 py-5 md:gap-4 md:px-2 md:py-4">
-        <div className="text-2xl font-semibold leading-none md:text-lg">
-          {`옵션: ${SelectiedOptionsLabel}`}
-        </div>
+        {SelectiedOptionsLabel && (
+          <div className="text-2xl font-semibold leading-none md:text-lg">
+            {`옵션: ${SelectiedOptionsLabel}`}
+          </div>
+        )}
         <div className="flex items-center justify-between">
           <CustomStepper style="max-w-48" onAdjust={handleChangeItemCount} />
           <div className="w-full text-end text-[36px] font-extrabold leading-none md:text-[28px]">
@@ -144,7 +117,7 @@ export default function ProductOptions() {
           path="/cart"
           modalContent={
             <>
-              <div>상품명: {productInfo.name}</div>
+              <div>상품명: {product.title}</div>
               <div>옵션: {SelectiedOptionsLabel}</div>
               <div>수량: {itemCount}</div>
               <div>금액: {totalPrice.toLocaleString()}원</div>

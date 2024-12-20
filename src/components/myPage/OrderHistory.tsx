@@ -48,8 +48,11 @@ export default function OrderHistory() {
   return (
     <>
       {orderHistory.map((item) => (
-        <div className="mt-[15px] flex items-center justify-between gap-5 border-t p-5 text-xl font-semibold md:flex-col md:items-start">
-          <div key={item.id} className="flex gap-5">
+        <div
+          key={item.id}
+          className="mt-[15px] flex items-center justify-between gap-5 border-t p-5 text-xl font-semibold md:flex-col md:items-start"
+        >
+          <div className="flex gap-5">
             <img
               className="size-[110px] rounded-[10px]"
               src={item.src}

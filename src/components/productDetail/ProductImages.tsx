@@ -1,19 +1,17 @@
 import { useState } from 'react';
 
-// 임시: 추후 서버 연결
-const imagesList = [
-  { id: '1', src: 'https://i.imgur.com/Jvh1OQmb.jpg', alt: 'image1' },
-  { id: '2', src: 'https://i.imgur.com/zADtGy9b.jpg', alt: 'image2' },
-  { id: '3', src: 'https://i.imgur.com/Ae1wefjb.jpg', alt: 'image3' },
-  { id: '4', src: 'https://i.imgur.com/svOz7A9b.jpg', alt: 'image4' },
-];
-
-export default function ProductImages() {
+export default function ProductImages({ product }: { product: any }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleButtonClick = (index: number) => {
     setCurrentIndex(index);
   };
+
+  const imagesList = Object.entries(product.src).map(([key, value], index) => ({
+    id: (index + 1).toString(),
+    src: value as string,
+    alt: `image_${key}`,
+  }));
 
   return (
     <>

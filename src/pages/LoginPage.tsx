@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import LoginButton from '@/components/login/LoginButton';
 import LoginInput from '@/components/login/LoginInput';
 import LoginTitle from '@/components/login/LoginTitle';
+import { loginEmail } from '@/firebase';
 
 function LoginPage() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [orderNumber, setOrderNumber] = useState('');
@@ -49,7 +51,7 @@ function LoginPage() {
     return null;
   };
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const usernameError = validateUsername(username);
@@ -62,7 +64,22 @@ function LoginPage() {
     }));
 
     if (!usernameError && !passwordError) {
-      alert('로그인 성공!');
+      try {
+        // 아이디를 이메일로 변환
+        const emailFormatId = `${username}@example.com`;
+
+        // Firebase 로그인 요청
+        await loginEmail(emailFormatId, password);
+        alert('로그인 성공!');
+        navigate('/mypage');
+      } catch (error) {
+        console.error('로그인 실패:', error);
+        setErrors((prev) => ({
+          ...prev,
+          password:
+            '※ 로그인에 실패했습니다. 아이디 또는 비밀번호를 확인해주세요.',
+        }));
+      }
     }
   };
 

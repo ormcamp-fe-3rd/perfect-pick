@@ -1,11 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { db } from '@/firebase';
+import { db, getUserInfo } from '@/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import ProductDescription from '@/components/productDetail/ProductDescription';
 import ProductImages from '@/components/productDetail/ProductImages';
 import ProductOptions from '@/components/productDetail/ProductOptions';
-import { getUserInfo } from '@/firebase';
 import { UserData } from '@/types';
 
 function ProductDetailPage() {
@@ -41,7 +40,7 @@ function ProductDetailPage() {
 
     const fetchUserInfo = async () => {
       try {
-        const userInfo = await getUserInfo();
+        const userInfo = (await getUserInfo()) as UserData;
         setUser(userInfo);
       } catch (error) {
         console.log('사용자 정보를 가져오는 실패했습니다.', error);
@@ -50,7 +49,7 @@ function ProductDetailPage() {
 
     fetchProductData();
     fetchUserInfo();
-  }, [id]);
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;

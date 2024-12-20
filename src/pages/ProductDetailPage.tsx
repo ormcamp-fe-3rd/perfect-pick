@@ -6,18 +6,13 @@ import ProductDescription from '@/components/productDetail/ProductDescription';
 import ProductImages from '@/components/productDetail/ProductImages';
 import ProductOptions from '@/components/productDetail/ProductOptions';
 import { getUserInfo } from '@/firebase';
-
-interface User {
-  username: string | null;
-  email: string | null;
-  id: string;
-}
+import { UserData } from '@/types';
 
 function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
   const [productData, setProductData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserData | null>(null);
 
   useEffect(() => {
     const fetchProductData = async () => {

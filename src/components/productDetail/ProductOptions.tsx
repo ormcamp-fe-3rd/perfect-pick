@@ -4,14 +4,17 @@ import CustomStepper from '@/components/common/CustomStepper';
 import SelectOption from '@/components/productDetail/SelectOption';
 import { db } from '@/firebase';
 import { collection, addDoc } from '@firebase/firestore';
+import { Product } from '@/types';
+
+interface ProductOptionsProps {
+  product: Product;
+  userId?: string;
+}
 
 export default function ProductOptions({
   product,
   userId,
-}: {
-  product: any;
-  userId?: string;
-}) {
+}: ProductOptionsProps) {
   const optionalPrices = Object.entries(product)
     .filter(([key]) => key.startsWith('opt_'))
     .reduce(
@@ -127,7 +130,7 @@ export default function ProductOptions({
             </span>
           </div>
           <span className="text-2xl font-semibold leading-none text-gray line-through md:text-base">
-            {product.price_origin.toLocaleString()}원
+            {product.price_origin?.toLocaleString()}원
           </span>
         </div>
       </div>

@@ -5,7 +5,13 @@ import SelectOption from '@/components/productDetail/SelectOption';
 import { db } from '@/firebase';
 import { collection, addDoc } from '@firebase/firestore';
 
-export default function ProductOptions({ product }: { product: any }) {
+export default function ProductOptions({
+  product,
+  userId,
+}: {
+  product: any;
+  userId?: string;
+}) {
   const optionalPrices = Object.entries(product)
     .filter(([key]) => key.startsWith('opt_'))
     .reduce(
@@ -59,9 +65,9 @@ export default function ProductOptions({ product }: { product: any }) {
 
   const SelectiedOptionsLabel = Object.entries(selectedOptions)
     .filter(([, value]) => value)
+    .sort()
     .map(([, value]) => value)
     .join('/');
-
   const checkRequiredOptionsSelected = Object.entries(selectedOptions)
     .filter(([key]) => key !== 'additional')
     .every(([, value]) => value);
@@ -83,8 +89,12 @@ export default function ProductOptions({ product }: { product: any }) {
     option: SelectiedOptionsLabel,
     amount: itemCount,
     price: totalPrice,
-    user_id: `추후연결`,
+    user_id: userId,
   };
+
+  console.log('selectedOptions', selectedOptions);
+  console.log('SelectiedOptionsLabel', SelectiedOptionsLabel);
+  console.log('productData', productData);
 
   const saveProductData = async (productData: Record<string, any>) => {
     try {

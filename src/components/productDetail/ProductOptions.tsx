@@ -92,11 +92,14 @@ export default function ProductOptions({
     user_id: userId,
   };
 
-  console.log('selectedOptions', selectedOptions);
-  console.log('SelectiedOptionsLabel', SelectiedOptionsLabel);
-  console.log('productData', productData);
+  console.log(`productData`, productData);
 
   const saveProductData = async (productData: Record<string, any>) => {
+    if (!userId) {
+      alert('로그인하지 않으면 장바구니에 상품이 담기지 않습니다.');
+      return;
+    }
+
     try {
       const docRef = await addDoc(collection(db, 'carts'), productData);
       console.log('Document written with ID: ', docRef.id);

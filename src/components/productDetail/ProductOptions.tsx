@@ -156,7 +156,10 @@ export default function ProductOptions({
           </div>
         )}
         <div className="flex">
-          <CustomStepper style="max-w-48" onAdjust={handleChangeItemCount} />
+          <CustomStepper
+            frameStyle="max-w-48"
+            onAdjust={handleChangeItemCount}
+          />
           <div className="w-full text-end text-[36px] font-extrabold leading-none md:text-2xl">
             {totalPrice === 0 ? '' : `${totalPrice.toLocaleString()}원`}
           </div>

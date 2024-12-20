@@ -6,10 +6,9 @@ import Modal from '@/components/productDetail/Modal';
 interface ActionButtonProps {
   buttonName: string;
   buttonStyle?: string;
-  type?: 'openModal' | 'moveLink' | 'default';
+  type?: 'openModal' | 'moveLink';
   confirmLinkPath?: string;
   moveLinkPath?: string;
-  onClick?: () => void;
   modalContent?: ReactNode;
   onConfirmClick?: () => void;
   disableModal?: boolean;
@@ -18,10 +17,9 @@ interface ActionButtonProps {
 export default function ActionButton({
   buttonName,
   buttonStyle,
-  type = 'default',
+  type,
   confirmLinkPath = '/',
   moveLinkPath = '/',
-  onClick,
   modalContent,
   onConfirmClick,
   disableModal = false,
@@ -32,13 +30,12 @@ export default function ActionButton({
   const handleButtonClick = (moveLinkPath: string) => {
     if (disableModal) {
       setIsModalOpen(false);
-      alert('필수 옵션을 선택해주세요');
-    } else if (type === 'openModal') {
+    }
+
+    if (type === 'openModal') {
       setIsModalOpen(true);
-    } else if (type === 'moveLink') {
-      navigate(moveLinkPath);
     } else {
-      onClick;
+      navigate(moveLinkPath);
     }
   };
 

@@ -1,10 +1,9 @@
-
 import { useEffect, useState } from 'react';
 
+import SearchAddress from '@/components/myPage/SearchAddress';
 import { getUserInfo } from '@/firebase';
 
 import UserInfoInput from './UserInfoInput';
-
 
 interface User {
   username: string | null;

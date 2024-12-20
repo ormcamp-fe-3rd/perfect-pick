@@ -58,6 +58,8 @@ export default function TabSlider({ products }: TabSliderProps) {
       (_, i) => products[(products.length + i) % products.length],
     ),
   ];
+  console.log('products:', products);
+  console.log('slides:', slides);
 
   return (
     <div className="slider-container mt-[50px]">
@@ -80,7 +82,7 @@ export default function TabSlider({ products }: TabSliderProps) {
                 {item.price_sell.toLocaleString()}원
               </strong>
               <span className="relative font-semibold text-gray after:absolute after:left-0 after:top-1/2 after:h-[2px] after:w-full after:-translate-y-1/2 after:bg-gray">
-                {item.price_origin.toLocaleString()}
+                {item.price_origin?.toLocaleString()}
               </span>
             </div>
           </div>

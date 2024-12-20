@@ -15,38 +15,27 @@ export default function TabSlide({
   mainTitle,
   products,
 }: TabSlideProps) {
-  const [mobileOnSale, setMobileOnSale] = useState<Product[]>([]);
-  const [tabletOnSale, setTabletOnSale] = useState<Product[]>([]);
-  const [notebookOnSale, setNotebookOnSale] = useState<Product[]>([]);
-  const [wearableOnSale, setWearableOnSale] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<{
+    [key: string]: Product[];
+  }>({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const categoryFilteredProducts = async () => {
-      const mobileItems = products.filter(
-        (product: Product) => product.category_id === 'mobile',
-      );
-      setMobileOnSale(mobileItems);
+    const filterByCategory = () => {
+      const categories = ['mobile', 'tablet', 'notebook', 'wearable'];
+      const filtered: { [key: string]: Product[] } = {};
 
-      const tabletItems = products.filter(
-        (product: Product) => product.category_id === 'tablet',
-      );
-      setTabletOnSale(tabletItems);
+      categories.forEach((category) => {
+        filtered[category] = products.filter(
+          (product) => product.category_id === category,
+        );
+      });
 
-      const notebookItems = products.filter(
-        (product: Product) => product.category_id === 'notebook',
-      );
-      setNotebookOnSale(notebookItems);
-
-      const wearableItems = products.filter(
-        (product: Product) => product.category_id === 'wearable',
-      );
-      setWearableOnSale(wearableItems);
-
+      setFilteredProducts(filtered);
       setLoading(false);
     };
 
-    categoryFilteredProducts();
+    filterByCategory();
   }, [products]);
 
   if (loading) {
@@ -79,16 +68,16 @@ export default function TabSlide({
         </TabList>
         <TabPanels>
           <TabPanel>
-            <TabSlider products={mobileOnSale} />
+            <TabSlider products={filteredProducts.mobile} />
           </TabPanel>
           <TabPanel>
-            <TabSlider products={tabletOnSale} />
+            <TabSlider products={filteredProducts.tablet} />
           </TabPanel>
           <TabPanel>
-            <TabSlider products={notebookOnSale} />
+            <TabSlider products={filteredProducts.notebook} />
           </TabPanel>
           <TabPanel>
-            <TabSlider products={wearableOnSale} />
+            <TabSlider products={filteredProducts.wearable} />
           </TabPanel>
         </TabPanels>
       </TabGroup>

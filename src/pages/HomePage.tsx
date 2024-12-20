@@ -5,18 +5,18 @@ import { db } from '@/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
 interface Product {
-  id: number | string;
-  title: string;
-  brand: string;
-  category_id: string;
+  id?: number | string;
+  title?: string;
+  brand?: string;
+  category_id?: string;
   isNew?: boolean;
   isSale?: boolean;
-  opt_color: Record<string, number>;
-  opt_storage: Record<string, number>;
-  price_dis_rate: string;
-  price_origin: number;
-  price_sell: number;
-  src: Record<number | string, string>;
+  opt_color?: Record<string, number>;
+  opt_storage?: Record<string, number>;
+  price_dis_rate?: string;
+  price_origin?: number;
+  price_sell?: number;
+  src?: Record<number | string, string>;
   src_feature?: Record<number | string, string>;
 }
 
@@ -37,33 +37,24 @@ const fetchProducts = async () => {
 };
 
 function HomePage() {
-  const [saleProducts, setSaleProducts] = useState([]);
-  const [newProducts, setNewProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const filteredProducts = async () => {
-      const products = await fetchProducts();
-
-      const saleItems = products.filter(
-        (product: Product) => product.isSale === true,
-      );
-      setSaleProducts(saleItems);
-
-      const newItems = products.filter(
-        (product: Product) => product.isNew === true,
-      );
-      setNewProducts(newItems);
-
+    const fetchAndSetProducts = async () => {
+      const fetchedProducts = await fetchProducts();
+      setProducts(fetchedProducts as Product[]);
       setLoading(false);
     };
-
-    filteredProducts();
+    fetchAndSetProducts();
   }, []);
 
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  const saleProducts = products.filter((product) => product.isSale === true);
+  const newProducts = products.filter((product) => product.isNew === true);
 
   return (
     <>

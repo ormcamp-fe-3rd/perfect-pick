@@ -19,3 +19,12 @@ export interface Product {
   src: Record<number | string, string>;
   src_feature: Record<number | string, string>;
 }
+
+export interface CartItemData {
+  product_title: string;
+  product_id: string | number;
+  option: Record<string, string>;
+  amount: number;
+  price: number;
+  user_id: string | undefined;
+}

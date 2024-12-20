@@ -4,7 +4,7 @@ import CustomStepper from '@/components/common/CustomStepper';
 import SelectOption from '@/components/productDetail/SelectOption';
 import { db } from '@/firebase';
 import { collection, addDoc } from '@firebase/firestore';
-import { Product } from '@/types';
+import { CartItemData, Product } from '@/types';
 
 interface ProductOptionsProps {
   product: Product;
@@ -66,15 +66,6 @@ export default function ProductOptions({
     setTotalPrice(0);
   };
 
-  const selectiedOptionsLabel = Object.entries(selectedOptions)
-    .filter(([, value]) => value)
-    .sort()
-    .map(([, value]) => value)
-    .join('/');
-  const checkRequiredOptionsSelected = Object.entries(selectedOptions)
-    .filter(([key]) => key !== 'additional')
-    .every(([, value]) => value);
-
   const calculateTotalPrice = (selectedOptions: Record<string, string>) => {
     let total = 0;
     for (const key in selectedOptions) {
@@ -86,25 +77,33 @@ export default function ProductOptions({
     return total * itemCount;
   };
 
-  const productData = {
+  const selectedOptionsLabel = Object.entries(selectedOptions)
+    .filter(([, value]) => value)
+    .sort()
+    .map(([, value]) => value)
+    .join('/');
+
+  const checkRequiredOptionsSelected = Object.entries(selectedOptions)
+    .filter(([key]) => key !== 'additional')
+    .every(([, value]) => value);
+
+  const cartItemData = {
     product_title: product.title,
     product_id: product.id,
-    option: selectiedOptionsLabel,
+    option: selectedOptions,
     amount: itemCount,
     price: totalPrice,
     user_id: userId,
   };
 
-  console.log(`productData`, productData);
-
-  const saveProductData = async (productData: Record<string, string>) => {
+  const saveCartItemData = async (cartItemData: CartItemData) => {
     if (!userId) {
       alert('로그인하지 않으면 장바구니에 상품이 담기지 않습니다.');
       return;
     }
 
     try {
-      const docRef = await addDoc(collection(db, 'carts'), productData);
+      const docRef = await addDoc(collection(db, 'carts'), cartItemData);
       console.log('Document written with ID: ', docRef.id);
     } catch (e) {
       console.error('Error adding document: ', e);
@@ -145,10 +144,10 @@ export default function ProductOptions({
         ))}
       </div>
       <div className="flex flex-col gap-6 border-y px-3 py-5 md:gap-4 md:px-2 md:py-4">
-        {selectiedOptionsLabel && (
+        {selectedOptionsLabel && (
           <div className="flex items-center gap-4">
             <div className="text-2xl font-semibold md:text-lg">
-              {`옵션: ${selectiedOptionsLabel}`}
+              {`옵션: ${selectedOptionsLabel}`}
             </div>
             <button
               className="size-6 rounded-md border border-gray font-semibold"
@@ -174,11 +173,11 @@ export default function ProductOptions({
           buttonStyle="bg-gray"
           type="openModal"
           confirmLinkPath="/cart"
-          onConfirmClick={() => saveProductData(productData)}
+          onConfirmClick={() => saveCartItemData(cartItemData)}
           modalContent={
             <>
               <div>상품명: {product.title}</div>
-              <div>옵션: {selectiedOptionsLabel}</div>
+              <div>옵션: {selectedOptionsLabel}</div>
               <div>수량: {itemCount}</div>
               <div>금액: {totalPrice.toLocaleString()}원</div>
             </>

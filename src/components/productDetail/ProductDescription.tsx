@@ -8,7 +8,14 @@ const productDetailsList = [
   { name: '통신망', value: '5G' },
 ];
 
-export default function ProductDescription() {
+export default function ProductDescription({ product }: { product: any }) {
+  const productDetailImages = Object.entries(product.src_feature).map(
+    ([key, value]) => ({
+      src: value as string,
+      alt: `image_${key}`,
+    }),
+  );
+
   const returnExchaneInfo = [
     { name: '판매자 지정택배사', value: 'CJ대한통운' },
     { name: '반품배송비', value: '편도 3,000원' },
@@ -47,12 +54,15 @@ export default function ProductDescription() {
           <Tab className="data-[selected]:text-black">반품/교환 정보</Tab>
         </TabList>
         <TabPanels id="productDescription">
-          <TabPanel className="flex w-full justify-center px-10">
-            <img
-              className="w-full max-w-[1080px]"
-              src="https://i.imgur.com/Jvh1OQmb.jpg"
-              alt="image1"
-            />
+          <TabPanel className="flex w-full flex-col items-center px-10">
+            {Object.entries(productDetailImages).map(([key, value]) => (
+              <img
+                key={key}
+                className="w-full max-w-[1080px]"
+                src={value.src}
+                alt={value.alt}
+              />
+            ))}
           </TabPanel>
           <TabPanel id="productSpecs">
             <div className="my-10 flex flex-col gap-5">

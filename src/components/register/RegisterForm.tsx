@@ -57,7 +57,7 @@ export default function RegisterForm() {
 
         // Firebase에서 생성된 UID와 username, email 저장
         const { uid } = userCredential.user;
-        await saveUserToDB(uid, formValues.username, emailFormatId);
+        await saveUserToDB(uid, formValues.username, formValues.email);
 
         setIsSuccess(true);
       } catch (error) {

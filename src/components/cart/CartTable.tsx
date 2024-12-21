@@ -9,6 +9,7 @@ import {
   getDocs,
   updateDoc,
   doc,
+  deleteDoc,
 } from '@firebase/firestore';
 import { CartItemData, UserData } from '@/types';
 
@@ -124,11 +125,24 @@ export default function CartTable() {
     }
   };
 
-  console.log('userId', userId);
-  console.log('cartData', cartData);
-  // console.log('allItemsId', allItemsId);
-  // console.log('selectedItemsId', selectedItemsId);
-  console.log('selectedItems', selectedItems);
+  // 선택삭제 버튼 동작
+  const handleDeleteSelectedItems = async () => {
+    try {
+      await Promise.all(
+        selectedItemsId.map((id) => {
+          const docRef = doc(db, 'carts', id);
+          return deleteDoc(docRef);
+        }),
+      );
+      const updatedCart = cartData.filter(
+        (item) => !selectedItemsId.includes(item.id),
+      );
+      setCartData(updatedCart);
+      alert('선택된 상품이 삭제되었습니다.');
+    } catch (error) {
+      alert(`상품 삭제 중 오류 발생:${error}`);
+    }
+  };
 
   if (cartData.length === 0) {
     return (
@@ -146,7 +160,10 @@ export default function CartTable() {
         >
           모두 선택
         </CartCheckBox>
-        <button className="h-[35px] w-[126px] rounded-[50px] bg-[#D9D9D9] text-2xl">
+        <button
+          className="h-[35px] w-[126px] rounded-[50px] bg-[#D9D9D9] text-2xl"
+          onClick={handleDeleteSelectedItems}
+        >
           선택 삭제
         </button>
       </div>

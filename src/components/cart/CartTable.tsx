@@ -20,7 +20,7 @@ export default function CartTable() {
   const [userId, setUserId] = useState('');
   const [cartData, setCartData] = useState<CartData[]>([]);
   const [allItemsId, setAllItemsId] = useState<string[]>([]);
-  const [checkedItemsID, setCheckedItemsID] = useState<string[]>([]);
+  const [selectedItemsId, setSelectedItemsId] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -59,28 +59,13 @@ export default function CartTable() {
   useEffect(() => {
     const newAllItemsId = cartData.map((item) => item.id);
     setAllItemsId(newAllItemsId);
-    setCheckedItemsID(newAllItemsId);
+    setSelectedItemsId(newAllItemsId);
   }, [cartData]);
-
-  // 장바구니 수량 수정
-  const handleQuantityChange = async (itemId: string, newQuantity: number) => {
-    try {
-      const cartItemRef = doc(db, 'carts', itemId);
-      await updateDoc(cartItemRef, { amount: newQuantity });
-
-      const updatedCart = cartData.map((item) =>
-        item.id === itemId ? { ...item, amount: newQuantity } : item,
-      );
-      setCartData(updatedCart);
-    } catch (error) {
-      console.error('Error updating quantity', error);
-    }
-  };
 
   // 선택된 상품의 데이터
   const selectedItems = useMemo(() => {
-    return cartData.filter((item) => new Set(checkedItemsID).has(item.id));
-  }, [cartData, checkedItemsID]);
+    return cartData.filter((item) => new Set(selectedItemsId).has(item.id));
+  }, [cartData, selectedItemsId]);
 
   // 선택된 상품의 총 상품금액
   const totalPrice = useMemo(() => {
@@ -102,7 +87,7 @@ export default function CartTable() {
 
   // 상품별 체크박스 선택 시 동작
   const handleCheckboxChange = (itemId: string, isChecked: boolean) => {
-    setCheckedItemsID((prev) => {
+    setSelectedItemsId((prev) => {
       if (isChecked) {
         return [...prev, itemId];
       } else {
@@ -114,9 +99,9 @@ export default function CartTable() {
   // 전체상품 체크박스 선택 시 동작
   const handleSelectAllChange = (isChecked: boolean) => {
     if (isChecked) {
-      setCheckedItemsID(allItemsId);
+      setSelectedItemsId(allItemsId);
     } else {
-      setCheckedItemsID([]);
+      setSelectedItemsId([]);
     }
   };
 
@@ -124,10 +109,25 @@ export default function CartTable() {
     return <div>Loading...</div>;
   }
 
+  // 장바구니 수량 수정
+  const handleQuantityChange = async (itemId: string, newQuantity: number) => {
+    try {
+      const cartItemRef = doc(db, 'carts', itemId);
+      await updateDoc(cartItemRef, { amount: newQuantity });
+
+      const updatedCart = cartData.map((item) =>
+        item.id === itemId ? { ...item, amount: newQuantity } : item,
+      );
+      setCartData(updatedCart);
+    } catch (error) {
+      console.error('Error updating quantity', error);
+    }
+  };
+
   console.log('userId', userId);
   console.log('cartData', cartData);
   // console.log('allItemsId', allItemsId);
-  // console.log('checkedItemsID', checkedItemsID);
+  // console.log('selectedItemsId', selectedItemsId);
   console.log('selectedItems', selectedItems);
 
   if (cartData.length === 0) {
@@ -140,7 +140,7 @@ export default function CartTable() {
     <div>
       <div className="mb-6 ml-6 mt-5 flex w-full gap-4 md:ml-2">
         <CartCheckBox
-          checkedFormula={checkedItemsID.length === cartData.length}
+          checkedFormula={selectedItemsId.length === cartData.length}
           label="ml-6 text-2xl"
           onChange={(isChecked) => handleSelectAllChange(isChecked)}
         >
@@ -168,7 +168,7 @@ export default function CartTable() {
         <CartListItem
           key={item.id}
           item={item}
-          checkedItemsId={checkedItemsID}
+          checkedItemsId={selectedItemsId}
           onCheckboxChange={handleCheckboxChange}
           onQuantityChange={handleQuantityChange}
         />

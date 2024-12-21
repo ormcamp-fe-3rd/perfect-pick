@@ -92,7 +92,11 @@ export default function ProductOptions({
     product_id: product.id,
     option: selectedOptions,
     amount: itemCount,
-    price: totalPrice,
+    price: {
+      productPrice: totalPrice / itemCount,
+      accessoriesPrice: 0,
+      deliveryFee: product.price_delivery || 0,
+    },
     user_id: userId,
   };
 

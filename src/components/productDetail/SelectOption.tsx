@@ -27,7 +27,7 @@ export default function SelectOption({
         className={`${style} h-12 rounded-xl border border-gray md:h-9`}
         onChange={(e) => onChange(name, e.target.value)}
       >
-        <option value="">{labels[name]}</option>
+        <option value="">{labels[name] || '구분'}</option>
         {options.map((option, index) => (
           <option key={index} value={option}>
             {option}

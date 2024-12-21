@@ -1,19 +1,53 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import { useState, useEffect } from 'react';
 
 import TabSlider from '@/components/Home/TabSlider';
+import { Product } from '@/types';
 
 interface TabSlideProps {
   subTitle: string;
-  MainTitle: string;
+  mainTitle: string;
+  products: Product[];
 }
 
-export default function TabSlide({ subTitle, MainTitle }: TabSlideProps) {
+export default function TabSlide({
+  subTitle,
+  mainTitle,
+  products,
+}: TabSlideProps) {
+  const [filteredProducts, setFilteredProducts] = useState<{
+    [key: string]: Product[];
+  }>({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const filterByCategory = () => {
+      const categories = ['mobile', 'tablet', 'notebook', 'wearable'];
+      const filtered: { [key: string]: Product[] } = {};
+
+      categories.forEach((category) => {
+        filtered[category] = products.filter(
+          (product) => product.category_id === category,
+        );
+      });
+
+      setFilteredProducts(filtered);
+      setLoading(false);
+    };
+
+    filterByCategory();
+  }, [products]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <div className="mt-[190px] lg:mt-[60px]">
         <strong className="text-xl font-bold lg:text-sm">{subTitle}</strong>
         <h2 className="text-4xl font-extrabold leading-none lg:text-[40px]">
-          {MainTitle}
+          {mainTitle}
         </h2>
       </div>
 
@@ -34,19 +68,16 @@ export default function TabSlide({ subTitle, MainTitle }: TabSlideProps) {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <TabSlider />
+            <TabSlider products={filteredProducts.mobile} />
           </TabPanel>
           <TabPanel>
-            <p>2</p>
-            <TabSlider />
+            <TabSlider products={filteredProducts.tablet} />
           </TabPanel>
           <TabPanel>
-            <p>3</p>
-            <TabSlider />
+            <TabSlider products={filteredProducts.notebook} />
           </TabPanel>
           <TabPanel>
-            <p>4</p>
-            <TabSlider />
+            <TabSlider products={filteredProducts.wearable} />
           </TabPanel>
         </TabPanels>
       </TabGroup>

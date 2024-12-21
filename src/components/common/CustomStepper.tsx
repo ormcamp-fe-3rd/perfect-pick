@@ -2,20 +2,22 @@ import { useState } from 'react';
 
 interface CustomStepperProps {
   shape?: 'round' | 'square';
-  style?: string;
+  frameStyle?: string;
   numberStyle?: string;
   buttonStyle?: string;
+  defaultValue?: number;
   onAdjust?: (action: number) => void;
 }
 
 export default function CustomStepper({
   shape = 'square',
-  style,
-  numberStyle,
-  buttonStyle,
+  frameStyle = '',
+  numberStyle = '',
+  buttonStyle = '',
+  defaultValue = 1,
   onAdjust,
 }: CustomStepperProps) {
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState(defaultValue);
 
   const adjustButtonClick = (action: number) => {
     if (onAdjust) {
@@ -33,7 +35,7 @@ export default function CustomStepper({
 
   return (
     <div
-      className={`${style} flex w-full items-center justify-between gap-5 text-center text-lg font-semibold`}
+      className={`${frameStyle} flex w-full max-w-40 justify-between gap-5 text-center text-lg font-semibold`}
     >
       <button
         className={`${buttonStyle} flex size-10 items-center justify-center ${shapeProp} bg-[#D9D9D9]`}

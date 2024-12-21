@@ -67,13 +67,13 @@ export default function ProductOptions({
   };
 
   const calculateTotalPrice = (selectedOptions: Record<string, string>) => {
-    let total = 0;
-    for (const key in selectedOptions) {
+    const total = Object.keys(selectedOptions).reduce((acc, key) => {
       if (selectedOptions[key]) {
-        total += product.price_sell;
-        total += optionalPrices[key][selectedOptions[key]];
+        acc += optionalPrices[key][selectedOptions[key]];
       }
-    }
+      return acc;
+    }, product.price_sell);
+
     return total * itemCount;
   };
 

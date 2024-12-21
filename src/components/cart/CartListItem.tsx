@@ -19,6 +19,10 @@ export default function CartListItem({
   onCheckboxChange,
   onQuantityChange,
 }: CartListItemProps) {
+  const totalPrice =
+    (item.price.productPrice + (item.price.accessoriesPrice ?? 0)) *
+    item.amount;
+
   const handleQuantityChange = (newQuantity: number) => {
     onQuantityChange(item.id, newQuantity);
   };
@@ -65,12 +69,7 @@ export default function CartListItem({
           <div className="absolute left-20 hidden text-2xl lg:block">
             상품금액:
           </div>
-          {(
-            ((item.price.productPrice ?? 0) +
-              (item.price.accessoriesPrice ?? 0)) *
-            item.amount
-          ).toLocaleString()}
-          원
+          {totalPrice.toLocaleString()}원
         </div>
         <div className="relative flex h-full items-center justify-center py-3 text-2xl lg:text-xl">
           <div className="absolute left-20 hidden text-2xl lg:block">

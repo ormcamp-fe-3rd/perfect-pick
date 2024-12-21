@@ -95,7 +95,7 @@ export default function CartTable() {
   // 선택된 상품의 총 배송비
   const totalDeliveryFee = useMemo(() => {
     return selectedItems.reduce((sum, item) => {
-      const total = item.price?.deliveryFee ?? 0;
+      const total = item.price.deliveryFee ?? 0;
       return sum + total;
     }, 0);
   }, [selectedItems]);
@@ -127,7 +127,7 @@ export default function CartTable() {
   console.log('userId', userId);
   // console.log('cartData', cartData);
   // console.log('allItemsId', allItemsId);
-  console.log('checkedItemsID', checkedItemsID);
+  // console.log('checkedItemsID', checkedItemsID);
   console.log('selectedItems', selectedItems);
 
   return (
@@ -169,15 +169,15 @@ export default function CartTable() {
       ))}
       <div className="flex w-full items-center justify-end gap-12 border-b py-2 pr-12 text-2xl font-semibold lg:flex-col lg:items-center lg:gap-3 lg:pr-6 md:text-xl">
         <div className="flex gap-12 lg:gap-3 md:flex-col">
-          {/* <span>상품금액 {totalPrice.toLocaleString()}원</span> */}
+          <span>상품금액 {totalPrice.toLocaleString()}원</span>
           <div className="flex justify-center gap-12 lg:gap-3">
             <span>+</span>
-            {/* <span>배송비 {totalDeliveryFee.toLocaleString()}원</span> */}
+            <span>배송비 {totalDeliveryFee.toLocaleString()}원</span>
           </div>
         </div>
         <div className="flex gap-12 lg:gap-3">
           <span>=</span>
-          {/* <span>총 {(totalPrice + totalDeliveryFee).toLocaleString()}원</span> */}
+          <span>총 {(totalPrice + totalDeliveryFee).toLocaleString()}원</span>
         </div>
       </div>
     </div>

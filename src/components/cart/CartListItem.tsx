@@ -1,32 +1,20 @@
 import CartCheckBox from '@/components/cart/CartCheckBox';
 import CustomStepper from '@/components/common/CustomStepper';
+import { CartItemData } from '@/types';
 
-interface CartProduct {
-  id: number;
-  name: string;
-  src: string;
-  options: {
-    color?: string;
-    storage?: string;
-    accessories?: string;
-  };
-  amount: number;
-  price: {
-    productPrice: number;
-    accessoriesPrice?: number;
-    deliveryFee?: number;
-  };
+interface CartData extends CartItemData {
+  id: string;
 }
 
 interface CartListItemProps {
-  item: CartProduct;
-  checkedItems: Set<number>;
-  onCheckboxChange: (id: number, isChecked: boolean) => void;
+  item: CartData;
+  checkedItemsId: string[];
+  onCheckboxChange: (id: string, isChecked: boolean) => void;
 }
 
 export default function CartListItem({
   item,
-  checkedItems,
+  checkedItemsId,
   onCheckboxChange,
 }: CartListItemProps) {
   return (
@@ -35,19 +23,21 @@ export default function CartListItem({
         <div className="col-span-4 lg:col-span-1">
           <div className="flex items-center gap-6 border-r p-6 lg:border-0 lg:px-10 md:px-2">
             <CartCheckBox
-              checkedFormula={checkedItems.has(item.id)}
+              checkedFormula={new Set(checkedItemsId).has(item.id)}
               onChange={(isChecked) => onCheckboxChange(item.id, isChecked)}
             />
             <div className="flex items-center gap-11 lg:gap-6">
               <img
                 className="size-[110px] rounded-[10px]"
-                src={item.src}
-                alt={`${item.name}'s image`}
+                // src={item.src}
+                alt={`${item.product_title}'s image`}
               />
               <div className="flex flex-col justify-center gap-6">
-                <div className="text-2xl font-semibold">{item.name}</div>
+                <div className="text-2xl font-semibold">
+                  {item.product_title}
+                </div>
                 <div className="text-lg font-semibold">
-                  옵션: {Object.values(item.options).join('/')}
+                  옵션: {Object.values(item.option).join('/')}
                 </div>
               </div>
             </div>
@@ -69,8 +59,8 @@ export default function CartListItem({
             상품금액:
           </div>
           {(
-            ((item.price?.productPrice ?? 0) +
-              (item.price?.accessoriesPrice ?? 0)) *
+            ((item.price.productPrice ?? 0) +
+              (item.price.accessoriesPrice ?? 0)) *
             item.amount
           ).toLocaleString()}
           원
@@ -80,7 +70,7 @@ export default function CartListItem({
             배송비:
           </div>
           <div className="text-center text-2xl lg:text-xl">
-            {item.price?.deliveryFee ?? 0}원
+            {(item.price.deliveryFee ?? 0).toLocaleString()}원
           </div>
         </div>
       </div>

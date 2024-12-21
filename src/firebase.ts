@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
 } from 'firebase/auth';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 
@@ -43,25 +44,36 @@ export const saveUserToDB = async (
 };
 
 export const getUserInfo = async () => {
-  const auth = getAuth();
-  const userAuth = auth.currentUser;
+  return new Promise((resolve, reject) => {
+    const auth = getAuth();
 
-  if (!userAuth) {
-    throw new Error('사용자가 로그인되지 않았습니다.');
-  }
+    // Firebase Auth 상태 변화를 구독: 인증 정보 업데이트
+    const unsubscribe = onAuthStateChanged(auth, async (userAuth) => {
+      if (!userAuth) {
+        unsubscribe(); // 구독 해제
+        reject(new Error('사용자가 로그인되지 않았습니다.'));
+        return;
+      }
+      try {
+        const userRef = doc(db, 'users', userAuth.uid);
+        const userDoc = await getDoc(userRef);
+        if (!userDoc.exists()) {
+          unsubscribe(); // 구독 해제
+          reject(new Error('사용자 정보가 존재하지 않습니다.'));
+          return;
+        }
 
-  const userRef = doc(db, 'users', userAuth.uid);
-  const userDoc = await getDoc(userRef);
-
-  if (!userDoc.exists()) {
-    throw new Error('사용자 정보가 존재하지 않습니다.');
-  }
-
-  const userData = userDoc.data();
-
-  return {
-    username: userData?.username,
-    email: userData?.email,
-    id: userAuth.uid,
-  };
+        const userData = userDoc.data();
+        unsubscribe(); // 구독 해제
+        resolve({
+          username: userData?.username,
+          email: userData?.email,
+          id: userAuth.uid,
+        });
+      } catch (error) {
+        unsubscribe(); // 구독 해제
+        reject(error);
+      }
+    });
+  });
 };

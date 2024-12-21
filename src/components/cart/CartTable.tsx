@@ -1,76 +1,70 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import CartCheckBox from '@/components/cart/CartCheckBox';
-import CartListItem from './CartListItem';
+import CartListItem from '@/components/cart/CartListItem';
+import { db, getUserInfo } from '@/firebase';
+import { collection, query, where, getDocs } from '@firebase/firestore';
+import { CartItemData, UserData } from '@/types';
 
-// 임시: 추후 서버 연결
-const cartList = [
-  {
-    id: 1,
-    name: '갤럭시 S24 FE 자급제',
-    src: 'https://i.imgur.com/svOz7A9b.jpg',
-    options: {
-      color: 'white',
-      storage: '256G',
-      accessories: 'PD 충전기 절전형(케이블 미포함)',
-    },
-    amount: 2,
-    price: {
-      productPrice: 896000,
-      accessoriesPrice: 15000,
-    },
-  },
-  {
-    id: 2,
-    name: '아이패드 프로 11인치 (Wi-Fi)',
-    src: 'https://i.imgur.com/Ae1wefjb.jpg',
-    options: { color: '스페이스 블랙', storage: '1T' },
-    amount: 1,
-    price: { productPrice: 2594000 },
-  },
-  {
-    id: 3,
-    name: '갤럭시 S24 FE 자급제',
-    src: 'https://i.imgur.com/svOz7A9b.jpg',
-    options: { color: 'white', storage: '512G' },
-    amount: 1,
-    price: { productPrice: 896000, deliveryFee: 3000 },
-  },
-];
+interface CartData extends CartItemData {
+  id: string;
+}
 
 export default function CartTable() {
-  const allItemsID = new Set(cartList.map((item) => item.id));
-  const [checkedItemsID, setCheckedItemsID] = useState(allItemsID);
+  const [userId, setUserId] = useState('');
+  const [cartData, setCartData] = useState<CartData[]>([]);
+  const [allItemsId, setAllItemsId] = useState<string[]>([]);
+  const [checkedItemsID, setCheckedItemsID] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // 상품별 체크박스 선택 시 동작
-  const handleCheckboxChange = (itemId: number, isChecked: boolean) => {
-    setCheckedItemsID((prev) => {
-      if (isChecked) {
-        return new Set([...prev, itemId]);
-      } else {
-        return new Set([...prev].filter((item) => item !== itemId));
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const userInfo = (await getUserInfo()) as UserData;
+        setUserId(userInfo.id);
+      } catch (error) {
+        console.log('사용자 정보를 가져오는 실패했습니다.', error);
       }
-    });
-  };
+    };
 
-  // 전체상품 체크박스 선택 시 동작
-  const handleSelectAllChange = (isChecked: boolean) => {
-    if (isChecked) {
-      setCheckedItemsID(allItemsID);
-    } else {
-      setCheckedItemsID(new Set());
-    }
-  };
+    const fetchUserCart = async () => {
+      try {
+        const cartsRef = collection(db, 'carts');
+        const q = query(cartsRef, where('user_id', '==', userId));
+        const querySnapSopt = await getDocs(q);
+
+        const userCart = querySnapSopt.docs.map((doc) => ({
+          id: doc.id,
+          ...(doc.data() as CartItemData),
+        }));
+        setCartData(userCart);
+      } catch (e) {
+        console.error('Error fetching user cart:', e);
+        return [];
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserInfo();
+    fetchUserCart();
+  }, [userId]);
+
+  useEffect(() => {
+    const newAllItemsId = cartData.map((item) => item.id);
+    setAllItemsId(newAllItemsId);
+    setCheckedItemsID(newAllItemsId);
+  }, [cartData]);
 
   // 선택된 상품의 데이터
   const selectedItems = useMemo(() => {
-    return cartList.filter((item) => checkedItemsID.has(item.id));
-  }, [cartList, checkedItemsID]);
+    return cartData.filter((item) => new Set(checkedItemsID).has(item.id));
+  }, [cartData, checkedItemsID]);
 
   // 선택된 상품의 총 상품금액
   const totalPrice = useMemo(() => {
     return selectedItems.reduce((sum, item) => {
       const total =
-        (item.price?.productPrice + (item.price?.accessoriesPrice ?? 0)) *
+        (item.price.productPrice + (item.price.accessoriesPrice ?? 0)) *
         item.amount;
       return sum + total;
     }, 0);
@@ -84,11 +78,41 @@ export default function CartTable() {
     }, 0);
   }, [selectedItems]);
 
+  // 상품별 체크박스 선택 시 동작
+  const handleCheckboxChange = (itemId: string, isChecked: boolean) => {
+    setCheckedItemsID((prev) => {
+      if (isChecked) {
+        return [...prev, itemId];
+      } else {
+        return [...prev].filter((item) => item !== itemId);
+      }
+    });
+  };
+
+  // 전체상품 체크박스 선택 시 동작
+  const handleSelectAllChange = (isChecked: boolean) => {
+    if (isChecked) {
+      setCheckedItemsID(allItemsId);
+    } else {
+      setCheckedItemsID([]);
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  console.log('userId', userId);
+  // console.log('cartData', cartData);
+  // console.log('allItemsId', allItemsId);
+  console.log('checkedItemsID', checkedItemsID);
+  console.log('selectedItems', selectedItems);
+
   return (
     <div>
       <div className="mb-6 ml-6 mt-5 flex w-full gap-4 md:ml-2">
         <CartCheckBox
-          checkedFormula={checkedItemsID.size === cartList.length}
+          checkedFormula={checkedItemsID.length === cartData.length}
           label="ml-6 text-2xl"
           onChange={(isChecked) => handleSelectAllChange(isChecked)}
         >
@@ -112,24 +136,25 @@ export default function CartTable() {
           배송비
         </div>
       </div>
-      {cartList.map((item) => (
+      {cartData.map((item) => (
         <CartListItem
+          key={item.id}
           item={item}
-          checkedItems={checkedItemsID}
+          checkedItemsId={checkedItemsID}
           onCheckboxChange={handleCheckboxChange}
         />
       ))}
       <div className="flex w-full items-center justify-end gap-12 border-b py-2 pr-12 text-2xl font-semibold lg:flex-col lg:items-center lg:gap-3 lg:pr-6 md:text-xl">
         <div className="flex gap-12 lg:gap-3 md:flex-col">
-          <span>상품금액 {totalPrice.toLocaleString()}원</span>
+          {/* <span>상품금액 {totalPrice.toLocaleString()}원</span> */}
           <div className="flex justify-center gap-12 lg:gap-3">
             <span>+</span>
-            <span>배송비 {totalDeliveryFee.toLocaleString()}원</span>
+            {/* <span>배송비 {totalDeliveryFee.toLocaleString()}원</span> */}
           </div>
         </div>
         <div className="flex gap-12 lg:gap-3">
           <span>=</span>
-          <span>총 {(totalPrice + totalDeliveryFee).toLocaleString()}원</span>
+          {/* <span>총 {(totalPrice + totalDeliveryFee).toLocaleString()}원</span> */}
         </div>
       </div>
     </div>

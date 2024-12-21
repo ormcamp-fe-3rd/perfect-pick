@@ -681,11 +681,6 @@ video {
   margin-right: 5rem;
 }
 
-.mx-3 {
-  margin-left: 0.75rem;
-  margin-right: 0.75rem;
-}
-
 .mx-5 {
   margin-left: 1.25rem;
   margin-right: 1.25rem;
@@ -709,11 +704,6 @@ video {
 .my-8 {
   margin-top: 2rem;
   margin-bottom: 2rem;
-}
-
-.my-\[30px\] {
-  margin-top: 30px;
-  margin-bottom: 30px;
 }
 
 .mb-10 {
@@ -904,6 +894,10 @@ video {
   margin-top: 90px;
 }
 
+.mt-20 {
+  margin-top: 5rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -930,6 +924,10 @@ video {
 
 .grid {
   display: grid;
+}
+
+.list-item {
+  display: list-item;
 }
 
 .hidden {
@@ -964,16 +962,6 @@ video {
 .size-\[34px\] {
   width: 34px;
   height: 34px;
-}
-
-.size-full {
-  width: 100%;
-  height: 100%;
-}
-
-.size-2 {
-  width: 0.5rem;
-  height: 0.5rem;
 }
 
 .h-10 {
@@ -1072,40 +1060,8 @@ video {
   height: 100%;
 }
 
-.h-\[550px\] {
-  height: 550px;
-}
-
-.max-h-\[630px\] {
-  max-height: 630px;
-}
-
 .max-h-full {
   max-height: 100%;
-}
-
-.max-h-4 {
-  max-height: 1rem;
-}
-
-.max-h-12 {
-  max-height: 3rem;
-}
-
-.max-h-96 {
-  max-height: 24rem;
-}
-
-.max-h-\[650px\] {
-  max-height: 650px;
-}
-
-.max-h-\[600px\] {
-  max-height: 600px;
-}
-
-.max-h-\[550px\] {
-  max-height: 550px;
 }
 
 .min-h-\[800px\] {
@@ -1257,6 +1213,10 @@ video {
   min-width: fit-content;
 }
 
+.max-w-40 {
+  max-width: 10rem;
+}
+
 .max-w-48 {
   max-width: 12rem;
 }
@@ -1291,18 +1251,6 @@ video {
 
 .max-w-\[680px\] {
   max-width: 680px;
-}
-
-.max-w-10 {
-  max-width: 2.5rem;
-}
-
-.max-w-40 {
-  max-width: 10rem;
-}
-
-.max-w-20 {
-  max-width: 5rem;
 }
 
 .flex-1 {
@@ -1345,8 +1293,20 @@ video {
   cursor: not-allowed;
 }
 
+.list-inside {
+  list-style-position: inside;
+}
+
+.list-outside {
+  list-style-position: outside;
+}
+
 .list-disc {
   list-style-type: disc;
+}
+
+.list-decimal {
+  list-style-type: decimal;
 }
 
 .grid-cols-1 {
@@ -1373,20 +1333,12 @@ video {
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
-.flex-row {
-  flex-direction: row;
-}
-
 .flex-col {
   flex-direction: column;
 }
 
 .flex-wrap {
   flex-wrap: wrap;
-}
-
-.items-start {
-  align-items: flex-start;
 }
 
 .items-end {
@@ -1485,10 +1437,6 @@ video {
   gap: 7px;
 }
 
-.gap-\[90px\] {
-  gap: 90px;
-}
-
 .space-x-16 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(4rem * var(--tw-space-x-reverse));
@@ -1507,16 +1455,8 @@ video {
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
 }
 
-.overflow-auto {
-  overflow: auto;
-}
-
 .overflow-hidden {
   overflow: hidden;
-}
-
-.overflow-clip {
-  overflow: clip;
 }
 
 .text-nowrap {
@@ -1563,16 +1503,12 @@ video {
   border-radius: 0.5rem;
 }
 
-.rounded-xl {
-  border-radius: 0.75rem;
-}
-
-.rounded-sm {
-  border-radius: 0.125rem;
-}
-
 .rounded-md {
   border-radius: 0.375rem;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
 }
 
 .rounded-t-2xl {
@@ -1743,26 +1679,6 @@ video {
   background-color: rgb(254 217 69 / var(--tw-bg-opacity, 1));
 }
 
-.bg-\[\#D9D9DD\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(217 217 221 / var(--tw-bg-opacity, 1));
-}
-
-.bg-\[\#D9DDDD\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(217 221 221 / var(--tw-bg-opacity, 1));
-}
-
-.bg-\[\#DDDDDD\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(221 221 221 / var(--tw-bg-opacity, 1));
-}
-
-.bg-\[\#999999\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(153 153 153 / var(--tw-bg-opacity, 1));
-}
-
 .bg-opacity-40 {
   --tw-bg-opacity: 0.4;
 }
@@ -1801,16 +1717,6 @@ video {
      object-fit: cover;
 }
 
-.object-fill {
-  -o-object-fit: fill;
-     object-fit: fill;
-}
-
-.object-none {
-  -o-object-fit: none;
-     object-fit: none;
-}
-
 .p-4 {
   padding: 1rem;
 }
@@ -1821,10 +1727,6 @@ video {
 
 .p-6 {
   padding: 1.5rem;
-}
-
-.p-2 {
-  padding: 0.5rem;
 }
 
 .px-10 {
@@ -2207,10 +2109,6 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.\[newKey\:string\] {
-  new-key: string;
-}
-
 @font-face {
   font-family: 'SUIT';
 
@@ -2525,10 +2423,6 @@ li {
 
   .lg\:h-full {
     height: 100%;
-  }
-
-  .lg\:max-h-full {
-    max-height: 100%;
   }
 
   .lg\:w-3\/12 {
@@ -2922,10 +2816,6 @@ li {
     gap: 10px;
   }
 
-  .md\:gap-2 {
-    gap: 0.5rem;
-  }
-
   .md\:gap-y-\[10px\] {
     row-gap: 10px;
   }
@@ -2994,10 +2884,6 @@ li {
 
   .md\:text-\[15px\] {
     font-size: 15px;
-  }
-
-  .md\:text-\[28px\] {
-    font-size: 28px;
   }
 
   .md\:text-\[30px\] {

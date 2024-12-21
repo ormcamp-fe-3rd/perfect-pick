@@ -125,10 +125,16 @@ export default function CartTable() {
   }
 
   console.log('userId', userId);
-  // console.log('cartData', cartData);
+  console.log('cartData', cartData);
   // console.log('allItemsId', allItemsId);
   // console.log('checkedItemsID', checkedItemsID);
   console.log('selectedItems', selectedItems);
+
+  if (cartData.length === 0) {
+    return (
+      <div className="mt-20 text-center text-2xl">장바구니가 비어있습니다.</div>
+    );
+  }
 
   return (
     <div>

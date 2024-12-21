@@ -10,13 +10,19 @@ interface CartListItemProps {
   item: CartData;
   checkedItemsId: string[];
   onCheckboxChange: (id: string, isChecked: boolean) => void;
+  onQuantityChange: (itemId: string, newQuantity: number) => void;
 }
 
 export default function CartListItem({
   item,
   checkedItemsId,
   onCheckboxChange,
+  onQuantityChange,
 }: CartListItemProps) {
+  const handleQuantityChange = (newQuantity: number) => {
+    onQuantityChange(item.id, newQuantity);
+  };
+
   return (
     <>
       <div className="grid grid-cols-7 items-center border-b lg:grid-cols-1">
@@ -51,6 +57,7 @@ export default function CartListItem({
               frameStyle="size-10 lg:size-7"
               numberStyle="text-2xl lg:text-xl"
               defaultValue={item.amount}
+              onChange={handleQuantityChange}
             />
           </div>
         </div>

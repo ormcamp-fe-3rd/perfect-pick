@@ -2,7 +2,14 @@ import { useEffect, useMemo, useState } from 'react';
 import CartCheckBox from '@/components/cart/CartCheckBox';
 import CartListItem from '@/components/cart/CartListItem';
 import { db, getUserInfo } from '@/firebase';
-import { collection, query, where, getDocs } from '@firebase/firestore';
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  doc,
+} from '@firebase/firestore';
 import { CartItemData, UserData } from '@/types';
 
 interface CartData extends CartItemData {
@@ -54,6 +61,21 @@ export default function CartTable() {
     setAllItemsId(newAllItemsId);
     setCheckedItemsID(newAllItemsId);
   }, [cartData]);
+
+  // 장바구니 수량 수정
+  const handleQuantityChange = async (itemId: string, newQuantity: number) => {
+    try {
+      const cartItemRef = doc(db, 'carts', itemId);
+      await updateDoc(cartItemRef, { amount: newQuantity });
+
+      const updatedCart = cartData.map((item) =>
+        item.id === itemId ? { ...item, amount: newQuantity } : item,
+      );
+      setCartData(updatedCart);
+    } catch (error) {
+      console.error('Error updating quantity', error);
+    }
+  };
 
   // 선택된 상품의 데이터
   const selectedItems = useMemo(() => {
@@ -142,6 +164,7 @@ export default function CartTable() {
           item={item}
           checkedItemsId={checkedItemsID}
           onCheckboxChange={handleCheckboxChange}
+          onQuantityChange={handleQuantityChange}
         />
       ))}
       <div className="flex w-full items-center justify-end gap-12 border-b py-2 pr-12 text-2xl font-semibold lg:flex-col lg:items-center lg:gap-3 lg:pr-6 md:text-xl">

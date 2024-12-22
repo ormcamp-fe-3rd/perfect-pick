@@ -4,7 +4,7 @@ import CustomStepper from '@/components/common/CustomStepper';
 import SelectOption from '@/components/productDetail/SelectOption';
 import { db } from '@/firebase';
 import { collection, addDoc } from '@firebase/firestore';
-import { CartItemData, Product } from '@/types';
+import { Product } from '@/types';
 
 interface ProductOptionsProps {
   product: Product;
@@ -98,6 +98,7 @@ export default function ProductOptions({
       deliveryFee: product.price_delivery || 0,
     },
     user_id: userId,
+    thumbnail: product.src[1],
   };
 
   const saveCartItemData = async () => {
@@ -105,10 +106,8 @@ export default function ProductOptions({
       alert('로그인하지 않으면 장바구니에 상품이 담기지 않습니다.');
       return;
     }
-
     try {
-      const docRef = await addDoc(collection(db, 'carts'), cartItemData);
-      console.log('Document written with ID: ', docRef.id);
+      await addDoc(collection(db, 'carts'), cartItemData);
     } catch (e) {
       console.error('Error adding document: ', e);
     }

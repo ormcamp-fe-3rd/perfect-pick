@@ -120,6 +120,7 @@ export default function CartTable() {
         item.id === itemId ? { ...item, amount: newQuantity } : item,
       );
       setCartData(updatedCart);
+      alert('수량이 변경되었습니다.');
     } catch (error) {
       console.error('Error updating quantity', error);
     }

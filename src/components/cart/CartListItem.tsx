@@ -1,6 +1,7 @@
 import CartCheckBox from '@/components/cart/CartCheckBox';
 import CustomStepper from '@/components/common/CustomStepper';
 import { CartItemData } from '@/types';
+import { Link } from 'react-router';
 
 interface CartData extends CartItemData {
   id: string;
@@ -37,11 +38,13 @@ export default function CartListItem({
               onChange={(isChecked) => onCheckboxChange(item.id, isChecked)}
             />
             <div className="flex items-center gap-11 lg:gap-6">
-              <img
-                className="size-[110px] rounded-[10px]"
-                src={item.thumbnail}
-                alt={`${item.product_title}'s image`}
-              />
+              <Link to={`/product/${item.product_id}`}>
+                <img
+                  className="size-[110px] rounded-[10px]"
+                  src={item.thumbnail}
+                  alt={`${item.product_title}'s image`}
+                />
+              </Link>
               <div className="flex flex-col justify-center gap-6">
                 <div className="text-2xl font-semibold">
                   {item.product_title}

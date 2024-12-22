@@ -39,12 +39,8 @@ function ProductDetailPage() {
     };
 
     const fetchUserInfo = async () => {
-      try {
-        const userInfo = (await getUserInfo()) as UserData;
-        setUser(userInfo);
-      } catch (error) {
-        console.log('사용자 정보를 가져오는 실패했습니다.', error);
-      }
+      const userInfo = (await getUserInfo()) as UserData;
+      setUser(userInfo);
     };
 
     fetchProductData();

@@ -51,7 +51,6 @@ export const getUserInfo = async () => {
     const unsubscribe = onAuthStateChanged(auth, async (userAuth) => {
       if (!userAuth) {
         unsubscribe(); // 구독 해제
-        reject(new Error('사용자가 로그인되지 않았습니다.'));
         return;
       }
       try {
@@ -59,7 +58,6 @@ export const getUserInfo = async () => {
         const userDoc = await getDoc(userRef);
         if (!userDoc.exists()) {
           unsubscribe(); // 구독 해제
-          reject(new Error('사용자 정보가 존재하지 않습니다.'));
           return;
         }
 

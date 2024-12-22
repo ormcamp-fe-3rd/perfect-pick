@@ -34,8 +34,18 @@ export default function CartTable() {
       }
     };
 
+    fetchUserInfo();
+  }, []);
+
+  useEffect(() => {
     const fetchUserCart = async () => {
       try {
+        if (!userId) {
+          const guestCart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+          setCartData(guestCart);
+          return;
+        }
+
         const cartsRef = collection(db, 'carts');
         const q = query(cartsRef, where('user_id', '==', userId));
         const querySnapSopt = await getDocs(q);
@@ -53,7 +63,6 @@ export default function CartTable() {
       }
     };
 
-    fetchUserInfo();
     fetchUserCart();
   }, [userId]);
 
@@ -113,6 +122,14 @@ export default function CartTable() {
   // 장바구니 수량 수정
   const handleQuantityChange = async (itemId: string, newQuantity: number) => {
     try {
+      if (!userId) {
+        const currentCart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+        const updatedCart = currentCart.map((item: CartData) => {
+          return item.id === itemId ? { ...item, amount: newQuantity } : item;
+        });
+        sessionStorage.setItem('cart', JSON.stringify(updatedCart));
+      }
+
       const cartItemRef = doc(db, 'carts', itemId);
       await updateDoc(cartItemRef, { amount: newQuantity });
 

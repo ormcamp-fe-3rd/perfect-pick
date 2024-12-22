@@ -12,7 +12,7 @@ import {
   updateDoc,
   doc,
 } from '@firebase/firestore';
-import { Product } from '@/types';
+import { CartItemData, Product } from '@/types';
 
 interface ProductOptionsProps {
   product: Product;
@@ -109,15 +109,34 @@ export default function ProductOptions({
     thumbnail: product.src[1],
   };
 
-  const saveCartItemData = async () => {
-    if (!userId) {
-      alert('로그인하지 않으면 장바구니에 상품이 담기지 않습니다.');
-      return;
-    }
+  const isOptionSelected = () => {
     if (!checkRequiredOptionsSelected) {
       alert('옵션을 확인해주세요.');
-      return;
+      return false;
     }
+    return true;
+  };
+
+  const saveToGuestCart = () => {
+    // 조건에 맞는 문서 조회
+    const currentCart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+    const existingItemIndex = currentCart.findIndex(
+      (item: CartItemData) =>
+        JSON.stringify(item.option) === JSON.stringify(cartItemData.option),
+    );
+
+    // 동일 옵션이 있으면 수량 업데이트, 없으면 항목 추가
+    if (existingItemIndex !== -1) {
+      currentCart[existingItemIndex].amount += cartItemData.amount;
+    } else {
+      const newItem = { ...cartItemData, id: new Date().getTime() };
+      currentCart.push(newItem);
+    }
+
+    sessionStorage.setItem('cart', JSON.stringify(currentCart));
+  };
+
+  const saveToUserCart = async () => {
     try {
       // 조건에 맞는 문서 조회
       const cartsRef = collection(db, 'carts');
@@ -142,6 +161,16 @@ export default function ProductOptions({
       }
     } catch (e) {
       console.error('Error adding document: ', e);
+    }
+  };
+
+  const saveCartItemData = async () => {
+    if (!isOptionSelected()) return;
+
+    if (!userId) {
+      saveToGuestCart();
+    } else {
+      await saveToUserCart();
     }
   };
 
@@ -195,7 +224,7 @@ export default function ProductOptions({
           <div className="flex">
             <CustomStepper
               frameStyle="max-w-48"
-              onAdjust={handleChangeItemCount}
+              onChange={handleChangeItemCount}
             />
             <div className="w-full text-end text-[36px] font-extrabold leading-none md:text-2xl">
               {totalPrice === 0 ? '' : `${totalPrice.toLocaleString()}원`}

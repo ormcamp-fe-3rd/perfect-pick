@@ -100,7 +100,7 @@ export default function ProductOptions({
     user_id: userId,
   };
 
-  const saveCartItemData = async (cartItemData: CartItemData) => {
+  const saveCartItemData = async () => {
     if (!userId) {
       alert('로그인하지 않으면 장바구니에 상품이 담기지 않습니다.');
       return;
@@ -177,7 +177,7 @@ export default function ProductOptions({
           buttonStyle="bg-gray"
           type="openModal"
           confirmLinkPath="/cart"
-          onConfirmClick={() => saveCartItemData(cartItemData)}
+          onButtonClick={saveCartItemData}
           modalContent={
             <>
               <div>상품명: {product.title}</div>

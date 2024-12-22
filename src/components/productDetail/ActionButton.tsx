@@ -10,6 +10,7 @@ interface ActionButtonProps {
   confirmLinkPath?: string;
   moveLinkPath?: string;
   modalContent?: ReactNode;
+  onButtonClick?: () => void;
   onConfirmClick?: () => void;
   disableModal?: boolean;
 }
@@ -21,25 +22,24 @@ export default function ActionButton({
   confirmLinkPath = '/',
   moveLinkPath = '/',
   modalContent,
-  onConfirmClick,
+  onButtonClick = () => {},
+  onConfirmClick = () => {},
   disableModal = false,
 }: ActionButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleButtonClick = (moveLinkPath: string) => {
-    if (disableModal) {
-      setIsModalOpen(false);
-    }
+  const handleButtonClick = () => {
+    onButtonClick();
 
     if (type === 'openModal') {
-      setIsModalOpen(true);
+      !disableModal && setIsModalOpen(true);
     } else {
       navigate(moveLinkPath);
     }
   };
 
-  const handleModalConfirmClick = (confirmLinkPath: string) => {
+  const handleModalConfirmClick = () => {
     if (onConfirmClick) {
       onConfirmClick();
     }
@@ -50,7 +50,7 @@ export default function ActionButton({
     <>
       <button
         className={`h-16 w-[220px] rounded-[50px] ${buttonStyle} bg-black text-2xl text-[#FFFFFF] md:h-10 md:w-[140px] md:text-lg`}
-        onClick={() => handleButtonClick(moveLinkPath)}
+        onClick={() => handleButtonClick()}
       >
         {buttonName}
       </button>
@@ -59,7 +59,9 @@ export default function ActionButton({
         content={modalContent}
         isOpen={isModalOpen}
         buttonType="double"
-        onConfirm={() => handleModalConfirmClick(confirmLinkPath)}
+        leftButtonName="장바구니 이동"
+        rightButtonName="쇼핑 계속하기"
+        onConfirm={() => handleModalConfirmClick()}
         onClose={() => setIsModalOpen(false)}
       ></Modal>
     </>

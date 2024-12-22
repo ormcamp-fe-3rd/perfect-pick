@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { db, getUserInfo } from '@/firebase';
 import { doc, getDoc } from 'firebase/firestore';
@@ -12,6 +12,7 @@ function ProductDetailPage() {
   const [productData, setProductData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<UserData | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -47,6 +48,12 @@ function ProductDetailPage() {
     fetchUserInfo();
   }, []);
 
+  useEffect(() => {
+    if (!loading && !productData) {
+      navigate('/');
+    }
+  }, [loading, productData]);
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -70,8 +77,6 @@ function ProductDetailPage() {
       </div>
     );
   }
-
-  return <div>No such product!</div>;
 }
 
 export default ProductDetailPage;

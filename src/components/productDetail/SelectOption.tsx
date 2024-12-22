@@ -3,6 +3,7 @@ import { Select } from '@headlessui/react';
 interface SelectOptionProps {
   name: string;
   options: string[];
+  value?: string;
   onChange: (key: string, value: string) => void;
   style?: string;
 }
@@ -10,6 +11,7 @@ interface SelectOptionProps {
 export default function SelectOption({
   name,
   options,
+  value,
   onChange,
   style,
 }: SelectOptionProps) {
@@ -25,6 +27,7 @@ export default function SelectOption({
         name={name}
         aria-label={`${name} choice`}
         className={`${style} h-12 rounded-xl border border-gray md:h-9`}
+        value={value}
         onChange={(e) => onChange(name, e.target.value)}
       >
         <option value="">{labels[name] || '구분'}</option>

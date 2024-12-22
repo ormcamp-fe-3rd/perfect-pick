@@ -142,12 +142,13 @@ export default function ProductOptions({
             key={index}
             name={key}
             options={Object.keys(value).sort()}
+            value={selectedOptions[key]}
             onChange={handleSelectedOptions}
           />
         ))}
       </div>
-      <div className="flex flex-col gap-6 border-y px-3 py-5 md:gap-4 md:px-2 md:py-4">
-        {selectedOptionsLabel && (
+      {checkRequiredOptionsSelected && (
+        <div className="flex flex-col gap-6 border-y px-3 py-5 md:gap-4 md:px-2 md:py-4">
           <div className="flex items-center gap-4">
             <div className="text-2xl font-semibold md:text-lg">
               {`옵션: ${selectedOptionsLabel}`}
@@ -159,17 +160,17 @@ export default function ProductOptions({
               X
             </button>
           </div>
-        )}
-        <div className="flex">
-          <CustomStepper
-            frameStyle="max-w-48"
-            onAdjust={handleChangeItemCount}
-          />
-          <div className="w-full text-end text-[36px] font-extrabold leading-none md:text-2xl">
-            {totalPrice === 0 ? '' : `${totalPrice.toLocaleString()}원`}
+          <div className="flex">
+            <CustomStepper
+              frameStyle="max-w-48"
+              onAdjust={handleChangeItemCount}
+            />
+            <div className="w-full text-end text-[36px] font-extrabold leading-none md:text-2xl">
+              {totalPrice === 0 ? '' : `${totalPrice.toLocaleString()}원`}
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <div className="mt-4 flex justify-around gap-4">
         <ActionButton
           buttonName="장바구니 담기"

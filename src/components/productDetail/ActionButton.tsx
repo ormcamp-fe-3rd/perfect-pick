@@ -33,6 +33,7 @@ export default function ActionButton({
     onButtonClick();
 
     if (type === 'openModal') {
+      disableModal && alert('옵션을 확인해주세요.');
       !disableModal && setIsModalOpen(true);
     } else {
       navigate(moveLinkPath);
@@ -55,7 +56,7 @@ export default function ActionButton({
         {buttonName}
       </button>
       <Modal
-        title={buttonName}
+        title={`${buttonName} 완료!`}
         content={modalContent}
         isOpen={isModalOpen}
         buttonType="double"

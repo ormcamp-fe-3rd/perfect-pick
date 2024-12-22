@@ -114,6 +114,10 @@ export default function ProductOptions({
       alert('로그인하지 않으면 장바구니에 상품이 담기지 않습니다.');
       return;
     }
+    if (!checkRequiredOptionsSelected) {
+      alert('옵션을 확인해주세요.');
+      return;
+    }
     try {
       // 조건에 맞는 문서 조회
       const cartsRef = collection(db, 'carts');

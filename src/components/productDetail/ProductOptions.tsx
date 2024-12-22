@@ -3,7 +3,15 @@ import ActionButton from '@/components/productDetail/ActionButton';
 import CustomStepper from '@/components/common/CustomStepper';
 import SelectOption from '@/components/productDetail/SelectOption';
 import { db } from '@/firebase';
-import { collection, addDoc } from '@firebase/firestore';
+import {
+  collection,
+  addDoc,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  doc,
+} from '@firebase/firestore';
 import { Product } from '@/types';
 
 interface ProductOptionsProps {
@@ -107,7 +115,27 @@ export default function ProductOptions({
       return;
     }
     try {
-      await addDoc(collection(db, 'carts'), cartItemData);
+      // 조건에 맞는 문서 조회
+      const cartsRef = collection(db, 'carts');
+      const q = query(
+        cartsRef,
+        where('user_id', '==', cartItemData.user_id),
+        where('product_id', '==', cartItemData.product_id),
+        where('option', '==', cartItemData.option),
+      );
+      const querySnapshot = await getDocs(q);
+
+      // 동일 옵션이 있으면 수량 업데이트, 없으면 항목 추가
+      if (!querySnapshot.empty) {
+        const existingDoc = querySnapshot.docs[0];
+        const existingAmount = existingDoc.data().amount;
+        const newAmount = existingAmount + cartItemData.amount;
+        await updateDoc(doc(db, 'carts', existingDoc.id), {
+          amount: newAmount,
+        });
+      } else {
+        await addDoc(collection(db, 'carts'), cartItemData);
+      }
     } catch (e) {
       console.error('Error adding document: ', e);
     }

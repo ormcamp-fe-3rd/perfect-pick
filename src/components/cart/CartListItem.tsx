@@ -39,7 +39,7 @@ export default function CartListItem({
             <div className="flex items-center gap-11 lg:gap-6">
               <img
                 className="size-[110px] rounded-[10px]"
-                // src={item.src}
+                src={item.thumbnail}
                 alt={`${item.product_title}'s image`}
               />
               <div className="flex flex-col justify-center gap-6">

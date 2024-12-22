@@ -33,4 +33,5 @@ export interface CartItemData {
     deliveryFee?: number;
   };
   user_id: string | undefined;
+  thumbnail: string;
 }

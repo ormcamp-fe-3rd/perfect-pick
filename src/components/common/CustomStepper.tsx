@@ -6,7 +6,7 @@ interface CustomStepperProps {
   numberStyle?: string;
   buttonStyle?: string;
   defaultValue?: number;
-  onAdjust?: (action: number) => void;
+  onChange?: (newQuantity: number) => void;
 }
 
 export default function CustomStepper({
@@ -15,20 +15,16 @@ export default function CustomStepper({
   numberStyle = '',
   buttonStyle = '',
   defaultValue = 1,
-  onAdjust,
+  onChange = () => {},
 }: CustomStepperProps) {
   const [amount, setAmount] = useState(defaultValue);
 
   const adjustButtonClick = (action: number) => {
-    if (onAdjust) {
-      onAdjust(action);
-    }
+    const newAmount =
+      action < 0 ? Math.max(1, amount + action) : Math.min(10, amount + action);
 
-    if (action < 0) {
-      setAmount(Math.max(1, amount + action));
-    } else if (action > 0) {
-      setAmount(Math.min(10, amount + action));
-    }
+    setAmount(newAmount);
+    onChange(newAmount);
   };
 
   const shapeProp = shape === 'round' ? 'rounded-full' : '';

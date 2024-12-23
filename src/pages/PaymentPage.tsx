@@ -35,10 +35,9 @@ function PaymentPage() {
   useEffect(() => {
     const fetchCheckoutItems = async () => {
       try {
-        const parsedData = JSON.parse(
+        const checkoutData = JSON.parse(
           sessionStorage.getItem('checkoutData') || '[]',
         );
-        const checkoutData = parsedData.checkoutData;
 
         if (checkoutData) {
           setCheckoutItems([checkoutData]);

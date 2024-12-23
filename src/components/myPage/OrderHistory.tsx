@@ -1,84 +1,128 @@
+import { getAuth } from 'firebase/auth';
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+
+// 전체 주문 내역
+interface Order {
+  userId: string;
+  orderDate: string;
+  totalPrice: number;
+  items: OrderItem[];
+}
+
+// 주문 내역의 각 상품 정보
+interface OrderItem {
+  amount: number;
+  name: string;
+  options: Record<string, number>;
+  src: string;
+  price: number;
+}
+
 export default function OrderHistory() {
-  const orderHistory = [
-    {
-      id: 1,
-      name: '갤럭시 S24 FE 자급제',
-      src: 'https://i.imgur.com/svOz7A9b.jpg',
-      options: {
-        color: 'white',
-        storage: '256G',
-        accessories: 'PD 충전기 절전형(케이블 미포함)',
-      },
-      amount: 1,
-      price: {
-        productPrice: 1000000,
-        accessoriesPrice: 15000,
-      },
-    },
-    {
-      id: 2,
-      name: '아이패드 프로 11인치 (Wi-Fi)',
-      src: 'https://i.imgur.com/Ae1wefjb.jpg',
-      options: { color: '스페이스 블랙', storage: '1T' },
-      amount: 1,
-      price: { productPrice: 2000000 },
-    },
-    {
-      id: 3,
-      name: '갤럭시 S24 FE 자급제',
-      src: 'https://i.imgur.com/svOz7A9b.jpg',
-      options: { color: 'white', storage: '512G' },
-      amount: 1,
-      price: { productPrice: 1000000, deliveryFee: 3000 },
-    },
-  ];
+  const [orderHistory, setOrderHistory] = useState<Order[]>([]);
 
-  const totalPrice = orderHistory.reduce((sum, item) => {
-    const total =
-      (item.price?.productPrice + (item.price?.accessoriesPrice ?? 0)) *
-      item.amount;
-    return sum + total;
-  }, 0);
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const db = getFirestore();
+      const auth = getAuth();
+      const currentUser = auth.currentUser;
 
-  const totalDeliveryFee = orderHistory.reduce((sum, item) => {
-    const total = item.price?.deliveryFee ?? 0;
-    return sum + total;
-  }, 0);
+      if (!currentUser) {
+        console.error('로그인 상태가 아닙니다');
+        return;
+      }
+
+      const userId = currentUser.uid;
+      const ordersRef = collection(db, 'orders');
+      const q = query(ordersRef, where('user_id', '==', userId));
+
+      try {
+        const querySnapshot = await getDocs(q);
+        const orders: Order[] = [];
+
+        for (const docSnapshot of querySnapshot.docs) {
+          const orderData = docSnapshot.data();
+          const itemsRef = collection(db, `orders/${docSnapshot.id}/items`);
+          const itemsSnapshot = await getDocs(itemsRef);
+
+          const items: OrderItem[] = itemsSnapshot.docs.map((itemDoc) => {
+            const itemData = itemDoc.data();
+            return {
+              amount: itemData.amount,
+              name: itemData.name,
+              options: itemData.options,
+              src: itemData.src,
+              price: itemData.price,
+            };
+          });
+
+          orders.push({
+            userId: docSnapshot.id,
+            orderDate: orderData.order_date,
+            totalPrice: orderData.total_price,
+            items,
+          });
+        }
+
+        setOrderHistory(orders);
+      } catch (error) {
+        console.error('값을 읽지 못하였습니다. DB 정보를 확인해주세요.', error);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  if (orderHistory.length === 0) {
+    return <div>No orders found.</div>;
+  }
 
   return (
     <>
-      {orderHistory.map((item) => (
-        <div
-          key={item.id}
-          className="mt-[15px] flex items-center justify-between gap-5 border-t p-5 text-xl font-semibold md:flex-col md:items-start"
-        >
-          <div className="flex gap-5">
-            <img
-              className="size-[110px] rounded-[10px]"
-              src={item.src}
-              alt={`${item.name}'s image`}
-            />
-            <div className="grid grid-cols-1 items-center">
-              <div className="col-span-1 font-extrabold">{item.name}</div>
-              <div className="col-span-1">
-                옵션: {Object.values(item.options).join('/')}
+      {orderHistory.map((order) =>
+        order.items.map((item, index) => (
+          <div
+            key={`${order.userId}-${index}`}
+            className="mt-[15px] flex items-center justify-between gap-5 border-t p-5 text-xl font-semibold md:flex-col md:items-start"
+          >
+            <div className="flex gap-5">
+              <img
+                className="size-[110px] rounded-[10px]"
+                src={item.src}
+                alt={`${item.name}'s image`}
+              />
+              <div className="grid grid-cols-1 items-center">
+                <div className="col-span-1 font-extrabold">{item.name}</div>
+                <div className="col-span-1">
+                  옵션: {Object.values(item.options).join('/')}
+                </div>
+                <div className="col-span-1 text-start">{item.amount}개</div>
               </div>
-              <div className="col-span-1 text-start">{item.amount}개</div>
+            </div>
+            <div className="text-nowrap md:w-full md:text-right">
+              {item.price.toLocaleString()}원
             </div>
           </div>
-          <div className="text-nowrap md:w-full md:text-right">
-            {(
-              (item.price?.productPrice ?? 0) +
-              (item.price?.accessoriesPrice ?? 0)
-            ).toLocaleString()}
-            원
-          </div>
-        </div>
-      ))}
-      <div className="flex w-full items-center justify-end gap-12 text-nowrap border-y px-12 py-4 text-xl font-extrabold">
+        )),
+      )}
+      <div className="flex w-full items-center justify-end gap-12 text-nowrap border-t px-12 py-4 text-xl font-extrabold">
         <span>총 주문금액 </span>
         <span className="text-red">
-          {(totalPrice + totalDeliveryFee).toLocaleString()}원
+          {orderHistory
+            .reduce(
+              (total, order) =>
+                total + order.items.reduce((sum, item) => sum + item.price, 0),
+              0,
+            )
+            .toLocaleString()}
+          원
         </span>
       </div>
     </>

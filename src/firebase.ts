@@ -49,7 +49,6 @@ export const saveUserToDB = async (
   uid: string,
   username: string,
   email: string,
-
   address: string = '서울 강남구 강남대로 324 역삼디오슈페리움 2층 모두의연구소',
 ) => {
   const userRef = doc(db, 'users', uid); // Firestore의 users 컬렉션에 UID를 키로 사용
@@ -137,8 +136,10 @@ export const getUserInfo = async () => {
         unsubscribe(); // 구독 해제
         resolve({
           username: userData?.username,
-          email: userData?.email,
+          email: userData?.email, // 사용자 이메일
           id: userAuth.uid,
+          address: userData?.address,
+          userid: userAuth.email, // 사용자 ID
         });
       } catch (error) {
         unsubscribe(); // 구독 해제

@@ -13,11 +13,11 @@ function PaymentPage() {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [checkoutItems, setCheckoutItems] = useState<CartData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isAddressComplete, setIsAddressComplete] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState('');
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
 
   const userId = userData?.id;
-  const isConditionMet = selectedPayment ? isPrivacyChecked : false;
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -72,6 +72,12 @@ function PaymentPage() {
     fetchCheckoutItems();
   }, [userId]);
 
+  const isConditionMet = selectedPayment ? isPrivacyChecked : false;
+
+  const handleAddressInput = (value: boolean) => {
+    setIsAddressComplete(value);
+  };
+
   const handlePaymentSelect = (paymentMethod: string) => {
     setSelectedPayment(paymentMethod);
   };
@@ -88,7 +94,10 @@ function PaymentPage() {
     <div className="mx-auto mt-16 box-content flex max-w-[1204px] flex-col gap-24 px-5">
       <div className="lg:px-10">
         <h2 className="text-[36px] lg:text-center">구매자/배송지 정보</h2>
-        <ShippingAddress userData={userData} />
+        <ShippingAddress
+          userData={userData}
+          onAddressInput={handleAddressInput}
+        />
       </div>
       <div className="lg:px-10">
         <h2 className="mb-10 text-[36px] lg:text-center">주문 정보</h2>
@@ -109,7 +118,10 @@ function PaymentPage() {
           <DiscountApply />
         </div>
       </div>
-      <PaymentButtonModal isValid={isConditionMet} />
+      <PaymentButtonModal
+        isAddressComplete={isAddressComplete}
+        isValid={isConditionMet}
+      />
     </div>
   );
 }

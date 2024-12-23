@@ -1,11 +1,13 @@
 import { initializeApp } from 'firebase/app';
 import {
   createUserWithEmailAndPassword,
+
   EmailAuthProvider,
   getAuth,
   reauthenticateWithCredential,
   signInWithEmailAndPassword,
   updatePassword,
+  onAuthStateChanged,
 } from 'firebase/auth';
 import {
   collection,
@@ -20,6 +22,7 @@ import {
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_FIREBASE_APIKEY,
   authDomain: import.meta.env.VITE_APP_FIREBASE_AUTHDOMAIN,
@@ -31,42 +34,29 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
-const db = getFirestore(app);
 
-const auth = getAuth();
+export const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
+export const auth = getAuth();
 
-/**
- * 회원가입 함수 (이메일/비밀번호)
- * @param email 사용자 이메일
- * @param password 사용자 비밀번호
- */
+
 export const signupEmail = (email: string, password: string) => {
   return createUserWithEmailAndPassword(auth, email, password);
 };
 
-/**
- * 로그인 함수 (이메일/비밀번호)
- * @param email 사용자 이메일
- * @param password 사용자 비밀번호
- */
+
 export const loginEmail = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
 
-/**
- * Firestore에 사용자 정보 저장
- * @param uid Firebase UID
- * @param username 사용자 이름
- * @param email 사용자 이메일
- * @param address 사용자 주소
- */
+
 export const saveUserToDB = async (
   uid: string,
   username: string,
   email: string,
+
   address: string = '서울 강남구 강남대로 324 역삼디오슈페리움 2층 모두의연구소',
+
 ) => {
   const userRef = doc(db, 'users', uid); // Firestore의 users 컬렉션에 UID를 키로 사용
   await setDoc(userRef, {
@@ -155,4 +145,39 @@ export const updateUserAddress = async (newAddress: string) => {
     console.error('주소 업데이트 중 오류가 발생했습니다.', error);
     throw new Error('주소 업데이트 중 오류가 발생했습니다.');
   }
+
+  });
+};
+
+export const getUserInfo = async () => {
+  return new Promise((resolve, reject) => {
+    const auth = getAuth();
+
+    // Firebase Auth 상태 변화를 구독: 인증 정보 업데이트
+    const unsubscribe = onAuthStateChanged(auth, async (userAuth) => {
+      if (!userAuth) {
+        unsubscribe(); // 구독 해제
+        return;
+      }
+      try {
+        const userRef = doc(db, 'users', userAuth.uid);
+        const userDoc = await getDoc(userRef);
+        if (!userDoc.exists()) {
+          unsubscribe(); // 구독 해제
+          return;
+        }
+
+        const userData = userDoc.data();
+        unsubscribe(); // 구독 해제
+        resolve({
+          username: userData?.username,
+          email: userData?.email,
+          id: userAuth.uid,
+        });
+      } catch (error) {
+        unsubscribe(); // 구독 해제
+        reject(error);
+      }
+    });
+  });
 };

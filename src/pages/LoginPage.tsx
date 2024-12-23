@@ -67,12 +67,12 @@ function LoginPage() {
     if (!usernameError && !passwordError) {
       try {
         const emailFormatId = `${username}@example.com`;
-
         await loginEmail(emailFormatId, password);
         alert('로그인 성공!');
         navigate('/mypage');
       } catch (error) {
         console.error('로그인 실패:', error);
+
         setServerError(
           '로그인에 실패했습니다. 아이디 또는 비밀번호를 확인해주세요.',
         );

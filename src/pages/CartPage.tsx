@@ -23,11 +23,26 @@ function CartPage() {
     fetchUserInfo();
   }, []);
 
-  const handleSaveSelectedItems = () => {
-    const checkoutData = selectedItems.map((item) => item.id);
-
-    userId &&
+  const saveCheckoutData = () => {
+    if (!userId) {
+      const checkoutData = selectedItems;
       sessionStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+    } else {
+      const checkoutData = selectedItems.map((item) => item.id);
+      sessionStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+    }
+  };
+
+  const handleCheckout = (event: React.MouseEvent) => {
+    saveCheckoutData();
+
+    const checkoutData = JSON.parse(
+      sessionStorage.getItem('checkoutData') || '[]',
+    );
+    if (!checkoutData || checkoutData.length === 0) {
+      event.preventDefault(); // 링크 이동을 막음
+      alert('구매할 상품을 선택해주세요.');
+    }
   };
 
   return (
@@ -66,7 +81,7 @@ function CartPage() {
             쇼핑 계속하기
           </button>
         </Link>
-        <Link to="/payment" onClick={handleSaveSelectedItems}>
+        <Link to="/payment" onClick={handleCheckout}>
           <button className="h-20 w-[226px] rounded-[50px] bg-red text-2xl text-[white] md:w-[160px]">
             구매하기
           </button>

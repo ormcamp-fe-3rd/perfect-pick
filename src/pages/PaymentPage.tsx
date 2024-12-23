@@ -34,7 +34,9 @@ function PaymentPage() {
     const fetchCheckoutItems = async () => {
       try {
         if (!userId) {
-          const guestItems = JSON.parse(sessionStorage.getItem('cart') || '[]');
+          const guestItems = JSON.parse(
+            sessionStorage.getItem('checkoutData') || '[]',
+          );
           setCheckoutItems(guestItems);
           return;
         }
@@ -54,7 +56,6 @@ function PaymentPage() {
           id: doc.id,
           ...(doc.data() as CartItemData),
         }));
-        console.log('filteredDocs', filteredDocs);
         setCheckoutItems(userItems);
       } catch (e) {
         console.error('Error fetching user cart:', e);

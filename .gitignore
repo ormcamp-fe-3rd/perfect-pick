@@ -25,4 +25,6 @@ dist-ssr
 
 *.tsbuildinfo
 .env
-.firebase
+.firebase/
+*.cache
+

@@ -123,6 +123,9 @@ export default function CartTable({
           return item.id === itemId ? { ...item, amount: newQuantity } : item;
         });
         sessionStorage.setItem('cart', JSON.stringify(updatedCart));
+        setCartData(updatedCart);
+        alert('수량이 변경되었습니다.');
+        return;
       }
 
       const cartItemRef = doc(db, 'carts', itemId);

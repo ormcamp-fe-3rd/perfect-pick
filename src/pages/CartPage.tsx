@@ -29,7 +29,7 @@ function CartPage() {
       sessionStorage.setItem('checkoutData', JSON.stringify(checkoutData));
     } else {
       const checkoutData = selectedItems.map((item) => item.id);
-      sessionStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+      sessionStorage.setItem('checkoutDataId', JSON.stringify(checkoutData));
     }
   };
 

@@ -33,11 +33,12 @@ function PaymentPage() {
   useEffect(() => {
     const fetchCheckoutItems = async () => {
       try {
-        if (!userId) {
-          const guestItems = JSON.parse(
-            sessionStorage.getItem('checkoutData') || '[]',
-          );
-          setCheckoutItems(guestItems);
+        const checkoutData = JSON.parse(
+          sessionStorage.getItem('checkoutData') || '[]',
+        );
+
+        if (checkoutData) {
+          setCheckoutItems([checkoutData]);
           return;
         }
 
@@ -45,11 +46,11 @@ function PaymentPage() {
         const q = query(cartsRef, where('user_id', '==', userId));
         const querySnapshot = await getDocs(q);
 
-        const checkoutData = JSON.parse(
-          sessionStorage.getItem('checkoutData') || '[]',
+        const checkoutDataId = JSON.parse(
+          sessionStorage.getItem('checkoutDataId') || '[]',
         );
         const filteredDocs = querySnapshot.docs.filter((doc) =>
-          checkoutData.includes(doc.id),
+          checkoutDataId.includes(doc.id),
         );
 
         const userItems = filteredDocs.map((doc) => ({

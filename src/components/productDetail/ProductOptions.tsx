@@ -174,6 +174,11 @@ export default function ProductOptions({
     }
   };
 
+  const saveCheckoutData = () => {
+    const checkoutData = cartItemData;
+    sessionStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+  };
+
   return (
     <div className="w-full">
       <div className="flex flex-col gap-6 md:items-center md:gap-4">
@@ -255,6 +260,7 @@ export default function ProductOptions({
           buttonName="구매하기"
           buttonStyle="bg-red"
           type="moveLink"
+          onButtonClick={saveCheckoutData}
           moveLinkPath="/payment"
         />
       </div>

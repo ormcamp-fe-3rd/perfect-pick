@@ -22,7 +22,7 @@ export default function PaymentOptions({
   const PaymentMethodSelector = ({
     id,
     label,
-    style,
+    style = '',
   }: PaymentMethodSelectorProps) => {
     return (
       <>
@@ -38,7 +38,12 @@ export default function PaymentOptions({
             onChange={() => onPaymentSelect(id)}
             className="hidden"
           ></input>
-          <label htmlFor={id}>{label}</label>
+          <label
+            htmlFor={id}
+            className="flex h-full w-full items-center justify-center"
+          >
+            {label}
+          </label>
         </div>
       </>
     );

@@ -176,7 +176,10 @@ export default function ProductOptions({
 
   const saveCheckoutData = () => {
     const checkoutData = cartItemData;
-    sessionStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+    const expirationTime = new Date().getTime() + 5 * 60 * 1000; // 5분 후 만료
+    const dataWithExpiration = { checkoutData, expirationTime };
+    console.log('dataWithExpiration', dataWithExpiration);
+    sessionStorage.setItem('checkoutData', JSON.stringify(dataWithExpiration));
   };
 
   return (

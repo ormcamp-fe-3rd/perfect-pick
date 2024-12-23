@@ -6,10 +6,18 @@ interface RightMenuListProps {
 
 export default function RightMenu({ isMenuOpen }: RightMenuListProps) {
   const List = [
-    { to: '', src: '../images/header/ico-search.svg', alt: '통합검색' },
-    { to: '/cart', src: '../images/header/ico-cart.svg', alt: '통합검색' },
-    { to: '/mypage', src: '../images/header/ico-mypage.svg', alt: '통합검색' },
-    { to: '/login', src: '../images/header/ico-login.svg', alt: '통합검색' },
+    {
+      to: '/product/total',
+      src: '../images/header/ico-search.svg',
+      alt: '통합검색',
+    },
+    { to: '/cart', src: '../images/header/ico-cart.svg', alt: '장바구니' },
+    {
+      to: '/mypage',
+      src: '../images/header/ico-mypage.svg',
+      alt: '마이페이지',
+    },
+    { to: '/login', src: '../images/header/ico-login.svg', alt: '로그인' },
   ];
 
   return (

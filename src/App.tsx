@@ -1,4 +1,5 @@
-import './styles/output.css';
+import '@/styles/output.css';
+
 import Router from '@/router/Router';
 
 function App() {

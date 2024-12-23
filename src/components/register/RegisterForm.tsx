@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import RegisterInput from '@/components/register/RegisterInput';
 import RegisterSuccess from '@/components/register/RegisterSuccess';
+import { saveUserToDB, signupEmail } from '@/firebase';
 import {
   emailValidator,
   passwordValidator,
@@ -39,13 +40,27 @@ export default function RegisterForm() {
     passwordValidator(password) &&
     emailValidator(email);
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const isValid = validator(formValues);
+    const emailFormatId = `${formValues.userid}@example.com`;
+
+    const userCredential = await signupEmail(
+      emailFormatId,
+      formValues.password,
+    );
 
     if (isValid) {
-      // TODO: 서버에서 회원가입 요청 및 에러 핸들링 추가
-      setIsSuccess(true);
+      try {
+        const { uid } = userCredential.user;
+        await saveUserToDB(uid, formValues.username, formValues.email);
+
+        setIsSuccess(true);
+      } catch (error) {
+        console.error('회원 가입 오류 발생 :', error);
+        await userCredential.user.delete();
+        alert('회원가입 중 문제가 발생했습니다. 다시 시도해주세요.');
+      }
     } else {
       setIsSuccess(false);
       alert('입력 정보를 다시 확인해주세요.');

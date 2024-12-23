@@ -8,8 +8,10 @@ import {
   updatePassword,
 } from 'firebase/auth';
 import {
+  collection,
   doc,
   getDoc,
+  getDocs,
   getFirestore,
   setDoc,
   updateDoc,
@@ -73,6 +75,18 @@ export const saveUserToDB = async (
     createdAt: new Date(),
     address,
   });
+};
+
+export const loadProductToDB = async () => {
+  const productsCollectionRef = collection(db, 'products');
+  try {
+    const querySnapshot = await getDocs(productsCollectionRef);
+    const productsList = querySnapshot.docs.map((doc) => doc.data());
+    return productsList;
+  } catch (error) {
+    console.error('제품정보를 가져오는데 오류가 발생했습니다.', error);
+    return []; // 오류 발생시 빈 배열 반환
+  }
 };
 
 export { db };

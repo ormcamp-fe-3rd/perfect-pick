@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import CartTable from '@/components/cart/CartTable';
-import { CART_PAGE } from '@/constants/option';
+import { CART_PAGE } from '@/constants/optionsData';
 import { useEffect, useState } from 'react';
 import { CartData, UserData } from '@/types';
 import { getUserInfo } from '@/firebase';

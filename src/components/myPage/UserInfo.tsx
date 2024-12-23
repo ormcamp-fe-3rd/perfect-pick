@@ -18,6 +18,7 @@ export default function UserInfo() {
   const [newPwd, setNewPwd] = useState('');
   const [newPwdCheck, setNewPwdCheck] = useState('');
   const [newAddress, setNewAddress] = useState('');
+  const [newDetailAddress, setNewDetailAddress] = useState('');
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -58,7 +59,7 @@ export default function UserInfo() {
     setError(''); // 에러 메시지 초기화
 
     try {
-      await updateUserAddress(newAddress); // 주소 업데이트 함수 호출
+      await updateUserAddress(newAddress, newDetailAddress); // 주소 업데이트 함수 호출
       alert('주소가 성공적으로 변경되었습니다.');
     } catch (error) {
       // setError('주소 변경 중 오류가 발생했습니다.');
@@ -134,6 +135,8 @@ export default function UserInfo() {
             <UserInfoInput
               id="inputDetailAddress"
               placeholder="상세 주소를 입력해주세요."
+              value={newDetailAddress}
+              onChange={(e) => setNewDetailAddress(e.target.value)}
             />
           </div>
         </div>

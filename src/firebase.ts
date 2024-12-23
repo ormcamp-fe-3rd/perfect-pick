@@ -49,7 +49,8 @@ export const saveUserToDB = async (
   uid: string,
   username: string,
   email: string,
-  address: string = '서울 강남구 강남대로 324 역삼디오슈페리움 2층 모두의연구소',
+  address: string = '서울 강남구 강남대로 324 ',
+  detailAddress: string = '역삼디오슈페리움 2층 모두의연구소',
 ) => {
   const userRef = doc(db, 'users', uid); // Firestore의 users 컬렉션에 UID를 키로 사용
   await setDoc(userRef, {
@@ -57,6 +58,7 @@ export const saveUserToDB = async (
     email,
     createdAt: new Date(),
     address,
+    detailAddress,
   });
 };
 
@@ -90,7 +92,10 @@ export const updateUserPassword = async (
   await updatePassword(user, newPassword);
 };
 
-export const updateUserAddress = async (newAddress: string) => {
+export const updateUserAddress = async (
+  newAddress: string,
+  newDetailAddress: string,
+) => {
   const auth = getAuth();
   const user = auth.currentUser;
 
@@ -105,6 +110,7 @@ export const updateUserAddress = async (newAddress: string) => {
     // Firestore의 'users' 컬렉션에서 해당 사용자의 주소를 업데이트
     await updateDoc(userRef, {
       address: newAddress,
+      detailAddress: newDetailAddress,
     });
 
     console.log('주소가 성공적으로 업데이트되었습니다.');
@@ -139,6 +145,7 @@ export const getUserInfo = async () => {
           email: userData?.email, // 사용자 이메일
           id: userAuth.uid,
           address: userData?.address,
+          detailAddress: userData?.detailAddress,
           userid: userAuth.email, // 사용자 ID
         });
       } catch (error) {

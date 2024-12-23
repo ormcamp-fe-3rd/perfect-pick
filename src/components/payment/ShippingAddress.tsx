@@ -32,8 +32,6 @@ export default function ShippingAddress({ userData }: ShippingAddressProps) {
     }
   };
 
-  console.log('inputValues', inputValues);
-
   return (
     <>
       <CustomCheckBox
@@ -60,6 +58,7 @@ export default function ShippingAddress({ userData }: ShippingAddressProps) {
             layout="w-5/6 pl-6"
             placeholder="연락처를 입력해주세요"
             key="recipientNumber"
+            value={inputValues.recipientNumber ?? ''}
             onInputChange={(value) =>
               updateInputValues('recipientNumber', value)
             }
@@ -86,9 +85,9 @@ export default function ShippingAddress({ userData }: ShippingAddressProps) {
               layout="pl-6"
               placeholder="상세 주소를 입력해주세요"
               key="detailedAddress"
-              value={inputValues.detailedAddress ?? ''}
+              value={inputValues.detailAddress ?? ''}
               onInputChange={(value) =>
-                updateInputValues('detailedAddress', value)
+                updateInputValues('detailAddress', value)
               }
             />
           </div>
@@ -99,6 +98,7 @@ export default function ShippingAddress({ userData }: ShippingAddressProps) {
             layout="w-5/6 pl-6"
             placeholder="배송 메세지를 입력해주세요"
             key="shippingMessage"
+            value={inputValues.shippingMessage ?? ''}
             onInputChange={(value) =>
               updateInputValues('shippingMessage', value)
             }

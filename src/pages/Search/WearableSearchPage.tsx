@@ -92,7 +92,7 @@ function WearableSearchPage() {
           <SearchSide imageSrc="../images/Products/wearable-side.png" />
         </div>
       </div>
-      <div className="hidden md:block">
+      <div className="hidden md:!block">
         <MobileOption type="wearable" onApplyClick={handleApplyClick} />
       </div>
       <ProductContainer>

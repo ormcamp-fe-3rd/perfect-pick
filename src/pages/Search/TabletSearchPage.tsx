@@ -92,7 +92,7 @@ function TabletSearchPage() {
           <SearchSide imageSrc="../images/Products/tablet-side.png" />
         </div>
       </div>
-      <div className="hidden md:block">
+      <div className="hidden md:!block">
         <MobileOption type="tablet" onApplyClick={handleApplyClick} />
       </div>
       <ProductContainer>

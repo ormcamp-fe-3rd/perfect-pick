@@ -90,7 +90,7 @@ function NotebookSearchPage() {
           <DefaultOption type="notebook" onApplyClick={handleApplyClick} />
         </div>
       </div>
-      <div className="hidden md:block">
+      <div className="hidden md:!block">
         <MobileOption type="notebook" onApplyClick={handleApplyClick} />
       </div>
       <ProductContainer>

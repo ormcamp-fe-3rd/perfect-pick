@@ -92,7 +92,7 @@ function MobileSearchPage() {
           <SearchSide imageSrc="../images/Products/galaxy-side.png" />
         </div>
       </div>
-      <div className="hidden md:block">
+      <div className="hidden md:!block">
         <MobileOption type="mobile" onApplyClick={handleApplyClick} />
       </div>
       <ProductContainer>

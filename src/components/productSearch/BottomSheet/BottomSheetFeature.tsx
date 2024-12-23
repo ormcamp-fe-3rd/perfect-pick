@@ -13,6 +13,7 @@ export interface BottomSheetButtonProps {
   categoryTag: string;
   price?: boolean;
   search?: boolean;
+  onItemClick: (item: string) => void; // 클릭된 아이템을 상위 컴포넌트로 전달
 }
 
 function BottomSheetFeature({
@@ -20,12 +21,14 @@ function BottomSheetFeature({
   categoryTag,
   price = false,
   search = false,
+  onItemClick, // 전달된 onItemClick 함수
 }: BottomSheetButtonProps) {
   const categoryData: CategoryData = typedOptionsData[category];
   const categories = categoryData.categories;
   const data = categoryData.data;
   const SelectedIndex = categories.indexOf(categoryTag);
   const selectedData = data[SelectedIndex] || [];
+
   return (
     <BottomSheetContainer>
       {price ? (
@@ -79,6 +82,7 @@ function BottomSheetFeature({
             <Button
               key={currentIndex}
               className="mb-4 block h-10 w-full max-w-[480px] justify-center border-b-[0.1px] border-white text-left"
+              onClick={() => onItemClick(item)} // 클릭된 옵션을 상위 컴포넌트로 전달
             >
               {item}
             </Button>

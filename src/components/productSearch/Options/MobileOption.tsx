@@ -2,20 +2,23 @@ import { useState } from 'react';
 
 import optionsData from '../../../constants/optionsData.json';
 import { CategoryData, OptionsData } from '../../../constants/optionsData.ts';
-import BottomSheet from '../BottomSheet/BottomSheet.tsx';
-import BottomSheetFeature from '../BottomSheet/BottomSheetFeature.tsx';
+import BottomSheet from '../BottomSheet/BottomSheet';
+import BottomSheetFeature from '../BottomSheet/BottomSheetFeature';
 import ButtonLayout from '../Product/ProductBtn.tsx';
-import { DefaultOptionProps } from './DefaultOption';
+import { DefaultOptionProps } from './DefaultOption.tsx';
 
 const typedOptionsData: OptionsData = optionsData;
 
-function MobileOption({ type }: DefaultOptionProps) {
+function MobileOption({ type, onApplyClick }: DefaultOptionProps) {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [bottomSheetCategory, setBottomSheetCategory] =
     useState<DefaultOptionProps['type']>('mobile');
   const [bottomSheetCategoryTag, setBottomSheetCategoryTag] = useState('');
-  const [isPrice, setIsPrice] = useState(false);
-  const [isSearch, setIsSearch] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [selectedOptionCategory] = useState<string[]>([]);
+  const [firstPrice] = useState<number>(0);
+  const [secondPrice] = useState<number>(0);
+  const [selectedTitle] = useState<string>('');
 
   const handleOpenBottomSheet = (
     category: DefaultOptionProps['type'],
@@ -23,12 +26,30 @@ function MobileOption({ type }: DefaultOptionProps) {
   ) => {
     setBottomSheetCategory(category);
     setBottomSheetCategoryTag(categoryTag);
-    setIsPrice(categoryTag === '가격대');
-    setIsSearch(categoryTag === '세부 검색');
     setIsBottomSheetOpen(true);
   };
 
   const handleCloseBottomSheet = () => setIsBottomSheetOpen(false);
+
+  const handleItemClick = (item: string) => {
+    setSelectedOptions((prevState) => {
+      if (prevState.includes(item)) {
+        return prevState.filter((i) => i !== item);
+      } else {
+        return [...prevState, item];
+      }
+    });
+  };
+
+  const handleApplyClick = () => {
+    onApplyClick(
+      selectedOptions,
+      selectedOptionCategory,
+      firstPrice,
+      secondPrice,
+      selectedTitle,
+    );
+  };
 
   const categoryData: CategoryData = typedOptionsData[type];
   const categories = categoryData.categories;
@@ -41,7 +62,10 @@ function MobileOption({ type }: DefaultOptionProps) {
           height="h-[45px]"
           width="w-[calc(25%-12px)]"
           fontSize="text-lg"
-          text="정렬"
+          text="초기화"
+          onClick={() => {
+            window.location.reload();
+          }}
         />
         {categories.slice(0, 3).map((option, index) => (
           <ButtonLayout
@@ -74,7 +98,7 @@ function MobileOption({ type }: DefaultOptionProps) {
           fontSize="text-lg"
           text="가격대"
           onClick={() => handleOpenBottomSheet(type, '가격대')}
-        ></ButtonLayout>
+        />
         <ButtonLayout
           backgroundColor="bg-skyblue"
           height="h-[45px]"
@@ -82,26 +106,29 @@ function MobileOption({ type }: DefaultOptionProps) {
           fontSize="text-lg"
           text="세부 검색"
           onClick={() => handleOpenBottomSheet(type, '세부 검색')}
-        ></ButtonLayout>
+        />
       </div>
-      <div className="px-[10px] pt-[15px]">
+
+      <BottomSheet isOpen={isBottomSheetOpen} onClose={handleCloseBottomSheet}>
+        <BottomSheetFeature
+          category={bottomSheetCategory}
+          categoryTag={bottomSheetCategoryTag}
+          onItemClick={handleItemClick}
+        />
+      </BottomSheet>
+
+      <div className="flex justify-center gap-3 px-[10px] pt-5">
         <ButtonLayout
           backgroundColor="bg-skyblue"
           height="h-[45px]"
           width="w-full"
           fontSize="text-lg"
-          text="맞춤형 제품 추천"
-        ></ButtonLayout>
+          text="옵션 적용"
+          onClick={handleApplyClick}
+        />
       </div>
-      <BottomSheet isOpen={isBottomSheetOpen} onClose={handleCloseBottomSheet}>
-        <BottomSheetFeature
-          category={bottomSheetCategory}
-          categoryTag={bottomSheetCategoryTag}
-          price={isPrice}
-          search={isSearch}
-        ></BottomSheetFeature>
-      </BottomSheet>
     </div>
   );
 }
+
 export default MobileOption;

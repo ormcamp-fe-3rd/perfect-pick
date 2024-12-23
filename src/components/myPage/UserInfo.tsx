@@ -5,7 +5,7 @@ import { getUserInfo, updateUserAddress, updateUserPassword } from '@/firebase';
 
 import UserInfoInput from './UserInfoInput';
 
-interface User {
+export interface User {
   userid: string | null;
   username: string | null;
   email: string | null;
@@ -24,7 +24,7 @@ export default function UserInfo() {
     const fetchUserInfo = async () => {
       try {
         const userInfo = await getUserInfo();
-        setUser(userInfo);
+        setUser(userInfo as User);
       } catch (error) {
         console.log('사용자 정보를 가져오는 실패했습니다.', error);
       }

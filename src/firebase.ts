@@ -1,13 +1,12 @@
 import { initializeApp } from 'firebase/app';
 import {
   createUserWithEmailAndPassword,
-
   EmailAuthProvider,
   getAuth,
+  onAuthStateChanged,
   reauthenticateWithCredential,
   signInWithEmailAndPassword,
   updatePassword,
-  onAuthStateChanged,
 } from 'firebase/auth';
 import {
   collection,
@@ -21,7 +20,6 @@ import {
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_FIREBASE_APIKEY,
@@ -39,16 +37,13 @@ export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth();
 
-
 export const signupEmail = (email: string, password: string) => {
   return createUserWithEmailAndPassword(auth, email, password);
 };
 
-
 export const loginEmail = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
-
 
 export const saveUserToDB = async (
   uid: string,
@@ -56,7 +51,6 @@ export const saveUserToDB = async (
   email: string,
 
   address: string = '서울 강남구 강남대로 324 역삼디오슈페리움 2층 모두의연구소',
-
 ) => {
   const userRef = doc(db, 'users', uid); // Firestore의 users 컬렉션에 UID를 키로 사용
   await setDoc(userRef, {
@@ -77,32 +71,6 @@ export const loadProductToDB = async () => {
     console.error('제품정보를 가져오는데 오류가 발생했습니다.', error);
     return []; // 오류 발생시 빈 배열 반환
   }
-};
-
-export { db };
-
-export const getUserInfo = async () => {
-  const auth = getAuth();
-  const userAuth = auth.currentUser;
-
-  if (!userAuth) {
-    throw new Error('사용자가 로그인되지 않았습니다.');
-  }
-
-  const userRef = doc(db, 'users', userAuth.uid);
-  const userDoc = await getDoc(userRef);
-
-  if (!userDoc.exists()) {
-    throw new Error('사용자 정보가 존재하지 않습니다.');
-  }
-
-  const userData = userDoc.data();
-  return {
-    userid: userAuth?.email,
-    username: userData?.username,
-    email: userData?.email,
-    address: userData?.address,
-  };
 };
 
 export const updateUserPassword = async (
@@ -145,8 +113,6 @@ export const updateUserAddress = async (newAddress: string) => {
     console.error('주소 업데이트 중 오류가 발생했습니다.', error);
     throw new Error('주소 업데이트 중 오류가 발생했습니다.');
   }
-
-  });
 };
 
 export const getUserInfo = async () => {

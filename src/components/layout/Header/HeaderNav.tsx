@@ -10,7 +10,7 @@ export default function HeaderNav({ isMenuOpen }: NavProps) {
       <ul className="flex gap-[60px] lg:absolute lg:top-[176px] lg:w-[calc(100%-30px)] lg:gap-7 md:flex-wrap md:gap-[10px]">
         <li className="lg:h-[50px] lg:w-full lg:rounded-full lg:bg-green">
           <Link
-            to={''}
+            to={'/product/total'}
             className="block hover:text-red lg:flex lg:h-full lg:w-full lg:items-center lg:justify-center lg:text-center lg:text-2xl lg:font-semibold lg:hover:text-black"
           >
             TOP10
@@ -18,7 +18,7 @@ export default function HeaderNav({ isMenuOpen }: NavProps) {
         </li>
         <li className="lg:h-[50px] lg:w-full lg:rounded-full lg:bg-salmon">
           <Link
-            to={''}
+            to={'/product/mobile'}
             className="block hover:text-red lg:flex lg:h-full lg:w-full lg:items-center lg:justify-center lg:text-center lg:text-2xl lg:font-semibold lg:hover:text-black"
           >
             Mobile
@@ -26,7 +26,7 @@ export default function HeaderNav({ isMenuOpen }: NavProps) {
         </li>
         <li className="lg:h-[50px] lg:w-full lg:rounded-full lg:bg-yellow">
           <Link
-            to={''}
+            to={'/product/tablet'}
             className="block hover:text-red lg:flex lg:h-full lg:w-full lg:items-center lg:justify-center lg:text-center lg:text-2xl lg:font-semibold lg:hover:text-black"
           >
             Tablet
@@ -34,7 +34,7 @@ export default function HeaderNav({ isMenuOpen }: NavProps) {
         </li>
         <li className="lg:h-[50px] lg:w-full lg:rounded-full lg:bg-pink">
           <Link
-            to={''}
+            to={'/product/notebook'}
             className="block hover:text-red lg:flex lg:h-full lg:w-full lg:items-center lg:justify-center lg:text-center lg:text-2xl lg:font-semibold lg:hover:text-black"
           >
             Notebook
@@ -42,7 +42,7 @@ export default function HeaderNav({ isMenuOpen }: NavProps) {
         </li>
         <li className="lg:h-[50px] lg:w-full lg:rounded-full lg:bg-skyblue">
           <Link
-            to={''}
+            to={'/product/wearable'}
             className="block hover:text-red lg:flex lg:h-full lg:w-full lg:items-center lg:justify-center lg:text-center lg:text-2xl lg:font-semibold lg:hover:text-black"
           >
             Wearable

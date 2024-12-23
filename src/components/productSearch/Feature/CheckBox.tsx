@@ -1,12 +1,24 @@
+// CheckBox.tsx
+
 import { Checkbox } from '@headlessui/react';
 import clsx from 'clsx';
 import { Fragment, useState } from 'react';
 
-function CheckBox() {
+interface CheckBoxProps {
+  item: string; // 체크된 항목의 값
+  onClick: (item: string) => void; // 클릭 시 호출될 함수
+}
+
+function CheckBox({ item, onClick }: CheckBoxProps) {
   const [enabled, setEnabled] = useState(false);
 
+  const handleChange = () => {
+    setEnabled((prev) => !prev);
+    onClick(item); // 클릭 시 선택된 항목을 부모에게 전달
+  };
+
   return (
-    <Checkbox checked={enabled} onChange={setEnabled} as={Fragment}>
+    <Checkbox checked={enabled} onChange={handleChange} as={Fragment}>
       {({ checked, disabled }) => (
         <span
           className={clsx(

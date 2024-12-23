@@ -1,11 +1,11 @@
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+// DefaultOption.tsx
 
+import { useState } from 'react';
 import Slider from 'react-slick';
 
 import optionsData from '../../../constants/optionsData.json';
 import { CategoryData, OptionsData } from '../../../constants/optionsData.ts';
-import Check from '../Feature/CheckBox.tsx';
+import CheckBox from '../Feature/CheckBox.tsx'; // CheckBox 컴포넌트
 import InputString from '../Feature/InputString.tsx';
 import ButtonLayout from '../Product/ProductBtn.tsx';
 
@@ -13,12 +13,32 @@ const typedOptionsData: OptionsData = optionsData;
 
 export interface DefaultOptionProps {
   type: 'mobile' | 'tablet' | 'wearable' | 'notebook';
+  onApplyClick: (selectedItems: string[]) => void; // 검색 옵션 적용 버튼 클릭 시 배열을 전달하는 콜백
 }
 
-function DefaultOption({ type }: DefaultOptionProps) {
+function DefaultOption({ type, onApplyClick }: DefaultOptionProps) {
   const categoryData: CategoryData = typedOptionsData[type];
   const categories = categoryData.categories;
   const data = categoryData.data;
+
+  const [selectedItems, setSelectedItems] = useState<string[]>([]); // 선택된 항목을 관리하는 상태
+
+  const handleItemClick = (item: string) => {
+    setSelectedItems((prevState) => {
+      if (prevState.includes(item)) {
+        // 이미 선택된 항목이면 배열에서 제거
+        return prevState.filter((i) => i !== item);
+      } else {
+        // 선택되지 않은 항목이면 배열에 추가
+        return [...prevState, item];
+      }
+    });
+  };
+
+  const handleApplyClick = () => {
+    // "검색 옵션 적용" 버튼 클릭 시 선택된 항목 배열을 MobileSearchPage로 전달
+    onApplyClick(selectedItems);
+  };
 
   const sliderSettings = {
     infinite: false,
@@ -39,23 +59,21 @@ function DefaultOption({ type }: DefaultOptionProps) {
 
           <div className="mr-10 w-full min-w-[850px] flex-1 overflow-hidden pt-[30px]">
             <Slider {...sliderSettings}>
-              {data[rowIndex].slice(0, 4).map(
-                (
-                  item,
-                  index, // 0부터 3번째 요소까지 렌더링
-                ) => (
-                  <div key={index} className="flex items-center">
-                    <div className="flex items-center gap-[17px]">
-                      <Check />
-                      <p>{item}</p>
-                    </div>
+              {data[rowIndex].slice(0, 4).map((item, index) => (
+                <div key={index} className="flex items-center">
+                  <div className="flex items-center gap-[17px]">
+                    <CheckBox item={item} onClick={handleItemClick} />
+                    <p>{item}</p>
                   </div>
-                ),
-              )}
+                </div>
+              ))}
               {data[rowIndex][4] && ( // 5번째 요소가 존재하는 경우에만 렌더링
                 <div className="flex w-[180px] items-center">
                   <div className="flex items-center gap-[17px]">
-                    <Check />
+                    <CheckBox
+                      item={data[rowIndex][4]}
+                      onClick={handleItemClick}
+                    />
                     <p>{data[rowIndex][4]}</p>
                   </div>
                 </div>
@@ -101,6 +119,7 @@ function DefaultOption({ type }: DefaultOptionProps) {
               backgroundColor="bg-salmon"
               text="검색 옵션 적용"
               rounded="rounded-[10px]"
+              onClick={handleApplyClick}
             ></ButtonLayout>
           </div>
         </div>
@@ -108,4 +127,5 @@ function DefaultOption({ type }: DefaultOptionProps) {
     </div>
   );
 }
+
 export default DefaultOption;

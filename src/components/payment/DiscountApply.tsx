@@ -31,7 +31,7 @@ export default function DiscountApply({
   const finalPrice = totalPrice + totalDeliveryFee - discountedPrice;
 
   return (
-    <div className="flex flex-col gap-6 text-xl font-semibold">
+    <div className="flex flex-col gap-6 text-2xl font-semibold">
       <div className="flex justify-between gap-5">
         <div>주문금액</div>
         <div>{(totalPrice + totalDeliveryFee).toLocaleString()}원</div>
@@ -40,7 +40,7 @@ export default function DiscountApply({
         <div>결제수단 할인</div>
         <div>- {discountedPrice}원</div>
       </div>
-      <div className="flex items-center justify-between gap-5">
+      <div className="flex hidden items-center justify-between gap-5">
         <div>포인트 사용</div>
         <input
           className="w-1/2 rounded-[10px] border px-4 py-2 text-end"

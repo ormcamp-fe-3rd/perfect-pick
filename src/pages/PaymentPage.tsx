@@ -113,7 +113,7 @@ function PaymentPage() {
             onCheckBoxChange={handleCheckBoxChange}
           />
         </div>
-        <div className="flex-grow">
+        <div className="flex-grow-[2]">
           <h2 className="mb-10 text-[36px] lg:text-center">할인 적용</h2>
           <DiscountApply
             cartData={checkoutItems}

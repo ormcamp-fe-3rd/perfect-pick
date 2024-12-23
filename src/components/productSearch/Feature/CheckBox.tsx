@@ -1,20 +1,19 @@
-// CheckBox.tsx
-
 import { Checkbox } from '@headlessui/react';
 import clsx from 'clsx';
 import { Fragment, useState } from 'react';
 
 interface CheckBoxProps {
   item: string; // 체크된 항목의 값
-  onClick: (item: string) => void; // 클릭 시 호출될 함수
+  type: string; // 체크된 항목의 타입
+  onClick: (item: string, type: string) => void;
 }
 
-function CheckBox({ item, onClick }: CheckBoxProps) {
+function CheckBox({ item, type, onClick }: CheckBoxProps) {
   const [enabled, setEnabled] = useState(false);
 
   const handleChange = () => {
     setEnabled((prev) => !prev);
-    onClick(item); // 클릭 시 선택된 항목을 부모에게 전달
+    onClick(item, type);
   };
 
   return (

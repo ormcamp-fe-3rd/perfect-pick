@@ -1,5 +1,3 @@
-// DefaultOption.tsx
-
 import { useState } from 'react';
 import Slider from 'react-slick';
 
@@ -13,7 +11,13 @@ const typedOptionsData: OptionsData = optionsData;
 
 export interface DefaultOptionProps {
   type: 'mobile' | 'tablet' | 'wearable' | 'notebook';
-  onApplyClick: (selectedItems: string[]) => void; // 검색 옵션 적용 버튼 클릭 시 배열을 전달하는 콜백
+  onApplyClick: (
+    selectedOptions: string[],
+    selectedOptionCategory: string[],
+    firstPrice: number,
+    secondPrice: number,
+    selectedTitle: string,
+  ) => void; // 검색 옵션 적용 버튼 클릭 시 배열을 전달하는 콜백
 }
 
 function DefaultOption({ type, onApplyClick }: DefaultOptionProps) {
@@ -21,23 +25,57 @@ function DefaultOption({ type, onApplyClick }: DefaultOptionProps) {
   const categories = categoryData.categories;
   const data = categoryData.data;
 
-  const [selectedItems, setSelectedItems] = useState<string[]>([]); // 선택된 항목을 관리하는 상태
+  const optionType = ['brand', 'opt_storage', 'size', 'date', 'featue'];
 
-  const handleItemClick = (item: string) => {
-    setSelectedItems((prevState) => {
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [selectedOptionCategory, setselectedOptionCategory] = useState<
+    string[]
+  >([]);
+  const [firstPrice, setFirstPrice] = useState<number>(0);
+  const [secondPrice, setSecondPrice] = useState<number>(0);
+  const [selectedTitle, setSelectedTitle] = useState<string>('');
+
+  const handleItemClick = (item: string, type: string) => {
+    setSelectedOptions((prevState) => {
       if (prevState.includes(item)) {
-        // 이미 선택된 항목이면 배열에서 제거
         return prevState.filter((i) => i !== item);
       } else {
-        // 선택되지 않은 항목이면 배열에 추가
         return [...prevState, item];
+      }
+    });
+
+    setselectedOptionCategory((prevState) => {
+      if (prevState.includes(type)) {
+        return prevState.filter((t) => t !== type);
+      } else {
+        return [...prevState, type];
       }
     });
   };
 
+  const handlePriceChange = (price: string, type: 'first' | 'second') => {
+    const parsedPrice = parseFloat(price);
+    if (!isNaN(parsedPrice)) {
+      if (type === 'first') {
+        setFirstPrice(parsedPrice);
+      } else {
+        setSecondPrice(parsedPrice);
+      }
+    }
+  };
+
+  const handleTitleChange = (title: string) => {
+    setSelectedTitle(title); // 제목은 하나의 값만 처리
+  };
+
   const handleApplyClick = () => {
-    // "검색 옵션 적용" 버튼 클릭 시 선택된 항목 배열을 MobileSearchPage로 전달
-    onApplyClick(selectedItems);
+    onApplyClick(
+      selectedOptions,
+      selectedOptionCategory,
+      firstPrice,
+      secondPrice,
+      selectedTitle,
+    );
   };
 
   const sliderSettings = {
@@ -62,17 +100,22 @@ function DefaultOption({ type, onApplyClick }: DefaultOptionProps) {
               {data[rowIndex].slice(0, 4).map((item, index) => (
                 <div key={index} className="flex items-center">
                   <div className="flex items-center gap-[17px]">
-                    <CheckBox item={item} onClick={handleItemClick} />
+                    <CheckBox
+                      item={item}
+                      onClick={handleItemClick}
+                      type={optionType[rowIndex]}
+                    />
                     <p>{item}</p>
                   </div>
                 </div>
               ))}
-              {data[rowIndex][4] && ( // 5번째 요소가 존재하는 경우에만 렌더링
+              {data[rowIndex][4] && (
                 <div className="flex w-[180px] items-center">
                   <div className="flex items-center gap-[17px]">
                     <CheckBox
                       item={data[rowIndex][4]}
                       onClick={handleItemClick}
+                      type={optionType[rowIndex]}
                     />
                     <p>{data[rowIndex][4]}</p>
                   </div>
@@ -91,9 +134,17 @@ function DefaultOption({ type, onApplyClick }: DefaultOptionProps) {
           </div>
           {/* 가격대 입력 필드 */}
           <div className="mr-9 flex w-full">
-            <InputString width="w-full lg:max-w-[330px]" />
+            <InputString
+              width="w-full lg:max-w-[330px]"
+              value={firstPrice || ''} // 값이 없을 때 빈 문자열 처리
+              onChange={(e) => handlePriceChange(e.target.value, 'first')}
+            />
             <p className="px-[90px] text-[28px]">~</p>
-            <InputString width="w-full lg:max-w-[330px]" />
+            <InputString
+              width="w-full lg:max-w-[330px]"
+              value={secondPrice || ''} // 값이 없을 때 빈 문자열 처리
+              onChange={(e) => handlePriceChange(e.target.value, 'second')}
+            />
           </div>
         </div>
         <div className="pt-[30px]">
@@ -102,7 +153,11 @@ function DefaultOption({ type, onApplyClick }: DefaultOptionProps) {
               검색
             </div>
             <div className="mr-9 w-full">
-              <InputString width="w-full lg:max-w-[800px]" />
+              <InputString
+                width="w-full lg:max-w-[800px]"
+                value={selectedTitle || ''} // 값이 없을 때 빈 문자열 처리
+                onChange={(e) => handleTitleChange(e.target.value)}
+              />
             </div>
           </div>
           <div className="flex items-center justify-center gap-[160px] pt-[35px] lg:w-screen">
@@ -112,6 +167,9 @@ function DefaultOption({ type, onApplyClick }: DefaultOptionProps) {
               backgroundColor="bg-skyblue"
               text="초기화"
               rounded="rounded-[10px]"
+              onClick={() => {
+                window.location.reload();
+              }}
             ></ButtonLayout>
             <ButtonLayout
               height="h-[45px]"

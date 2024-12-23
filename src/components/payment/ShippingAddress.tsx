@@ -3,6 +3,7 @@ import { useState } from 'react';
 import CustomCheckBox from '@/components/payment/CustomCheckBox';
 import ShippingInput from '@/components/payment/ShippingInput';
 import { UserData } from '@/types';
+import SearchAddress from '@/components/common/SearchAddress';
 
 interface ShippingAddressProps {
   userData: UserData | null;
@@ -30,6 +31,11 @@ export default function ShippingAddress({ userData }: ShippingAddressProps) {
     if (newCheckedState && userData) {
       setInputValues({ ...userData });
     }
+  };
+
+  const handleSearchAddress = async () => {
+    const searchedAddress = (await SearchAddress()) || '';
+    updateInputValues('address', searchedAddress);
   };
 
   return (
@@ -71,15 +77,15 @@ export default function ShippingAddress({ userData }: ShippingAddressProps) {
               <ShippingInput
                 layout="pl-6"
                 placeholder="주소 찾기로 입력해주세요"
+                id="inputBaseAddress"
                 style="bg-[#D9D9D9]"
                 key="baseAddress"
                 value={inputValues.address ?? ''}
                 onInputChange={(value) => updateInputValues('address', value)}
-                enabled={false}
+                showButton={true}
+                buttonText="주소찾기"
+                onButtonClick={handleSearchAddress}
               />
-              <button className="ml-4 w-[170px] rounded-[50px] border bg-black text-center text-2xl font-semibold text-white">
-                주소 찾기
-              </button>
             </div>
             <ShippingInput
               layout="pl-6"

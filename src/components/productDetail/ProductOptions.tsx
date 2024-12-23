@@ -86,8 +86,8 @@ export default function ProductOptions({
   };
 
   const selectedOptionsLabel = Object.entries(selectedOptions)
+    .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
     .filter(([, value]) => value)
-    .sort()
     .map(([, value]) => value)
     .join('/');
 
@@ -198,15 +198,17 @@ export default function ProductOptions({
         </div>
       </div>
       <div className="my-8 flex flex-col gap-5 text-lg md:my-5 md:gap-3">
-        {Object.entries(optionalPrices).map(([key, value], index) => (
-          <SelectOption
-            key={index}
-            name={key}
-            options={Object.keys(value).sort()}
-            value={selectedOptions[key]}
-            onChange={handleSelectedOptions}
-          />
-        ))}
+        {Object.entries(optionalPrices)
+          .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+          .map(([key, value], index) => (
+            <SelectOption
+              key={index}
+              name={key}
+              options={Object.keys(value).sort()}
+              value={selectedOptions[key]}
+              onChange={handleSelectedOptions}
+            />
+          ))}
       </div>
       {checkRequiredOptionsSelected && (
         <div className="flex flex-col gap-6 border-y px-3 py-5 md:gap-4 md:px-2 md:py-4">

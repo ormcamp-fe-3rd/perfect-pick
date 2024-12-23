@@ -11,11 +11,7 @@ import {
   doc,
   deleteDoc,
 } from '@firebase/firestore';
-import { CartItemData, UserData } from '@/types';
-
-interface CartData extends CartItemData {
-  id: string;
-}
+import { CartData, CartItemData, UserData } from '@/types';
 
 export default function CartTable() {
   const [userId, setUserId] = useState('');

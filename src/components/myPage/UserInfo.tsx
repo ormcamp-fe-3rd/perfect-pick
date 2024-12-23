@@ -1,19 +1,13 @@
 import { useEffect, useState } from 'react';
 
-import SearchAddress from '@/components/myPage/SearchAddress';
+import SearchAddress from '@/components/common/SearchAddress';
 import { getUserInfo, updateUserAddress, updateUserPassword } from '@/firebase';
 
 import UserInfoInput from './UserInfoInput';
-
-export interface User {
-  userid: string | null;
-  username: string | null;
-  email: string | null;
-  address: string | null;
-}
+import { UserData } from '@/types';
 
 export default function UserInfo() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserData | null>(null);
   const [currentPwd, setCurrentPwd] = useState('');
   const [newPwd, setNewPwd] = useState('');
   const [newPwdCheck, setNewPwdCheck] = useState('');
@@ -25,13 +19,15 @@ export default function UserInfo() {
     const fetchUserInfo = async () => {
       try {
         const userInfo = await getUserInfo();
-        setUser(userInfo as User);
+        setUser(userInfo as UserData);
       } catch (error) {
         console.log('사용자 정보를 가져오는 실패했습니다.', error);
       }
     };
     fetchUserInfo();
   }, []); // 랜더링시 최초 1회 사용
+
+  console.log('user22222', user);
 
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,11 +63,16 @@ export default function UserInfo() {
     }
   };
 
+  const handleSearchAddress = async () => {
+    const searchedAddress = (await SearchAddress()) || '';
+    setNewAddress(searchedAddress);
+  };
+
   return (
     <div className="mt-[15px] flex flex-col gap-[30px] border-t pt-[35px] font-bold">
       <div className="flex">
         <div className="w-1/3">아이디</div>
-        <div className="w-2/3">{user?.userid?.split('@')[0]}</div>
+        <div className="w-2/3">{user?.email?.split('@')[0]}</div>
         {/* 이메일 형식 제거 */}
       </div>
       <div className="flex">
@@ -118,8 +119,7 @@ export default function UserInfo() {
         <div>
           <div>주소</div>
           <div className="mt-5">
-            기존 주소 :{' '}
-            {`서울 강남구 강남대로 324 역삼디오슈페리움 2층 모두의연구소`}
+            {`기존 주소 : ${user?.address} ${user?.detailAddress}`}
           </div>
           <div className="mt-[10px] flex flex-col gap-[5px]">
             <UserInfoInput
@@ -129,7 +129,7 @@ export default function UserInfo() {
               buttonText="주소 찾기"
               buttonId="findAddressButton"
               value={newAddress}
-              onButtonClick={SearchAddress}
+              onButtonClick={handleSearchAddress}
               onChange={(e) => setNewAddress(e.target.value)}
             />
             <UserInfoInput

@@ -10,18 +10,20 @@ import { CartData, CartItemData, UserData } from '@/types';
 import { collection, getDocs, query, where } from '@firebase/firestore';
 
 function PaymentPage() {
-  const [userId, setUserId] = useState('');
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [checkoutItems, setCheckoutItems] = useState<CartData[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedPayment, setSelectedPayment] = useState('');
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
+
+  const userId = userData?.id;
   const isConditionMet = selectedPayment ? isPrivacyChecked : false;
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const userInfo = (await getUserInfo()) as UserData;
-        setUserId(userInfo.id);
+        setUserData(userInfo);
       } catch (error) {
         console.log('사용자 정보를 가져오는 실패했습니다.', error);
       }
@@ -86,7 +88,7 @@ function PaymentPage() {
     <div className="mx-auto mt-16 box-content flex max-w-[1204px] flex-col gap-24 px-5">
       <div className="lg:px-10">
         <h2 className="text-[36px] lg:text-center">구매자/배송지 정보</h2>
-        <ShippingAddress />
+        <ShippingAddress userData={userData} />
       </div>
       <div className="lg:px-10">
         <h2 className="mb-10 text-[36px] lg:text-center">주문 정보</h2>

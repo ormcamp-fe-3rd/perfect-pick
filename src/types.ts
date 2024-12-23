@@ -1,4 +1,7 @@
 export interface UserData {
+  address?: string;
+  detailAddress?: string;
+  userId: string;
   username: string | null;
   email: string | null;
   id: string;

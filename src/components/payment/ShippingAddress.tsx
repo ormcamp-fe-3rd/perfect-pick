@@ -2,20 +2,19 @@ import { useState } from 'react';
 
 import CustomCheckBox from '@/components/payment/CustomCheckBox';
 import ShippingInput from '@/components/payment/ShippingInput';
+import { UserData } from '@/types';
 
-// 임시: 추후 서버 연결
-const memberAddress = {
-  baseAddress: '12345, 서울특별시 강남구 테헤란로 123',
-  detailedAddress: '10층 A호',
-  recipientName: '홍길동',
-  recipientNumber: '010-1234-1234',
-};
+interface ShippingAddressProps {
+  userData: UserData | null;
+}
 
-export default function ShippingAddress() {
-  const [inputValues, setInputValues] = useState<Record<string, string>>({});
+export default function ShippingAddress({ userData }: ShippingAddressProps) {
+  const [inputValues, setInputValues] = useState<Record<string, string | null>>(
+    {},
+  );
   const [memberAdressChecked, setMemberAdressChecked] = useState(false);
 
-  const handleInputChange = (key: string, value: string) => {
+  const updateInputValues = (key: string, value: string) => {
     const updatedInputValues = { ...inputValues, [key]: value };
     setInputValues(updatedInputValues);
 
@@ -28,8 +27,12 @@ export default function ShippingAddress() {
   const handleCheckboxChange = () => {
     const newCheckedState = !memberAdressChecked;
     setMemberAdressChecked(newCheckedState);
-    setInputValues(newCheckedState ? memberAddress : inputValues);
+    if (newCheckedState && userData) {
+      setInputValues({ ...userData });
+    }
   };
+
+  console.log('inputValues', inputValues);
 
   return (
     <>
@@ -47,8 +50,8 @@ export default function ShippingAddress() {
             layout="w-5/6 pl-6"
             placeholder="이름을 입력해주세요"
             key="recipientName"
-            value={inputValues.recipientName}
-            onInputChange={(value) => handleInputChange('recipientName', value)}
+            value={inputValues.username ?? ''}
+            onInputChange={(value) => updateInputValues('username', value)}
           />
         </div>
         <div className="flex items-center">
@@ -57,9 +60,8 @@ export default function ShippingAddress() {
             layout="w-5/6 pl-6"
             placeholder="연락처를 입력해주세요"
             key="recipientNumber"
-            value={inputValues.recipientNumber}
             onInputChange={(value) =>
-              handleInputChange('recipientNumber', value)
+              updateInputValues('recipientNumber', value)
             }
           />
         </div>
@@ -72,10 +74,8 @@ export default function ShippingAddress() {
                 placeholder="주소 찾기로 입력해주세요"
                 style="bg-[#D9D9D9]"
                 key="baseAddress"
-                value={inputValues.baseAddress}
-                onInputChange={(value) =>
-                  handleInputChange('baseAddress', value)
-                }
+                value={inputValues.address ?? ''}
+                onInputChange={(value) => updateInputValues('address', value)}
                 enabled={false}
               />
               <button className="ml-4 w-[170px] rounded-[50px] border bg-black text-center text-2xl font-semibold text-white">
@@ -86,9 +86,9 @@ export default function ShippingAddress() {
               layout="pl-6"
               placeholder="상세 주소를 입력해주세요"
               key="detailedAddress"
-              value={inputValues.detailedAddress}
+              value={inputValues.detailedAddress ?? ''}
               onInputChange={(value) =>
-                handleInputChange('detailedAddress', value)
+                updateInputValues('detailedAddress', value)
               }
             />
           </div>
@@ -99,9 +99,8 @@ export default function ShippingAddress() {
             layout="w-5/6 pl-6"
             placeholder="배송 메세지를 입력해주세요"
             key="shippingMessage"
-            value={inputValues.shippingMessage}
             onInputChange={(value) =>
-              handleInputChange('shippingMessage', value)
+              updateInputValues('shippingMessage', value)
             }
           />
         </div>

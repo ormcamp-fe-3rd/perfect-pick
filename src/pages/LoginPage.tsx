@@ -12,6 +12,7 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [orderNumber, setOrderNumber] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [serverError, setServerError] = useState(''); // 서버 에러 상태 추가
   const [errors, setErrors] = useState<{
     username: string | null;
     password: string | null;
@@ -65,20 +66,16 @@ function LoginPage() {
 
     if (!usernameError && !passwordError) {
       try {
-        // 아이디를 이메일로 변환
         const emailFormatId = `${username}@example.com`;
 
-        // Firebase 로그인 요청
         await loginEmail(emailFormatId, password);
         alert('로그인 성공!');
         navigate('/mypage');
       } catch (error) {
         console.error('로그인 실패:', error);
-        setErrors((prev) => ({
-          ...prev,
-          password:
-            '※ 로그인에 실패했습니다. 아이디 또는 비밀번호를 확인해주세요.',
-        }));
+        setServerError(
+          '로그인에 실패했습니다. 아이디 또는 비밀번호를 확인해주세요.',
+        );
       }
     }
   };
@@ -131,6 +128,9 @@ function LoginPage() {
                 validate={validatePassword}
                 onChange={setPassword}
               />
+              {serverError && (
+                <p className="text-red-500 mt-2 text-sm">{serverError}</p>
+              )}
               <LoginButton name="로그인" />
             </form>
             <p className="mt-[37px] text-center text-lg">

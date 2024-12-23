@@ -43,25 +43,22 @@ export default function RegisterForm() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const isValid = validator(formValues);
+    const emailFormatId = `${formValues.userid}@example.com`;
+
+    const userCredential = await signupEmail(
+      emailFormatId,
+      formValues.password,
+    );
 
     if (isValid) {
       try {
-        // 아이디를 이메일 형식으로 변환
-        const emailFormatId = `${formValues.userid}@example.com`;
-
-        // Firebase 회원가입 요청
-        const userCredential = await signupEmail(
-          emailFormatId,
-          formValues.password,
-        );
-
-        // Firebase에서 생성된 UID와 username, email 저장
         const { uid } = userCredential.user;
         await saveUserToDB(uid, formValues.username, formValues.email);
 
         setIsSuccess(true);
       } catch (error) {
-        console.error('회원가입 중 오류 발생:', error);
+        console.error('회원 가입 오류 발생 :', error);
+        await userCredential.user.delete();
         alert('회원가입 중 문제가 발생했습니다. 다시 시도해주세요.');
       }
     } else {

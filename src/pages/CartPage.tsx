@@ -2,14 +2,44 @@ import { Link } from 'react-router-dom';
 
 import CartTable from '@/components/cart/CartTable';
 import { CART_PAGE } from '@/constants/option';
+import { useEffect, useState } from 'react';
+import { CartData, UserData } from '@/types';
+import { getUserInfo } from '@/firebase';
 
 function CartPage() {
+  const [userId, setUserId] = useState('');
+  const [selectedItems, setSelectedItems] = useState<CartData[]>([]);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const userInfo = (await getUserInfo()) as UserData;
+        setUserId(userInfo.id);
+      } catch (error) {
+        console.log('사용자 정보를 가져오는 실패했습니다.', error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
+  const handleSaveSelectedItems = () => {
+    const checkoutData = selectedItems.map((item) => item.id);
+
+    userId &&
+      sessionStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+  };
+
   return (
     <div className="mx-auto flex w-full max-w-[1400px] flex-col lg:px-5">
       <h2 className="mt-16 w-full text-center text-3xl font-extrabold">
         장바구니
       </h2>
-      <CartTable />
+      <CartTable
+        userId={userId}
+        selectedItems={selectedItems}
+        setSelectedItems={setSelectedItems}
+      />
       <div className="mx-5 my-20 rounded-[10px] bg-[#D9D9D9] px-4 py-5 text-2xl">
         <ul className="list-disc pl-10">
           <li>
@@ -36,7 +66,7 @@ function CartPage() {
             쇼핑 계속하기
           </button>
         </Link>
-        <Link to="/payment">
+        <Link to="/payment" onClick={handleSaveSelectedItems}>
           <button className="h-20 w-[226px] rounded-[50px] bg-red text-2xl text-[white] md:w-[160px]">
             구매하기
           </button>

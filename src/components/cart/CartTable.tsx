@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import CartCheckBox from '@/components/cart/CartCheckBox';
 import CartListItem from '@/components/cart/CartListItem';
-import { db, getUserInfo } from '@/firebase';
+import { db } from '@/firebase';
 import {
   collection,
   query,
@@ -11,27 +11,23 @@ import {
   doc,
   deleteDoc,
 } from '@firebase/firestore';
-import { CartData, CartItemData, UserData } from '@/types';
+import { CartData, CartItemData } from '@/types';
 
-export default function CartTable() {
-  const [userId, setUserId] = useState('');
+interface CartTableProps {
+  userId: string;
+  selectedItems: CartData[]; // 선택된 아이템 ID 배열
+  setSelectedItems: React.Dispatch<React.SetStateAction<CartData[]>>;
+}
+
+export default function CartTable({
+  userId,
+  selectedItems,
+  setSelectedItems,
+}: CartTableProps) {
   const [cartData, setCartData] = useState<CartData[]>([]);
   const [allItemsId, setAllItemsId] = useState<string[]>([]);
   const [selectedItemsId, setSelectedItemsId] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const userInfo = (await getUserInfo()) as UserData;
-        setUserId(userInfo.id);
-      } catch (error) {
-        console.log('사용자 정보를 가져오는 실패했습니다.', error);
-      }
-    };
-
-    fetchUserInfo();
-  }, []);
 
   useEffect(() => {
     const fetchUserCart = async () => {
@@ -69,8 +65,11 @@ export default function CartTable() {
   }, [cartData]);
 
   // 선택된 상품의 데이터
-  const selectedItems = useMemo(() => {
-    return cartData.filter((item) => new Set(selectedItemsId).has(item.id));
+  useMemo(() => {
+    const newSelectedItem = cartData.filter((item) =>
+      new Set(selectedItemsId).has(item.id),
+    );
+    setSelectedItems(newSelectedItem);
   }, [cartData, selectedItemsId]);
 
   // 선택된 상품의 총 상품금액

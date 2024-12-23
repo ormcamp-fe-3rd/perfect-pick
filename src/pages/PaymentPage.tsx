@@ -101,7 +101,7 @@ function PaymentPage() {
       </div>
       <div className="lg:px-10">
         <h2 className="mb-10 text-[36px] lg:text-center">주문 정보</h2>
-        <OrderDetails cartData={checkoutItems} />
+        <OrderDetails key="orderDetails" cartData={checkoutItems} />
       </div>
       <div className="flex justify-between gap-20 lg:flex-col lg:gap-24 lg:px-10">
         <div className="flex-grow-[2]">
@@ -115,7 +115,10 @@ function PaymentPage() {
         </div>
         <div className="flex-grow">
           <h2 className="mb-10 text-[36px] lg:text-center">할인 적용</h2>
-          <DiscountApply />
+          <DiscountApply
+            cartData={checkoutItems}
+            selectedPayment={selectedPayment}
+          />
         </div>
       </div>
       <PaymentButtonModal

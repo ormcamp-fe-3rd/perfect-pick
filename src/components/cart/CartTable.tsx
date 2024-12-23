@@ -141,6 +141,17 @@ export default function CartTable({
   // 선택삭제 버튼 동작
   const handleDeleteSelectedItems = async () => {
     try {
+      if (!userId) {
+        const currentCart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+        const updatedCart = currentCart.filter(
+          (item: CartData) => !selectedItemsId.includes(item.id),
+        );
+        sessionStorage.setItem('cart', JSON.stringify(updatedCart));
+        setCartData(updatedCart);
+        alert('선택된 상품이 삭제되었습니다.');
+        return;
+      }
+
       await Promise.all(
         selectedItemsId.map((id) => {
           const docRef = doc(db, 'carts', id);

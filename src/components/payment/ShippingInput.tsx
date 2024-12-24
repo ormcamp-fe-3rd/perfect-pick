@@ -1,5 +1,6 @@
 interface ShippingInputProps {
   type?: string;
+  inputType?: string;
   placeholder?: string;
   id?: string;
   layout?: string;
@@ -16,6 +17,7 @@ interface ShippingInputProps {
 
 export default function ShippingInput({
   type,
+  inputType,
   placeholder,
   id,
   layout,
@@ -30,14 +32,21 @@ export default function ShippingInput({
   onButtonClick,
 }: ShippingInputProps) {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onInputChange(e.target.value);
+    const value =
+      type === 'telephone'
+        ? e.target.value
+            .replace(/[^0-9]/g, '')
+            .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/g, '$1-$2-$3')
+            .replace(/(\-{1,2})$/g, '')
+        : e.target.value;
+    onInputChange(value);
   };
 
   return (
     <>
       <div className={`flex w-full ${layout}`}>
         <input
-          type={type}
+          type={inputType}
           placeholder={placeholder}
           id={id}
           className={`${style} h-16 w-full rounded-[10px] border p-6 text-lg`}

@@ -27,7 +27,7 @@ export default function ShippingAddress({
   const [memberAdressChecked, setMemberAdressChecked] = useState(false);
 
   const isValidPhoneNumber = (phone: string) => {
-    const phoneRegex = /^(\d{10}|\d{11})$/;
+    const phoneRegex = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
     return phoneRegex.test(phone);
   };
 
@@ -85,8 +85,9 @@ export default function ShippingAddress({
         <div className="flex items-center">
           <div className="w-1/6 lg:w-3/12">받으시는 분 연락처</div>
           <ShippingInput
+            type="telephone"
             layout="w-5/6 pl-6"
-            placeholder="01012341234"
+            placeholder="연락처를 입력해주세요"
             key="recipientNumber"
             value={inputValues.recipientNumber}
             onInputChange={(value) =>
@@ -130,7 +131,7 @@ export default function ShippingAddress({
             layout="w-5/6 pl-6"
             placeholder="배송 메세지를 입력해주세요"
             key="shippingMessage"
-            value={inputValues.shippingMessage ?? ''}
+            value={inputValues.shippingMessage}
             onInputChange={(value) =>
               updateInputValues('shippingMessage', value)
             }

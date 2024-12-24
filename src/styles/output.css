@@ -2324,6 +2324,11 @@ li {
   display: flex;
 }
 
+.invalid\:bg-yellow:invalid {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 217 69 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
@@ -2332,6 +2337,11 @@ li {
 .hover\:text-red:hover {
   --tw-text-opacity: 1;
   color: rgb(255 73 73 / var(--tw-text-opacity, 1));
+}
+
+.disabled\:border-red:disabled {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 73 73 / var(--tw-border-opacity, 1));
 }
 
 .disabled\:bg-\[\#e3e3e3\]:disabled {

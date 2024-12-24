@@ -44,10 +44,7 @@ function CartPage() {
       sessionStorage.getItem('checkoutDataId') || '[]',
     );
 
-    if (
-      (!checkoutData || checkoutData.length === 0) &&
-      (!checkoutDataId || checkoutDataId.length === 0)
-    ) {
+    if (checkoutData.length === 0 && checkoutDataId.length === 0) {
       event.preventDefault(); // 링크 이동을 막음
       alert('구매할 상품을 선택해주세요.');
     }

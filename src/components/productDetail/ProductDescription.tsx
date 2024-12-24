@@ -42,7 +42,6 @@ export default function ProductDescription({ product }: { product: any }) {
       <TabGroup className="mb-8 min-h-[800px]">
         <TabList className="mb-9 flex h-11 w-full gap-24 border-b text-2xl font-extrabold text-gray md:justify-center md:gap-10">
           <Tab className="data-[selected]:text-black">제품 설명</Tab>
-          <Tab className="data-[selected]:text-black">제품 스펙</Tab>
           <Tab className="data-[selected]:text-black">반품/교환 정보</Tab>
         </TabList>
         <TabPanels id="productDescription">

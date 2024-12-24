@@ -13,6 +13,7 @@ import {
   doc,
 } from '@firebase/firestore';
 import { CartItemData, Product } from '@/types';
+import { useNavigate } from 'react-router';
 
 interface ProductOptionsProps {
   product: Product;
@@ -23,6 +24,8 @@ export default function ProductOptions({
   product,
   userId,
 }: ProductOptionsProps) {
+  const navigate = useNavigate();
+
   const optionalPrices = Object.entries(product)
     .filter(([key]) => key.startsWith('opt_'))
     .reduce(
@@ -168,9 +171,15 @@ export default function ProductOptions({
     }
   };
 
-  const saveCheckoutData = () => {
-    const checkoutData = cartItemData;
-    sessionStorage.setItem('checkoutData', JSON.stringify([checkoutData]));
+  const saveCheckoutData = async () => {
+    if (isOptionSelected()) {
+      const checkoutData = cartItemData;
+      await new Promise((resolve) => {
+        sessionStorage.setItem('checkoutData', JSON.stringify([checkoutData]));
+        resolve(true);
+      });
+      navigate('/payment');
+    }
   };
 
   return (
@@ -253,9 +262,7 @@ export default function ProductOptions({
         <ActionButton
           buttonName="구매하기"
           buttonStyle="bg-red"
-          type="moveLink"
           onButtonClick={saveCheckoutData}
-          moveLinkPath="/payment"
         />
       </div>
     </div>

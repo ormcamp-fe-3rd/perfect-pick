@@ -88,7 +88,7 @@ export default function ShippingAddress({
           <div className="w-1/6 lg:w-3/12">받으시는 분 연락처</div>
           <ShippingInput
             layout="w-5/6 pl-6"
-            placeholder="연락처를 입력해주세요"
+            placeholder="01012341234"
             key="recipientNumber"
             value={inputValues.recipientNumber}
             onInputChange={(value) =>

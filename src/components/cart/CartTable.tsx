@@ -65,7 +65,7 @@ export default function CartTable({
   }, [cartData]);
 
   // 선택된 상품의 데이터
-  useMemo(() => {
+  useEffect(() => {
     const newSelectedItem = cartData.filter((item) =>
       new Set(selectedItemsId).has(item.id),
     );

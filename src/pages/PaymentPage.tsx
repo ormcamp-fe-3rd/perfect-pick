@@ -58,23 +58,30 @@ function PaymentPage() {
 
     const fetchCheckoutItems = async () => {
       try {
+        if (!checkoutData.length && !checkoutDataId.length) {
+          window.history.back();
+        }
+
         if (checkoutData.length > 0) {
           setCheckoutItems(checkoutData);
           return;
         }
 
-        const cartsRef = collection(db, 'carts');
-        const q = query(cartsRef, where('user_id', '==', userId));
-        const querySnapshot = await getDocs(q);
-        const filteredDocs = querySnapshot.docs.filter((doc) =>
-          checkoutDataId.includes(doc.id),
-        );
+        if (userId) {
+          const cartsRef = collection(db, 'carts');
+          const q = query(cartsRef, where('user_id', '==', userId));
+          const querySnapshot = await getDocs(q);
+          const filteredDocs = querySnapshot.docs.filter((doc) =>
+            checkoutDataId.includes(doc.id),
+          );
 
-        const userItems = filteredDocs.map((doc) => ({
-          id: doc.id,
-          ...(doc.data() as CartItemData),
-        }));
-        setCheckoutItems(userItems);
+          const userItems = filteredDocs.map((doc) => ({
+            id: doc.id,
+            ...(doc.data() as CartItemData),
+          }));
+          setCheckoutItems(userItems);
+          return;
+        }
       } catch (e) {
         console.error('Error fetching user cart:', e);
         return [];

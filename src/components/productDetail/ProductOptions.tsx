@@ -56,16 +56,10 @@ export default function ProductOptions({
     setTotalPrice(price);
   };
 
-  const handleChangeItemCount = (action: number) => {
-    let updatedCount = itemCount;
-    if (action < 0) {
-      updatedCount = Math.max(1, itemCount + action);
-    } else if (action > 0) {
-      updatedCount = Math.min(10, itemCount + action);
-    }
-    setItemCount(updatedCount);
+  const handleChangeItemCount = (value: number) => {
+    setItemCount(value);
 
-    const price = calculateTotalPrice(selectedOptions) * updatedCount;
+    const price = calculateTotalPrice(selectedOptions) * value;
     setTotalPrice(price);
   };
 

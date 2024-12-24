@@ -63,10 +63,10 @@ function ProductDetailPage() {
       <div className="mx-10">
         <div className="mx-auto mt-9 max-w-[1400px] lg:mt-6">
           <div className="flex gap-10 lg:flex-col">
-            <div className="flex-grow">
+            <div className="flex-grow-[2]">
               <ProductImages product={productData} />
             </div>
-            <div className="p-4">
+            <div className="flex-1 p-4">
               <ProductOptions product={productData} userId={user?.id} />
             </div>
           </div>

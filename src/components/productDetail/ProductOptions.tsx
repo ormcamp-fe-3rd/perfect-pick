@@ -13,6 +13,7 @@ import {
   doc,
 } from '@firebase/firestore';
 import { CartItemData, Product } from '@/types';
+import { useNavigate } from 'react-router';
 
 interface ProductOptionsProps {
   product: Product;
@@ -23,6 +24,8 @@ export default function ProductOptions({
   product,
   userId,
 }: ProductOptionsProps) {
+  const navigate = useNavigate();
+
   const optionalPrices = Object.entries(product)
     .filter(([key]) => key.startsWith('opt_'))
     .reduce(
@@ -56,16 +59,10 @@ export default function ProductOptions({
     setTotalPrice(price);
   };
 
-  const handleChangeItemCount = (action: number) => {
-    let updatedCount = itemCount;
-    if (action < 0) {
-      updatedCount = Math.max(1, itemCount + action);
-    } else if (action > 0) {
-      updatedCount = Math.min(10, itemCount + action);
-    }
-    setItemCount(updatedCount);
+  const handleChangeItemCount = (value: number) => {
+    setItemCount(value);
 
-    const price = calculateTotalPrice(selectedOptions) * updatedCount;
+    const price = calculateTotalPrice(selectedOptions) * value;
     setTotalPrice(price);
   };
 
@@ -86,8 +83,14 @@ export default function ProductOptions({
   };
 
   const selectedOptionsLabel = Object.entries(selectedOptions)
+    .sort(([keyA], [keyB]) => {
+      if (!!keyA && !!keyB) {
+        // keyA와 keyB가 모두 truthy인지 확인
+        return keyA.localeCompare(keyB);
+      }
+      return 0; // keyA 또는 keyB가 falsy라면 기본 정렬 순서를 유지
+    })
     .filter(([, value]) => value)
-    .sort()
     .map(([, value]) => value)
     .join('/');
 
@@ -174,6 +177,17 @@ export default function ProductOptions({
     }
   };
 
+  const saveCheckoutData = async () => {
+    if (isOptionSelected()) {
+      const checkoutData = cartItemData;
+      await new Promise((resolve) => {
+        sessionStorage.setItem('checkoutData', JSON.stringify([checkoutData]));
+        resolve(true);
+      });
+      navigate('/payment');
+    }
+  };
+
   return (
     <div className="w-full">
       <div className="flex flex-col gap-6 md:items-center md:gap-4">
@@ -198,15 +212,17 @@ export default function ProductOptions({
         </div>
       </div>
       <div className="my-8 flex flex-col gap-5 text-lg md:my-5 md:gap-3">
-        {Object.entries(optionalPrices).map(([key, value], index) => (
-          <SelectOption
-            key={index}
-            name={key}
-            options={Object.keys(value).sort()}
-            value={selectedOptions[key]}
-            onChange={handleSelectedOptions}
-          />
-        ))}
+        {Object.entries(optionalPrices)
+          .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+          .map(([key, value], index) => (
+            <SelectOption
+              key={index}
+              name={key}
+              options={Object.keys(value).sort()}
+              value={selectedOptions[key]}
+              onChange={handleSelectedOptions}
+            />
+          ))}
       </div>
       {checkRequiredOptionsSelected && (
         <div className="flex flex-col gap-6 border-y px-3 py-5 md:gap-4 md:px-2 md:py-4">
@@ -252,8 +268,7 @@ export default function ProductOptions({
         <ActionButton
           buttonName="구매하기"
           buttonStyle="bg-red"
-          type="moveLink"
-          moveLinkPath="/payment"
+          onButtonClick={saveCheckoutData}
         />
       </div>
     </div>

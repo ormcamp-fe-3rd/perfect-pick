@@ -1,4 +1,7 @@
 export interface UserData {
+  address?: string;
+  detailAddress?: string;
+  userId: string;
   username: string | null;
   email: string | null;
   id: string;
@@ -34,4 +37,8 @@ export interface CartItemData {
   };
   user_id: string | undefined;
   thumbnail: string;
+}
+
+export interface CartData extends CartItemData {
+  id: string;
 }

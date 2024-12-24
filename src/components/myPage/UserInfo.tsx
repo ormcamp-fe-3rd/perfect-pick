@@ -1,30 +1,25 @@
 import { useEffect, useState } from 'react';
 
-import SearchAddress from '@/components/myPage/SearchAddress';
+import SearchAddress from '@/components/common/SearchAddress';
 import { getUserInfo, updateUserAddress, updateUserPassword } from '@/firebase';
 
-import UserInfoInput from './UserInfoInput';
-
-export interface User {
-  userid: string | null;
-  username: string | null;
-  email: string | null;
-  address: string | null;
-}
+import UserInfoInput from '@/components/myPage/UserInfoInput';
+import { UserData } from '@/types';
 
 export default function UserInfo() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserData | null>(null);
   const [currentPwd, setCurrentPwd] = useState('');
   const [newPwd, setNewPwd] = useState('');
   const [newPwdCheck, setNewPwdCheck] = useState('');
   const [newAddress, setNewAddress] = useState('');
+  const [newAddressDetail, setNewAddressDetail] = useState('');
   const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const userInfo = await getUserInfo();
-        setUser(userInfo as User);
+        setUser(userInfo as UserData);
       } catch (error) {
         console.log('사용자 정보를 가져오는 실패했습니다.', error);
       }
@@ -48,7 +43,6 @@ export default function UserInfo() {
       setNewPwd('');
       setNewPwdCheck('');
     } catch (error) {
-      // setError('비밀번호 변경 중 오류가 발생했습니다.');
       console.error(error);
     }
   };
@@ -58,19 +52,23 @@ export default function UserInfo() {
     setError(''); // 에러 메시지 초기화
 
     try {
-      await updateUserAddress(newAddress); // 주소 업데이트 함수 호출
+      await updateUserAddress(newAddress, newAddressDetail);
       alert('주소가 성공적으로 변경되었습니다.');
     } catch (error) {
-      // setError('주소 변경 중 오류가 발생했습니다.');
       console.error(error);
     }
+  };
+
+  const handleSearchAddress = async () => {
+    const searchedAddress = (await SearchAddress()) || '';
+    setNewAddress(searchedAddress);
   };
 
   return (
     <div className="mt-[15px] flex flex-col gap-[30px] border-t pt-[35px] font-bold">
       <div className="flex">
         <div className="w-1/3">아이디</div>
-        <div className="w-2/3">{user?.userid?.split('@')[0]}</div>
+        <div className="w-2/3">{user?.email?.split('@')[0]}</div>
         {/* 이메일 형식 제거 */}
       </div>
       <div className="flex">
@@ -117,8 +115,7 @@ export default function UserInfo() {
         <div>
           <div>주소</div>
           <div className="mt-5">
-            기존 주소 :{' '}
-            {`서울 강남구 강남대로 324 역삼디오슈페리움 2층 모두의연구소`}
+            {`기존 주소 : ${user?.address} ${user?.detailAddress}`}
           </div>
           <div className="mt-[10px] flex flex-col gap-[5px]">
             <UserInfoInput
@@ -128,12 +125,14 @@ export default function UserInfo() {
               buttonText="주소 찾기"
               buttonId="findAddressButton"
               value={newAddress}
-              onButtonClick={SearchAddress}
+              onButtonClick={handleSearchAddress}
               onChange={(e) => setNewAddress(e.target.value)}
             />
             <UserInfoInput
               id="inputDetailAddress"
               placeholder="상세 주소를 입력해주세요."
+              value={newAddressDetail}
+              onChange={(e) => setNewAddressDetail(e.target.value)}
             />
           </div>
         </div>

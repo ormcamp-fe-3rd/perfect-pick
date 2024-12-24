@@ -58,8 +58,6 @@ export default function TabSlider({ products }: TabSliderProps) {
       (_, i) => products[(products.length + i) % products.length],
     ),
   ];
-  console.log('products:', products);
-  console.log('slides:', slides);
 
   return (
     <div className="slider-container mt-[50px]">

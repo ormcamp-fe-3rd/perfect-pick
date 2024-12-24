@@ -28,6 +28,12 @@ export default function CartListItem({
     onQuantityChange(item.id, newQuantity);
   };
 
+  const optionsLabel = Object.entries(item.option)
+    .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+    .filter(([, value]) => value)
+    .map(([, value]) => value)
+    .join('/');
+
   return (
     <>
       <div className="grid grid-cols-7 items-center border-b lg:grid-cols-1">
@@ -50,7 +56,7 @@ export default function CartListItem({
                   {item.product_title}
                 </div>
                 <div className="text-lg font-semibold">
-                  옵션: {Object.values(item.option).join('/')}
+                  옵션: {optionsLabel}
                 </div>
               </div>
             </div>

@@ -39,7 +39,15 @@ function CartPage() {
     const checkoutData = JSON.parse(
       sessionStorage.getItem('checkoutData') || '[]',
     );
-    if (!checkoutData || checkoutData.length === 0) {
+
+    const checkoutDataId = JSON.parse(
+      sessionStorage.getItem('checkoutDataId') || '[]',
+    );
+
+    if (
+      (!checkoutData || checkoutData.length === 0) &&
+      (!checkoutDataId || checkoutDataId.length === 0)
+    ) {
       event.preventDefault(); // 링크 이동을 막음
       alert('구매할 상품을 선택해주세요.');
     }

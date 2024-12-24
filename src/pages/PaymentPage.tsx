@@ -20,6 +20,21 @@ function PaymentPage() {
   const userId = userData?.id;
 
   useEffect(() => {
+    const handleBeforeUnload = () => {
+      sessionStorage.removeItem('checkoutData');
+      sessionStorage.removeItem('checkoutDataId');
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('popstate', handleBeforeUnload); // 뒤로가기 처리
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('popstate', handleBeforeUnload);
+    };
+  }, []);
+
+  useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const userInfo = (await getUserInfo()) as UserData;
@@ -33,24 +48,24 @@ function PaymentPage() {
   }, []);
 
   useEffect(() => {
+    const checkoutData = JSON.parse(
+      sessionStorage.getItem('checkoutData') || '[]',
+    );
+
+    const checkoutDataId = JSON.parse(
+      sessionStorage.getItem('checkoutDataId') || '[]',
+    );
+
     const fetchCheckoutItems = async () => {
       try {
-        const checkoutData = JSON.parse(
-          sessionStorage.getItem('checkoutData') || '[]',
-        );
-
-        if (checkoutData) {
-          setCheckoutItems([checkoutData]);
+        if (checkoutData.length > 0) {
+          setCheckoutItems(checkoutData);
           return;
         }
 
         const cartsRef = collection(db, 'carts');
         const q = query(cartsRef, where('user_id', '==', userId));
         const querySnapshot = await getDocs(q);
-
-        const checkoutDataId = JSON.parse(
-          sessionStorage.getItem('checkoutDataId') || '[]',
-        );
         const filteredDocs = querySnapshot.docs.filter((doc) =>
           checkoutDataId.includes(doc.id),
         );
@@ -69,7 +84,7 @@ function PaymentPage() {
     };
 
     fetchCheckoutItems();
-  }, [userId]);
+  }, [userData]);
 
   const isConditionMet = selectedPayment ? isPrivacyChecked : false;
 

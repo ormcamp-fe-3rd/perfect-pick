@@ -176,7 +176,7 @@ export default function ProductOptions({
 
   const saveCheckoutData = () => {
     const checkoutData = cartItemData;
-    sessionStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+    sessionStorage.setItem('checkoutData', JSON.stringify([checkoutData]));
   };
 
   return (

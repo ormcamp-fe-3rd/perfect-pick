@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import SearchAddress from '@/components/common/SearchAddress';
 import { getUserInfo, updateUserAddress, updateUserPassword } from '@/firebase';
 
-import UserInfoInput from './UserInfoInput';
+import UserInfoInput from '@/components/myPage/UserInfoInput';
 import { UserData } from '@/types';
 
 export default function UserInfo() {
@@ -12,7 +12,7 @@ export default function UserInfo() {
   const [newPwd, setNewPwd] = useState('');
   const [newPwdCheck, setNewPwdCheck] = useState('');
   const [newAddress, setNewAddress] = useState('');
-  const [newDetailAddress, setNewDetailAddress] = useState('');
+  const [newAddressDetail, setNewAddressDetail] = useState('');
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -26,8 +26,6 @@ export default function UserInfo() {
     };
     fetchUserInfo();
   }, []); // 랜더링시 최초 1회 사용
-
-  console.log('user22222', user);
 
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,7 +43,6 @@ export default function UserInfo() {
       setNewPwd('');
       setNewPwdCheck('');
     } catch (error) {
-      // setError('비밀번호 변경 중 오류가 발생했습니다.');
       console.error(error);
     }
   };
@@ -55,10 +52,9 @@ export default function UserInfo() {
     setError(''); // 에러 메시지 초기화
 
     try {
-      await updateUserAddress(newAddress, newDetailAddress); // 주소 업데이트 함수 호출
+      await updateUserAddress(newAddress, newAddressDetail);
       alert('주소가 성공적으로 변경되었습니다.');
     } catch (error) {
-      // setError('주소 변경 중 오류가 발생했습니다.');
       console.error(error);
     }
   };
@@ -135,8 +131,8 @@ export default function UserInfo() {
             <UserInfoInput
               id="inputDetailAddress"
               placeholder="상세 주소를 입력해주세요."
-              value={newDetailAddress}
-              onChange={(e) => setNewDetailAddress(e.target.value)}
+              value={newAddressDetail}
+              onChange={(e) => setNewAddressDetail(e.target.value)}
             />
           </div>
         </div>

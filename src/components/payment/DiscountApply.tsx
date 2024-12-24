@@ -1,4 +1,7 @@
+import { db } from '@/firebase';
 import { CartData } from '@/types';
+import { doc, getDoc } from '@firebase/firestore';
+import { useEffect, useState } from 'react';
 interface DiscountApplyProps {
   cartData: CartData[];
   selectedPayment: string;
@@ -8,6 +11,20 @@ export default function DiscountApply({
   cartData,
   selectedPayment,
 }: DiscountApplyProps) {
+  const [discountData, setDiscountData] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    const fetchDiscountData = async () => {
+      const docRef = doc(db, 'payment', 'discount');
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setDiscountData(Object.values(docSnap.data())[0]);
+      }
+    };
+
+    fetchDiscountData();
+  }, []);
+
   const totalPrice = cartData.reduce((sum, item) => {
     const total =
       (item.price?.productPrice + (item.price?.accessoriesPrice ?? 0)) *
@@ -20,14 +37,7 @@ export default function DiscountApply({
     return sum + total;
   }, 0);
 
-  const paymentDiscount: { [key: string]: number } = {
-    creditCard: 1000,
-    NaverPay: 3000,
-    TossPay: 2000,
-    bankTransfer: 5000,
-  };
-
-  const discountedPrice = paymentDiscount[selectedPayment] ?? 0;
+  const discountedPrice = discountData[selectedPayment] ?? 0;
   const finalPrice = totalPrice + totalDeliveryFee - discountedPrice;
 
   return (
@@ -40,7 +50,7 @@ export default function DiscountApply({
         <div>결제수단 할인</div>
         <div>- {discountedPrice}원</div>
       </div>
-      <div className="flex hidden items-center justify-between gap-5">
+      <div className="hidden items-center justify-between gap-5">
         <div>포인트 사용</div>
         <input
           className="w-1/2 rounded-[10px] border px-4 py-2 text-end"

@@ -33,10 +33,8 @@ export default function ShippingAddress({
 
   const isAllFieldsFilled = () => {
     return (
-      inputValues.recipientName.trim() !== '' &&
-      isValidPhoneNumber(inputValues.recipientNumber) &&
-      inputValues.baseAddress.trim() !== '' &&
-      inputValues.detailedAddress.trim() !== ''
+      Object.values(inputValues).every((value) => value.trim() !== '') &&
+      isValidPhoneNumber(inputValues.recipientNumber)
     );
   };
 

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { getOptionType } from '@/firebase.ts';
+
 import { CategoryData } from '../../../constants/optionsData.ts';
 
 export const SharedOption = (
@@ -10,7 +12,7 @@ export const SharedOption = (
   const categories = categoryData.categories;
   const data = categoryData.data;
 
-  const optionType = ['brand', 'opt_storage', 'size', 'date', 'featue'];
+  const optionType = getOptionType(type);
 
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [selectedOptionCategory, setselectedOptionCategory] = useState<

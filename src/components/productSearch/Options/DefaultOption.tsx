@@ -1,7 +1,7 @@
 import Slider from 'react-slick';
 
 import optionsData from '../../../constants/optionsData.json';
-import CheckBox from '../Feature/CheckBox.tsx'; // CheckBox 컴포넌트
+import CheckBox from '../Feature/CheckBox.tsx';
 import InputString from '../Feature/InputString.tsx';
 import ButtonLayout from '../Product/ProductBtn.tsx';
 import { OptionProps } from '../Product/ProductListPage.tsx';
@@ -14,6 +14,7 @@ function DefaultOption({ type, onApplyClick }: OptionProps) {
     categories,
     data,
     optionType,
+    // WearableoptionType,
     selectedOptions,
     selectedOptionCategory,
     firstPrice,
@@ -33,7 +34,6 @@ function DefaultOption({ type, onApplyClick }: OptionProps) {
       selectedTitle,
     );
   };
-
   const sliderSettings = {
     infinite: false,
     speed: 500,

@@ -10,10 +10,8 @@ import { loadProductToDB } from '@/firebase';
 import { filterProducts } from '../utils/filterProduct';
 import Product from './Product';
 
-type Category = 'mobile' | 'tablet' | 'wearable' | 'notebook';
-
 interface ProductListPageProps {
-  categoryId: Category;
+  categoryId: OptionProps['type'];
   imageSrc?: string;
 }
 

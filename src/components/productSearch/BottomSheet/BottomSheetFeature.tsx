@@ -1,5 +1,7 @@
 import { Button } from '@headlessui/react';
 
+import { getOptionType } from '@/firebase.ts';
+
 import optionsData from '../../../constants/optionsData.json';
 import { CategoryData, OptionsData } from '../../../constants/optionsData.ts';
 import InputString from '../Feature/InputString.tsx';
@@ -7,7 +9,6 @@ import ButtonLayout from '../Product/ProductBtn.tsx';
 import BottomSheetContainer from './BottomSheetContainer.tsx';
 
 const typedOptionsData: OptionsData = optionsData;
-const optionType = ['brand', 'brand', 'size', 'date', 'featue'];
 
 export interface BottomSheetButtonProps {
   category: 'mobile' | 'tablet' | 'wearable' | 'notebook';
@@ -27,6 +28,7 @@ function BottomSheetFeature({
   const data = categoryData.data;
   const SelectedIndex = categories.indexOf(categoryTag);
   const selectedData = data[SelectedIndex] || [];
+  const optionType = getOptionType(category);
 
   return (
     <BottomSheetContainer>

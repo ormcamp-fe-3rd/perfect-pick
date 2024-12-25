@@ -23,3 +23,18 @@ export interface OptionsData {
   wearable: CategoryData;
   notebook: CategoryData;
 }
+
+export const defaultOptionType = [
+  'brand',
+  'opt_storage',
+  'size',
+  'release',
+  'feature',
+];
+export const wearableoptionType = [
+  'brand',
+  'opt_storage',
+  'release',
+  'watch',
+  'earphone',
+];

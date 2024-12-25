@@ -18,6 +18,8 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 
+import { defaultOptionType, wearableoptionType } from './constants/optionsData';
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -151,4 +153,13 @@ export const getUserInfo = async () => {
       }
     });
   });
+};
+
+export const getOptionType = (type: string) => {
+  switch (type) {
+    case 'wearable':
+      return wearableoptionType;
+    default:
+      return defaultOptionType;
+  }
 };

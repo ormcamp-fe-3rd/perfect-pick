@@ -20,8 +20,6 @@ export interface BottomSheetButtonProps {
 function BottomSheetFeature({
   category,
   categoryTag,
-  price = false,
-  search = false,
   onItemClick,
 }: BottomSheetButtonProps) {
   const categoryData: CategoryData = typedOptionsData[category];
@@ -32,7 +30,7 @@ function BottomSheetFeature({
 
   return (
     <BottomSheetContainer>
-      {price ? (
+      {categoryTag == '가격대' ? (
         <div className="mx-11 max-w-[568px] rounded-t-md bg-gray text-2xl text-white">
           <div className="mb-8 mt-4 text-center">가격대</div>
           <div className="w-max-[480px] block w-full justify-center space-y-8 text-center">
@@ -55,7 +53,7 @@ function BottomSheetFeature({
             </div>
           </div>
         </div>
-      ) : search ? (
+      ) : categoryTag == '세부 검색' ? (
         <div className="mx-11 max-w-[568px] rounded-t-md bg-gray text-2xl text-white">
           <div className="mb-8 mt-4 text-center">세부 검색</div>
           <div className="w-max-[480px] block w-full pt-24 text-center">

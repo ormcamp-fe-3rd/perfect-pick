@@ -28,7 +28,6 @@ function TotalSearchPage() {
     fetchProducts();
   }, []);
 
-  // 검색어에 따른 필터링 useEffect
   useEffect(() => {
     const filtered = products.filter((product) =>
       product.title.toLowerCase().includes(searchQuery.toLowerCase()),

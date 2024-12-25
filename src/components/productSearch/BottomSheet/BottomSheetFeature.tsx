@@ -7,13 +7,14 @@ import ButtonLayout from '../Product/ProductBtn.tsx';
 import BottomSheetContainer from './BottomSheetContainer.tsx';
 
 const typedOptionsData: OptionsData = optionsData;
+const optionType = ['brand', 'brand', 'size', 'date', 'featue'];
 
 export interface BottomSheetButtonProps {
   category: 'mobile' | 'tablet' | 'wearable' | 'notebook';
   categoryTag: string;
   price?: boolean;
   search?: boolean;
-  onItemClick: (item: string) => void; // 클릭된 아이템을 상위 컴포넌트로 전달
+  onItemClick: (item: string, type: string) => void;
 }
 
 function BottomSheetFeature({
@@ -21,7 +22,7 @@ function BottomSheetFeature({
   categoryTag,
   price = false,
   search = false,
-  onItemClick, // 전달된 onItemClick 함수
+  onItemClick,
 }: BottomSheetButtonProps) {
   const categoryData: CategoryData = typedOptionsData[category];
   const categories = categoryData.categories;
@@ -82,7 +83,9 @@ function BottomSheetFeature({
             <Button
               key={currentIndex}
               className="mb-4 block h-10 w-full max-w-[480px] justify-center border-b-[0.1px] border-white text-left"
-              onClick={() => onItemClick(item)} // 클릭된 옵션을 상위 컴포넌트로 전달
+              onClick={() => {
+                onItemClick(item, optionType[SelectedIndex]);
+              }}
             >
               {item}
             </Button>

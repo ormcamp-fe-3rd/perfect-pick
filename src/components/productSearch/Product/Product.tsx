@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 interface ProductProps {
   width?: string;
   height?: string;
-  key?: number;
+  itemKey?: number;
   resource?: DocumentData;
   rounded?: string;
   onClick?: () => void;
@@ -15,13 +15,12 @@ function ButtonLayout({
   width,
   height,
   resource,
-  key,
+  itemKey,
   rounded = 'rounded-[10px]',
   onClick,
 }: ProductProps) {
-  console.log('resource', resource);
   return (
-    <Link to={`/product/${resource?.id}`} key={key}>
+    <Link to={`/product/${resource?.id}`} key={itemKey}>
       <div>
         <Button
           className={`${rounded} ${width} ${height} w-full items-center justify-center bg-cover bg-center text-center`}

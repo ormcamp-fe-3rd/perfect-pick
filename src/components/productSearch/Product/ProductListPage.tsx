@@ -17,6 +17,17 @@ interface ProductListPageProps {
   imageSrc?: string;
 }
 
+export interface OptionProps {
+  type: 'mobile' | 'tablet' | 'wearable' | 'notebook';
+  onApplyClick: (
+    selectedOptions: string[],
+    selectedOptionCategory: string[],
+    firstPrice: number,
+    secondPrice: number,
+    selectedTitle: string,
+  ) => void;
+}
+
 const ProductListPage: React.FC<ProductListPageProps> = ({
   categoryId,
   imageSrc = '',
@@ -77,7 +88,7 @@ const ProductListPage: React.FC<ProductListPageProps> = ({
       <div className="md:hidden">
         <div className="flex gap-5">
           <DefaultOption type={categoryId} onApplyClick={handleApplyClick} />
-          <SearchSide imageSrc={imageSrc} />
+          {imageSrc && imageSrc !== '' && <SearchSide imageSrc={imageSrc} />}
         </div>
       </div>
       <div className="hidden md:!block">

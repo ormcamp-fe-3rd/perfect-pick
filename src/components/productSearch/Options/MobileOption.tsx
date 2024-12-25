@@ -1,27 +1,22 @@
 import { useState } from 'react';
 
 import optionsData from '../../../constants/optionsData.json';
-import { CategoryData, OptionsData } from '../../../constants/optionsData.ts';
 import BottomSheet from '../BottomSheet/BottomSheet';
 import BottomSheetFeature from '../BottomSheet/BottomSheetFeature';
 import ButtonLayout from '../Product/ProductBtn.tsx';
-import { DefaultOptionProps } from './DefaultOption.tsx';
+import { OptionProps } from '../Product/ProductListPage.tsx';
+import { SharedOption } from './SharedOption.tsx';
 
-const typedOptionsData: OptionsData = optionsData;
+const typedOptionsData = optionsData;
 
-function MobileOption({ type, onApplyClick }: DefaultOptionProps) {
+function MobileOption({ type, onApplyClick }: OptionProps) {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [bottomSheetCategory, setBottomSheetCategory] =
-    useState<DefaultOptionProps['type']>('mobile');
+    useState<OptionProps['type']>('mobile');
   const [bottomSheetCategoryTag, setBottomSheetCategoryTag] = useState('');
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-  const [selectedOptionCategory] = useState<string[]>([]);
-  const [firstPrice] = useState<number>(0);
-  const [secondPrice] = useState<number>(0);
-  const [selectedTitle] = useState<string>('');
 
   const handleOpenBottomSheet = (
-    category: DefaultOptionProps['type'],
+    category: OptionProps['type'],
     categoryTag: string,
   ) => {
     setBottomSheetCategory(category);
@@ -31,15 +26,18 @@ function MobileOption({ type, onApplyClick }: DefaultOptionProps) {
 
   const handleCloseBottomSheet = () => setIsBottomSheetOpen(false);
 
-  const handleItemClick = (item: string) => {
-    setSelectedOptions((prevState) => {
-      if (prevState.includes(item)) {
-        return prevState.filter((i) => i !== item);
-      } else {
-        return [...prevState, item];
-      }
-    });
-  };
+  const {
+    categories,
+    // optionType,
+    selectedOptions,
+    selectedOptionCategory,
+    firstPrice,
+    secondPrice,
+    selectedTitle,
+    handleItemClick,
+    // handlePriceChange,
+    // handleTitleChange,
+  } = SharedOption(type, typedOptionsData);
 
   const handleApplyClick = () => {
     onApplyClick(
@@ -50,9 +48,6 @@ function MobileOption({ type, onApplyClick }: DefaultOptionProps) {
       selectedTitle,
     );
   };
-
-  const categoryData: CategoryData = typedOptionsData[type];
-  const categories = categoryData.categories;
 
   return (
     <div className="w-max-[548px] h-[148px] w-full pb-3">

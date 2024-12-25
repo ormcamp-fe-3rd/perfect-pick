@@ -1,72 +1,28 @@
-import { useState } from 'react';
 import Slider from 'react-slick';
 
 import optionsData from '../../../constants/optionsData.json';
-import { CategoryData, OptionsData } from '../../../constants/optionsData.ts';
 import CheckBox from '../Feature/CheckBox.tsx'; // CheckBox 컴포넌트
 import InputString from '../Feature/InputString.tsx';
 import ButtonLayout from '../Product/ProductBtn.tsx';
+import { OptionProps } from '../Product/ProductListPage.tsx';
+import { SharedOption } from './SharedOption.tsx';
 
-const typedOptionsData: OptionsData = optionsData;
+const typedOptionsData = optionsData;
 
-export interface DefaultOptionProps {
-  type: 'mobile' | 'tablet' | 'wearable' | 'notebook';
-  onApplyClick: (
-    selectedOptions: string[],
-    selectedOptionCategory: string[],
-    firstPrice: number,
-    secondPrice: number,
-    selectedTitle: string,
-  ) => void; // 검색 옵션 적용 버튼 클릭 시 배열을 전달하는 콜백
-}
-
-function DefaultOption({ type, onApplyClick }: DefaultOptionProps) {
-  const categoryData: CategoryData = typedOptionsData[type];
-  const categories = categoryData.categories;
-  const data = categoryData.data;
-
-  const optionType = ['brand', 'opt_storage', 'size', 'date', 'featue'];
-
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-  const [selectedOptionCategory, setselectedOptionCategory] = useState<
-    string[]
-  >([]);
-  const [firstPrice, setFirstPrice] = useState<number>(0);
-  const [secondPrice, setSecondPrice] = useState<number>(0);
-  const [selectedTitle, setSelectedTitle] = useState<string>('');
-
-  const handleItemClick = (item: string, type: string) => {
-    setSelectedOptions((prevState) => {
-      if (prevState.includes(item)) {
-        return prevState.filter((i) => i !== item);
-      } else {
-        return [...prevState, item];
-      }
-    });
-
-    setselectedOptionCategory((prevState) => {
-      if (prevState.includes(type)) {
-        return prevState.filter((t) => t !== type);
-      } else {
-        return [...prevState, type];
-      }
-    });
-  };
-
-  const handlePriceChange = (price: string, type: 'first' | 'second') => {
-    const parsedPrice = parseFloat(price);
-    if (!isNaN(parsedPrice)) {
-      if (type === 'first') {
-        setFirstPrice(parsedPrice);
-      } else {
-        setSecondPrice(parsedPrice);
-      }
-    }
-  };
-
-  const handleTitleChange = (title: string) => {
-    setSelectedTitle(title); // 제목은 하나의 값만 처리
-  };
+function DefaultOption({ type, onApplyClick }: OptionProps) {
+  const {
+    categories,
+    data,
+    optionType,
+    selectedOptions,
+    selectedOptionCategory,
+    firstPrice,
+    secondPrice,
+    selectedTitle,
+    handleItemClick,
+    handlePriceChange,
+    handleTitleChange,
+  } = SharedOption(type, typedOptionsData);
 
   const handleApplyClick = () => {
     onApplyClick(

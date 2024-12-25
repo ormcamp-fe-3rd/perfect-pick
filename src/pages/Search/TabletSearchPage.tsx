@@ -1,6 +1,5 @@
 import { DocumentData } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router';
 
 import Product from '@/components/productSearch/Product/Product';
 import ProductContainer from '@/components/productSearch/Product/ProductContainer';
@@ -98,20 +97,12 @@ function TabletSearchPage() {
       <ProductContainer>
         {products.length > 0 ? (
           products.map((product, index) => (
-            <Link
-              to={`/product/${product.id}`} // 상품 상세 페이지로 링크 추가
+            <Product
+              height="h-[300px]"
+              width="max-w-[320px] md:max-w-[548px]"
+              resource={product}
               key={index}
-            >
-              <Product
-                company={product.brand}
-                discPrice={product.price_sell.toLocaleString()}
-                height="h-[300px]"
-                width="max-w-[320px] md:max-w-[548px]"
-                image={product.src[1]}
-                name={product.title}
-                origPrice={product.price_origin.toLocaleString()}
-              />
-            </Link>
+            />
           ))
         ) : (
           <p>로딩 중...</p>

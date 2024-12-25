@@ -62,14 +62,10 @@ function TotalSearchPage() {
           ) : filteredProducts.length > 0 ? (
             filteredProducts.map((product, index) => (
               <Product
-                key={index}
-                company={product.brand}
-                discPrice={product.price_sell.toLocaleString()}
                 height="h-[300px]"
                 width="max-w-[320px] md:max-w-[548px]"
-                image={product.src[1]}
-                name={product.title}
-                origPrice={product.price_origin.toLocaleString()}
+                resource={product}
+                key={index}
               />
             ))
           ) : (

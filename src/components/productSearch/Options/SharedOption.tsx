@@ -42,7 +42,6 @@ export const SharedOption = (
 
   const handlePriceChange = (price: string, type: 'first' | 'second') => {
     const parsedPrice = parseFloat(price);
-    console.log(parsedPrice);
     if (type === 'first') {
       setFirstPrice(parsedPrice);
     } else {

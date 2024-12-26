@@ -13,13 +13,15 @@ function InputString({
   value,
   onChange,
 }: InputStringProps) {
+  // value가 NaN이면 빈 문자열로 처리
+  const displayValue = isNaN(Number(value)) ? '' : value;
   return (
     <Input
       name="full_name"
       type="text"
       className={`${width} h-[39px] rounded text-black`}
       style={{ backgroundColor: bgColor }}
-      value={value}
+      value={displayValue}
       onChange={onChange}
     />
   );

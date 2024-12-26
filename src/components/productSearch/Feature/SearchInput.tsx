@@ -33,6 +33,8 @@ function SearchInput({
     setValue(event.target.value); // 입력값 업데이트
   };
 
+  const handleSearchClick = () => {};
+
   return (
     <div className="flex items-center justify-center">
       <div className="relative lg:w-full lg:px-[15px] md:w-full md:px-[10px]">
@@ -49,6 +51,7 @@ function SearchInput({
           src="../images/header/ico-search.svg"
           alt="Search Icon"
           className="absolute right-[45px] top-1/2 size-[34px] -translate-y-1/2 transform"
+          onClick={handleSearchClick} // 검색 아이콘 클릭 시 처리
         />
       </div>
     </div>

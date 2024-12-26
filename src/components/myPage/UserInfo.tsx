@@ -1,12 +1,20 @@
 import { useEffect, useState } from 'react';
 
 import SearchAddress from '@/components/common/SearchAddress';
-import UserInfoInput from '@/components/myPage/UserInfoInput';
 import { getUserInfo, updateUserAddress, updateUserPassword } from '@/firebase';
-import { UserData } from '@/types';
+
+import UserInfoInput from './UserInfoInput';
+
+export interface User {
+  userid: string | null;
+  username: string | null;
+  email: string | null;
+  address: string | null;
+  details: string | null;
+}
 
 export default function UserInfo() {
-  const [user, setUser] = useState<UserData | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [currentPwd, setCurrentPwd] = useState('');
   const [newPwd, setNewPwd] = useState('');
   const [newPwdCheck, setNewPwdCheck] = useState('');
@@ -19,7 +27,7 @@ export default function UserInfo() {
     const fetchUserInfo = async () => {
       try {
         const userInfo = await getUserInfo();
-        setUser(userInfo as UserData);
+        setUser(userInfo as User);
       } catch (error) {
         console.log('사용자 정보를 가져오는 실패했습니다.', error);
       }
@@ -131,7 +139,7 @@ export default function UserInfo() {
         <div>
           <div>주소</div>
           <div className="mt-5">
-            기존 주소 : {user?.address} {user?.detailAddress}
+            기존 주소 : {user?.address} {user?.details}
           </div>
           <div className="mt-[10px] flex flex-col gap-[5px]">
             <UserInfoInput

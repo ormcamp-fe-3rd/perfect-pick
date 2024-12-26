@@ -10,7 +10,7 @@ export default function HeaderNav({ isMenuOpen }: NavProps) {
       <ul className="flex gap-[60px] lg:absolute lg:top-[176px] lg:w-[calc(100%-30px)] lg:gap-7 md:flex-wrap md:gap-[10px]">
         <li className="lg:h-[50px] lg:w-full lg:rounded-full lg:bg-green">
           <Link
-            to={'/product/total'}
+            to={'/recommend'}
             className="block hover:text-red lg:flex lg:h-full lg:w-full lg:items-center lg:justify-center lg:text-center lg:text-2xl lg:font-semibold lg:hover:text-black"
           >
             TOP10

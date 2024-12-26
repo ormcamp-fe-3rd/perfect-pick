@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import SearchAddress from '@/components/myPage/SearchAddress';
+import SearchAddress from '@/components/common/SearchAddress';
 import { getUserInfo, updateUserAddress, updateUserPassword } from '@/firebase';
-
 import UserInfoInput from './UserInfoInput';
 
 export interface User {
@@ -14,19 +13,20 @@ export interface User {
 }
 
 export default function UserInfo() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserData | null>(null);
   const [currentPwd, setCurrentPwd] = useState('');
   const [newPwd, setNewPwd] = useState('');
   const [newPwdCheck, setNewPwdCheck] = useState('');
   const [newAddress, setNewAddress] = useState('');
   const [newDetail, setNewDetail] = useState('');
+
   const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const userInfo = await getUserInfo();
-        setUser(userInfo as User);
+        setUser(userInfo as UserData);
       } catch (error) {
         console.log('사용자 정보를 가져오는 실패했습니다.', error);
       }
@@ -82,11 +82,16 @@ export default function UserInfo() {
     setNewDetail('');
   };
 
+  const handleSearchAddress = async () => {
+    const searchedAddress = (await SearchAddress()) || '';
+    setNewAddress(searchedAddress);
+  };
+
   return (
     <div className="mt-[15px] flex flex-col gap-[30px] border-t pt-[35px] font-bold">
       <div className="flex">
         <div className="w-1/3">아이디</div>
-        <div className="w-2/3">{user?.userid?.split('@')[0]}</div>
+        <div className="w-2/3">{user?.email?.split('@')[0]}</div>
         {/* 이메일 형식 제거 */}
       </div>
       <div className="flex">
@@ -143,7 +148,7 @@ export default function UserInfo() {
               buttonText="주소 찾기"
               buttonId="findAddressButton"
               value={newAddress}
-              onButtonClick={SearchAddress}
+              onButtonClick={handleSearchAddress}
               onChange={(e) => setNewAddress(e.target.value)}
             />
             <UserInfoInput

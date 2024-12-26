@@ -1,13 +1,5 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 
-// 임시: 추후 서버 연결
-const productDetailsList = [
-  { name: '제조회사', value: '삼성전자' },
-  { name: '등록년월', value: '2024년 01월' },
-  { name: '휴대폰타입', value: '스마트폰(바형)' },
-  { name: '통신망', value: '5G' },
-];
-
 export default function ProductDescription({ product }: { product: any }) {
   const productDetailImages = Object.entries(product.src_feature).map(
     ([key, value]) => ({
@@ -50,7 +42,6 @@ export default function ProductDescription({ product }: { product: any }) {
       <TabGroup className="mb-8 min-h-[800px]">
         <TabList className="mb-9 flex h-11 w-full gap-24 border-b text-2xl font-extrabold text-gray md:justify-center md:gap-10">
           <Tab className="data-[selected]:text-black">제품 설명</Tab>
-          <Tab className="data-[selected]:text-black">제품 스펙</Tab>
           <Tab className="data-[selected]:text-black">반품/교환 정보</Tab>
         </TabList>
         <TabPanels id="productDescription">
@@ -63,28 +54,6 @@ export default function ProductDescription({ product }: { product: any }) {
                 alt={value.alt}
               />
             ))}
-          </TabPanel>
-          <TabPanel id="productSpecs">
-            <div className="my-10 flex flex-col gap-5">
-              <div className="text-center text-3xl">제품 상세 스펙</div>
-            </div>
-            <table className="flex w-full justify-center px-10">
-              <tbody className="grid w-full grid-cols-2">
-                {productDetailsList.map((detail, index) => (
-                  <tr
-                    key={index}
-                    className="flex h-12 w-full border border-gray"
-                  >
-                    <th className="flex w-1/3 items-center bg-[#D9D9D9] pl-2">
-                      {detail.name}
-                    </th>
-                    <td className="flex w-2/3 items-center pl-2">
-                      {detail.value}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
           </TabPanel>
           <TabPanel id="returnExchange" className="w-full">
             <div className="my-10 flex flex-col gap-5">

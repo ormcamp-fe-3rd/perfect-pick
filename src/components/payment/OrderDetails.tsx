@@ -1,49 +1,34 @@
-export default function OrderDetails() {
-  const currentOrderList = [
-    {
-      id: 1,
-      name: '갤럭시 S24 FE 자급제',
-      src: 'https://i.imgur.com/svOz7A9b.jpg',
-      options: {
-        color: 'white',
-        storage: '256G',
-        accessories: 'PD 충전기 절전형(케이블 미포함)',
-      },
-      amount: 1,
-      price: {
-        productPrice: 1000000,
-        accessoriesPrice: 15000,
-      },
-    },
-    {
-      id: 2,
-      name: '아이패드 프로 11인치 (Wi-Fi)',
-      src: 'https://i.imgur.com/Ae1wefjb.jpg',
-      options: { color: '스페이스 블랙', storage: '1T' },
-      amount: 1,
-      price: { productPrice: 2000000 },
-    },
-    {
-      id: 3,
-      name: '갤럭시 S24 FE 자급제',
-      src: 'https://i.imgur.com/svOz7A9b.jpg',
-      options: { color: 'white', storage: '512G' },
-      amount: 1,
-      price: { productPrice: 1000000, deliveryFee: 3000 },
-    },
-  ];
+import { CartData } from '@/types';
 
-  const totalPrice = currentOrderList.reduce((sum, item) => {
+interface OrderDetailsProps {
+  cartData: CartData[];
+}
+
+export default function OrderDetails({ cartData }: OrderDetailsProps) {
+  if (!cartData || cartData.length === 0) {
+    return <div>로딩 중...</div>;
+  }
+
+  const totalPrice = cartData.reduce((sum, item) => {
     const total =
-      (item.price?.productPrice + (item.price?.accessoriesPrice ?? 0)) *
+      ((item.price?.productPrice ?? 0) + (item.price?.accessoriesPrice ?? 0)) *
       item.amount;
     return sum + total;
   }, 0);
 
-  const totalDeliveryFee = currentOrderList.reduce((sum, item) => {
+  const totalDeliveryFee = cartData.reduce((sum, item) => {
     const total = item.price?.deliveryFee ?? 0;
     return sum + total;
   }, 0);
+
+  const optionsLabel = (item: Record<string, string>) => {
+    if (!item) return '';
+    return Object.entries(item)
+      .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+      .filter(([, value]) => value)
+      .map(([, value]) => value)
+      .join('/');
+  };
 
   return (
     <>
@@ -53,24 +38,23 @@ export default function OrderDetails() {
         <div className="col-span-1 border-r">수량</div>
         <div className="col-span-2">금액</div>
       </div>
-      {currentOrderList.map((item) => (
+      {cartData.map((item, index) => (
         <div
-          key={item.id}
+          key={index}
           className="grid grid-cols-10 items-center border-t py-5 text-xl font-semibold lg:grid-cols-1 lg:gap-2 lg:px-12"
         >
           <div className="col-span-3 lg:col-span-1 lg:font-extrabold">
-            {item.name}
+            {item.product_title}
           </div>
           <div className="col-span-4 lg:col-span-1">
-            옵션: {Object.values(item.options).join('/')}
+            옵션: {optionsLabel(item.option)}
           </div>
           <div className="col-span-1 text-center lg:col-span-1 lg:text-start">
             {item.amount}개
           </div>
           <div className="col-span-2 text-end lg:col-span-1 lg:text-start">
             {(
-              (item.price?.productPrice ?? 0) +
-              (item.price?.accessoriesPrice ?? 0)
+              item.price?.productPrice + (item.price?.accessoriesPrice ?? 0)
             ).toLocaleString()}
             원
           </div>

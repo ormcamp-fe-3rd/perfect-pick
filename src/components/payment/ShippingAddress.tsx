@@ -2,22 +2,46 @@ import { useState } from 'react';
 
 import CustomCheckBox from '@/components/payment/CustomCheckBox';
 import ShippingInput from '@/components/payment/ShippingInput';
+import { UserData } from '@/types';
+import SearchAddress from '@/components/common/SearchAddress';
 
-// 임시: 추후 서버 연결
-const memberAddress = {
-  baseAddress: '12345, 서울특별시 강남구 테헤란로 123',
-  detailedAddress: '10층 A호',
-  recipientName: '홍길동',
-  recipientNumber: '010-1234-1234',
-};
+interface ShippingAddressProps {
+  userData: UserData | null;
+  onAddressInput: (value: boolean) => void;
+}
 
-export default function ShippingAddress() {
-  const [inputValues, setInputValues] = useState<Record<string, string>>({});
+export default function ShippingAddress({
+  userData,
+  onAddressInput,
+}: ShippingAddressProps) {
+  const basicShippingAddress = {
+    recipientName: userData?.username ?? '',
+    recipientNumber: '',
+    baseAddress: userData?.address ?? '',
+    detailedAddress: userData?.detailAddress ?? '',
+  };
+
+  const [inputValues, setInputValues] =
+    useState<Record<string, string>>(basicShippingAddress);
+
   const [memberAdressChecked, setMemberAdressChecked] = useState(false);
 
-  const handleInputChange = (key: string, value: string) => {
+  const isValidPhoneNumber = (phone: string) => {
+    const phoneRegex = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
+    return phoneRegex.test(phone);
+  };
+
+  const isAllFieldsFilled = () => {
+    return (
+      Object.values(inputValues).every((value) => value.trim() !== '') &&
+      isValidPhoneNumber(inputValues.recipientNumber)
+    );
+  };
+
+  const updateInputValues = (key: string, value: string) => {
     const updatedInputValues = { ...inputValues, [key]: value };
     setInputValues(updatedInputValues);
+    onAddressInput(isAllFieldsFilled());
 
     // 배송메세지를 제외하고 수동 입력 시, 체크박스 해제
     if (key !== 'shippingMessage' && memberAdressChecked) {
@@ -28,7 +52,14 @@ export default function ShippingAddress() {
   const handleCheckboxChange = () => {
     const newCheckedState = !memberAdressChecked;
     setMemberAdressChecked(newCheckedState);
-    setInputValues(newCheckedState ? memberAddress : inputValues);
+    if (newCheckedState && userData) {
+      setInputValues(basicShippingAddress);
+    }
+  };
+
+  const handleSearchAddress = async () => {
+    const searchedAddress = (await SearchAddress()) || '';
+    updateInputValues('address', searchedAddress);
   };
 
   return (
@@ -48,18 +79,19 @@ export default function ShippingAddress() {
             placeholder="이름을 입력해주세요"
             key="recipientName"
             value={inputValues.recipientName}
-            onInputChange={(value) => handleInputChange('recipientName', value)}
+            onInputChange={(value) => updateInputValues('recipientName', value)}
           />
         </div>
         <div className="flex items-center">
           <div className="w-1/6 lg:w-3/12">받으시는 분 연락처</div>
           <ShippingInput
+            type="telephone"
             layout="w-5/6 pl-6"
             placeholder="연락처를 입력해주세요"
             key="recipientNumber"
             value={inputValues.recipientNumber}
             onInputChange={(value) =>
-              handleInputChange('recipientNumber', value)
+              updateInputValues('recipientNumber', value)
             }
           />
         </div>
@@ -70,17 +102,17 @@ export default function ShippingAddress() {
               <ShippingInput
                 layout="pl-6"
                 placeholder="주소 찾기로 입력해주세요"
+                id="inputBaseAddress"
                 style="bg-[#D9D9D9]"
                 key="baseAddress"
                 value={inputValues.baseAddress}
                 onInputChange={(value) =>
-                  handleInputChange('baseAddress', value)
+                  updateInputValues('baseAddress', value)
                 }
-                enabled={false}
+                showButton={true}
+                buttonText="주소찾기"
+                onButtonClick={handleSearchAddress}
               />
-              <button className="ml-4 w-[170px] rounded-[50px] border bg-black text-center text-2xl font-semibold text-white">
-                주소 찾기
-              </button>
             </div>
             <ShippingInput
               layout="pl-6"
@@ -88,7 +120,7 @@ export default function ShippingAddress() {
               key="detailedAddress"
               value={inputValues.detailedAddress}
               onInputChange={(value) =>
-                handleInputChange('detailedAddress', value)
+                updateInputValues('detailedAddress', value)
               }
             />
           </div>
@@ -101,7 +133,7 @@ export default function ShippingAddress() {
             key="shippingMessage"
             value={inputValues.shippingMessage}
             onInputChange={(value) =>
-              handleInputChange('shippingMessage', value)
+              updateInputValues('shippingMessage', value)
             }
           />
         </div>

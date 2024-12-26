@@ -18,11 +18,11 @@ export default function ProductImages({ product }: { product: any }) {
       <div className="mb-4 text-xl">
         {`${product.category_id.toUpperCase()} > ${product.brand}`}
       </div>
-      <div className="relative">
+      <div className="relative h-[500px]">
         <img
           src={imagesList[currentIndex].src}
           alt={imagesList[currentIndex].alt}
-          className="w-full rounded-3xl object-contain"
+          className="m-auto h-full rounded-3xl object-contain"
         />
         <div className="absolute bottom-6 right-6 flex flex-col gap-4">
           {imagesList.map((image, index) => (

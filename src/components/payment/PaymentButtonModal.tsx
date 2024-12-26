@@ -7,10 +7,12 @@ const memberPaymentPassword = '123123';
 const passwordLength = 6;
 
 interface PaymentButtonModalProps {
+  isAddressComplete?: boolean;
   isValid?: boolean;
 }
 
 export default function PaymentButtonModal({
+  isAddressComplete,
   isValid,
 }: PaymentButtonModalProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,24 +30,24 @@ export default function PaymentButtonModal({
     }
   };
 
-  const handleButtonClick = (action: string) => {
-    if (action === 'open') {
-      if (!isValid) {
-        alert('결제수단과 개인정보동의를 확인해주세요.');
-      } else {
-        setIsOpen(true);
-      }
-    } else if (action === 'close') {
+  const handleButtonClick = () => {
+    if (!isAddressComplete) return alert('배송지 정보를 확인해주세요');
+    if (!isValid) return alert('결제수단과 개인정보동의를 확인해주세요.');
+    setIsOpen(true);
+  };
+
+  const handleCloseButtonClick = () => {
+    setPassword('');
+    setIsOpen(false);
+  };
+
+  const handleConfirmButtonClick = () => {
+    if (memberPaymentPassword === password) {
+      alert('결제가 완료되었습니다.');
       setPassword('');
       setIsOpen(false);
-    } else if (action === 'confirm') {
-      if (memberPaymentPassword === password) {
-        alert('결제가 완료되었습니다.');
-        setPassword('');
-        setIsOpen(false);
-      } else {
-        alert('비밀번호를 확인해주세요.');
-      }
+    } else {
+      alert('비밀번호를 확인해주세요.');
     }
   };
 
@@ -56,7 +58,7 @@ export default function PaymentButtonModal({
     <>
       <button
         className="m-auto h-20 w-[226px] rounded-[50px] bg-red text-2xl text-[white] md:w-[160px]"
-        onClick={() => handleButtonClick('open')}
+        onClick={handleButtonClick}
         // disabled={!isEnable}
       >
         결제하기
@@ -85,13 +87,13 @@ export default function PaymentButtonModal({
             <div className="flex gap-5">
               <button
                 className="h-20 w-40 rounded-[50px] bg-black text-2xl font-semibold text-[white] md:w-[160px]"
-                onClick={() => handleButtonClick('confirm')}
+                onClick={handleConfirmButtonClick}
               >
                 확인
               </button>
               <button
                 className="h-20 w-40 rounded-[50px] bg-black text-2xl font-semibold text-[white] md:w-[160px]"
-                onClick={() => handleButtonClick('close')}
+                onClick={handleCloseButtonClick}
               >
                 닫기
               </button>

@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react';
-
 import { getUserInfo } from '@/firebase';
-
-import { User } from './UserInfo';
+import { UserData } from '@/types';
 
 export default function WelcomeMessage() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserData | null>(null);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const userInfo = await getUserInfo();
-        setUser(userInfo as User);
+        setUser(userInfo as UserData);
       } catch (error) {
         console.log('사용자 정보를 가져오는 실패했습니다.', error);
       }

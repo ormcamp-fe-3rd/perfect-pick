@@ -59,7 +59,7 @@ export default function ShippingAddress({
 
   const handleSearchAddress = async () => {
     const searchedAddress = (await SearchAddress()) || '';
-    updateInputValues('address', searchedAddress);
+    updateInputValues('baseAddress', searchedAddress);
   };
 
   return (

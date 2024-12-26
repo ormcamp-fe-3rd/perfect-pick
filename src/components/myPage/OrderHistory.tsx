@@ -7,6 +7,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // 전체 주문 내역
 interface Order {
@@ -27,6 +28,7 @@ interface OrderItem {
 
 export default function OrderHistory() {
   const [orderHistory, setOrderHistory] = useState<Order[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -35,7 +37,8 @@ export default function OrderHistory() {
       const currentUser = auth.currentUser;
 
       if (!currentUser) {
-        console.error('로그인 상태가 아닙니다');
+        window.history.replaceState(null, '', '/login');
+        navigate('/login', { replace: true });
         return;
       }
 

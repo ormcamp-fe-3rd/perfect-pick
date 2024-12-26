@@ -103,7 +103,7 @@ const ProductListPage: React.FC<ProductListPageProps> = ({
             />
           ))
         ) : (
-          <p>로딩 중...</p>
+          <p>검색 결과가 없습니다.</p>
         )}
       </ProductContainer>
     </div>

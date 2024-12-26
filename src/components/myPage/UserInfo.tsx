@@ -2,9 +2,15 @@ import { useEffect, useState } from 'react';
 
 import SearchAddress from '@/components/common/SearchAddress';
 import { getUserInfo, updateUserAddress, updateUserPassword } from '@/firebase';
+import UserInfoInput from './UserInfoInput';
 
-import UserInfoInput from '@/components/myPage/UserInfoInput';
-import { UserData } from '@/types';
+export interface User {
+  userid: string | null;
+  username: string | null;
+  email: string | null;
+  address: string | null;
+  details: string | null;
+}
 
 export default function UserInfo() {
   const [user, setUser] = useState<UserData | null>(null);
@@ -12,7 +18,8 @@ export default function UserInfo() {
   const [newPwd, setNewPwd] = useState('');
   const [newPwdCheck, setNewPwdCheck] = useState('');
   const [newAddress, setNewAddress] = useState('');
-  const [newAddressDetail, setNewAddressDetail] = useState('');
+  const [newDetail, setNewDetail] = useState('');
+
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -31,32 +38,48 @@ export default function UserInfo() {
     e.preventDefault();
     setError('');
 
-    if (newPwd !== newPwdCheck) {
-      setError('새 비밀번호가 일치하지 않습니다.');
+    if (newPwd == '' && newPwdCheck == '') {
       return;
+    }
+
+    if (newPwd !== newPwdCheck || newPwd !== newPwdCheck) {
+      setError('새 비밀번호가 일치하지 않습니다.');
     }
 
     try {
       await updateUserPassword(currentPwd, newPwd);
       alert('비밀번호가 성공적으로 변경되었습니다.');
-      setCurrentPwd('');
-      setNewPwd('');
-      setNewPwdCheck('');
     } catch (error) {
       console.error(error);
+      alert('비밀번호 변경 중 오류가 발생했습니다.');
     }
+    setCurrentPwd('');
+    setNewPwd('');
+    setNewPwdCheck('');
   };
 
   const handleAddressChange = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(''); // 에러 메시지 초기화
 
+    if (newAddress == '' && newDetail == '') {
+      return;
+    }
+
+    if (newAddress == '' || newDetail == '') {
+      setError('주소를 입력해주세요.');
+      return;
+    }
+
     try {
-      await updateUserAddress(newAddress, newAddressDetail);
+      await updateUserAddress(newAddress, newDetail);
       alert('주소가 성공적으로 변경되었습니다.');
     } catch (error) {
       console.error(error);
+      alert('주소 변경 중 오류가 발생했습니다.');
     }
+    setNewAddress('');
+    setNewDetail('');
   };
 
   const handleSearchAddress = async () => {
@@ -115,7 +138,7 @@ export default function UserInfo() {
         <div>
           <div>주소</div>
           <div className="mt-5">
-            {`기존 주소 : ${user?.address} ${user?.detailAddress}`}
+            기존 주소 : {user?.address} {user?.details}
           </div>
           <div className="mt-[10px] flex flex-col gap-[5px]">
             <UserInfoInput
@@ -131,8 +154,8 @@ export default function UserInfo() {
             <UserInfoInput
               id="inputDetailAddress"
               placeholder="상세 주소를 입력해주세요."
-              value={newAddressDetail}
-              onChange={(e) => setNewAddressDetail(e.target.value)}
+              value={newDetail}
+              onChange={(e) => setNewDetail(e.target.value)}
             />
           </div>
         </div>

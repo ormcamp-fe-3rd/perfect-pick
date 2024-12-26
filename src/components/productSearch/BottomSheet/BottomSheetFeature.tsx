@@ -1,5 +1,7 @@
 import { Button } from '@headlessui/react';
 
+import { getOptionType } from '@/firebase.ts';
+
 import optionsData from '../../../constants/optionsData.json';
 import { CategoryData, OptionsData } from '../../../constants/optionsData.ts';
 import InputString from '../Feature/InputString.tsx';
@@ -11,24 +13,24 @@ const typedOptionsData: OptionsData = optionsData;
 export interface BottomSheetButtonProps {
   category: 'mobile' | 'tablet' | 'wearable' | 'notebook';
   categoryTag: string;
-  price?: boolean;
-  search?: boolean;
+  onItemClick: (item: string, type: string) => void;
 }
 
 function BottomSheetFeature({
   category,
   categoryTag,
-  price = false,
-  search = false,
+  onItemClick,
 }: BottomSheetButtonProps) {
   const categoryData: CategoryData = typedOptionsData[category];
   const categories = categoryData.categories;
   const data = categoryData.data;
   const SelectedIndex = categories.indexOf(categoryTag);
   const selectedData = data[SelectedIndex] || [];
+  const optionType = getOptionType(category);
+
   return (
     <BottomSheetContainer>
-      {price ? (
+      {categoryTag == '가격대' ? (
         <div className="mx-11 max-w-[568px] rounded-t-md bg-gray text-2xl text-white">
           <div className="mb-8 mt-4 text-center">가격대</div>
           <div className="w-max-[480px] block w-full justify-center space-y-8 text-center">
@@ -51,7 +53,7 @@ function BottomSheetFeature({
             </div>
           </div>
         </div>
-      ) : search ? (
+      ) : categoryTag == '세부 검색' ? (
         <div className="mx-11 max-w-[568px] rounded-t-md bg-gray text-2xl text-white">
           <div className="mb-8 mt-4 text-center">세부 검색</div>
           <div className="w-max-[480px] block w-full pt-24 text-center">
@@ -79,6 +81,9 @@ function BottomSheetFeature({
             <Button
               key={currentIndex}
               className="mb-4 block h-10 w-full max-w-[480px] justify-center border-b-[0.1px] border-white text-left"
+              onClick={() => {
+                onItemClick(item, optionType[SelectedIndex]);
+              }}
             >
               {item}
             </Button>

@@ -18,6 +18,8 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 
+import { defaultOptionType, wearableoptionType } from './constants/optionsData';
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -94,7 +96,7 @@ export const updateUserPassword = async (
 
 export const updateUserAddress = async (
   newAddress: string,
-  newDetailAddress: string,
+  newDetails: string,
 ) => {
   const auth = getAuth();
   const user = auth.currentUser;
@@ -108,10 +110,7 @@ export const updateUserAddress = async (
 
   try {
     // Firestore의 'users' 컬렉션에서 해당 사용자의 주소를 업데이트
-    await updateDoc(userRef, {
-      address: newAddress,
-      detailAddress: newDetailAddress,
-    });
+    await updateDoc(userRef, { address: newAddress, details: newDetails });
 
     console.log('주소가 성공적으로 업데이트되었습니다.');
   } catch (error) {
@@ -145,7 +144,7 @@ export const getUserInfo = async () => {
           email: userData?.email, // 사용자 이메일
           id: userAuth.uid,
           address: userData?.address,
-          detailAddress: userData?.detailAddress,
+          details: userData?.details,
           userid: userAuth.email, // 사용자 ID
         });
       } catch (error) {
@@ -154,4 +153,13 @@ export const getUserInfo = async () => {
       }
     });
   });
+};
+
+export const getOptionType = (type: string) => {
+  switch (type) {
+    case 'wearable':
+      return wearableoptionType;
+    default:
+      return defaultOptionType;
+  }
 };

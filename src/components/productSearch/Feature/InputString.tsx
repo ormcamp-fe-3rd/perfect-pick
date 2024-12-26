@@ -17,7 +17,7 @@ function InputString({
     <Input
       name="full_name"
       type="text"
-      className={`${width} h-[39px] rounded`}
+      className={`${width} h-[39px] rounded text-black`}
       style={{ backgroundColor: bgColor }}
       value={value}
       onChange={onChange}

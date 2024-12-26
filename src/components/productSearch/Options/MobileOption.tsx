@@ -35,8 +35,6 @@ function MobileOption({ type, onApplyClick }: OptionProps) {
     secondPrice,
     selectedTitle,
     handleItemClick,
-    // handlePriceChange,
-    // handleTitleChange,
   } = SharedOption(type, typedOptionsData);
 
   const handleApplyClick = () => {

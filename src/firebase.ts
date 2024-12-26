@@ -144,7 +144,7 @@ export const getUserInfo = async () => {
           email: userData?.email, // 사용자 이메일
           id: userAuth.uid,
           address: userData?.address,
-          details: userData?.detailAddress,
+          details: userData?.details,
           userid: userAuth.email, // 사용자 ID
         });
       } catch (error) {

@@ -10,6 +10,7 @@ export interface User {
   username: string | null;
   email: string | null;
   address: string | null;
+  details: string | null;
 }
 
 export default function UserInfo() {
@@ -18,7 +19,7 @@ export default function UserInfo() {
   const [newPwd, setNewPwd] = useState('');
   const [newPwdCheck, setNewPwdCheck] = useState('');
   const [newAddress, setNewAddress] = useState('');
-  const [details, setNewDetailAddress] = useState('');
+  const [newDetail, setNewDetail] = useState('');
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -37,34 +38,48 @@ export default function UserInfo() {
     e.preventDefault();
     setError('');
 
-    if (newPwd !== newPwdCheck) {
-      setError('새 비밀번호가 일치하지 않습니다.');
+    if (newPwd == '' && newPwdCheck == '') {
       return;
+    }
+
+    if (newPwd !== newPwdCheck || newPwd !== newPwdCheck) {
+      setError('새 비밀번호가 일치하지 않습니다.');
     }
 
     try {
       await updateUserPassword(currentPwd, newPwd);
       alert('비밀번호가 성공적으로 변경되었습니다.');
-      setCurrentPwd('');
-      setNewPwd('');
-      setNewPwdCheck('');
     } catch (error) {
-      // setError('비밀번호 변경 중 오류가 발생했습니다.');
       console.error(error);
+      alert('비밀번호 변경 중 오류가 발생했습니다.');
     }
+    setCurrentPwd('');
+    setNewPwd('');
+    setNewPwdCheck('');
   };
 
   const handleAddressChange = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(''); // 에러 메시지 초기화
 
+    if (newAddress == '' && newDetail == '') {
+      return;
+    }
+
+    if (newAddress == '' || newDetail == '') {
+      setError('주소를 입력해주세요.');
+      return;
+    }
+
     try {
-      await updateUserAddress(newAddress, details); // 주소 업데이트 함수 호출
+      await updateUserAddress(newAddress, newDetail);
       alert('주소가 성공적으로 변경되었습니다.');
     } catch (error) {
-      // setError('주소 변경 중 오류가 발생했습니다.');
       console.error(error);
+      alert('주소 변경 중 오류가 발생했습니다.');
     }
+    setNewAddress('');
+    setNewDetail('');
   };
 
   return (
@@ -118,8 +133,7 @@ export default function UserInfo() {
         <div>
           <div>주소</div>
           <div className="mt-5">
-            기존 주소 :{' '}
-            {`서울 강남구 강남대로 324 역삼디오슈페리움 2층 모두의연구소`}
+            기존 주소 : {user?.address} {user?.details}
           </div>
           <div className="mt-[10px] flex flex-col gap-[5px]">
             <UserInfoInput
@@ -135,8 +149,8 @@ export default function UserInfo() {
             <UserInfoInput
               id="inputDetailAddress"
               placeholder="상세 주소를 입력해주세요."
-              value={details}
-              onChange={(e) => setNewDetailAddress(e.target.value)}
+              value={newDetail}
+              onChange={(e) => setNewDetail(e.target.value)}
             />
           </div>
         </div>

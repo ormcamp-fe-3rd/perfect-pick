@@ -13,8 +13,6 @@ const typedOptionsData: OptionsData = optionsData;
 export interface BottomSheetButtonProps {
   category: 'mobile' | 'tablet' | 'wearable' | 'notebook';
   categoryTag: string;
-  price?: boolean;
-  search?: boolean;
   onItemClick: (item: string, type: string) => void;
 }
 

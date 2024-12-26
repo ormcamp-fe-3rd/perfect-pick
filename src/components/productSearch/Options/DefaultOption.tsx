@@ -14,7 +14,6 @@ function DefaultOption({ type, onApplyClick }: OptionProps) {
     categories,
     data,
     optionType,
-    // WearableoptionType,
     selectedOptions,
     selectedOptionCategory,
     firstPrice,

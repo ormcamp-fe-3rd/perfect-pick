@@ -21,6 +21,8 @@ export default function MainSlide({ settings }: SlideProps) {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
+    autoplay: true,
+    autoplaySpeed: 4000,
     prevArrow: (
       <ArrowButton
         MainSlidePrev

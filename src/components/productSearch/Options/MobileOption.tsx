@@ -107,6 +107,7 @@ function MobileOption({ type, onApplyClick }: OptionProps) {
           category={bottomSheetCategory}
           categoryTag={bottomSheetCategoryTag}
           onItemClick={handleItemClick}
+          onClose={handleCloseBottomSheet}
         />
       </BottomSheet>
 

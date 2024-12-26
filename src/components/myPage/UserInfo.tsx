@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import SearchAddress from '@/components/common/SearchAddress';
 import { getUserInfo, updateUserAddress, updateUserPassword } from '@/firebase';
+
 import UserInfoInput from './UserInfoInput';
 
 export interface User {
@@ -13,7 +14,7 @@ export interface User {
 }
 
 export default function UserInfo() {
-  const [user, setUser] = useState<UserData | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [currentPwd, setCurrentPwd] = useState('');
   const [newPwd, setNewPwd] = useState('');
   const [newPwdCheck, setNewPwdCheck] = useState('');
@@ -26,7 +27,7 @@ export default function UserInfo() {
     const fetchUserInfo = async () => {
       try {
         const userInfo = await getUserInfo();
-        setUser(userInfo as UserData);
+        setUser(userInfo as User);
       } catch (error) {
         console.log('사용자 정보를 가져오는 실패했습니다.', error);
       }

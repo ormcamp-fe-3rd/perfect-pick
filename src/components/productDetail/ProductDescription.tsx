@@ -130,22 +130,26 @@ export default function ProductDescription({ product }: { product: any }) {
                 반품지 주소 등을 협의하신 후 반품상품을 발송해주시기 바랍니다.
               </div>
             </div>
-            <tbody className="flex w-full flex-col px-10 text-left text-xl">
-              {returnExchaneInfo.map((info, index) => (
-                <tr key={index} className="flex w-full border border-gray">
-                  <th className="flex w-3/12 items-center bg-[#D9D9D9] py-4 pl-2">
-                    {info.name}
-                  </th>
-                  <td className="flex w-9/12 items-center py-4 pl-2">
-                    <div className="flex flex-col">
-                      {Array.isArray(info.value)
-                        ? info.value.map((value, i) => <li key={i}>{value}</li>)
-                        : info.value}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+            <table>
+              <tbody className="flex w-full flex-col px-10 text-left text-xl">
+                {returnExchaneInfo.map((info, index) => (
+                  <tr key={index} className="flex w-full border border-gray">
+                    <th className="flex w-3/12 items-center bg-[#D9D9D9] py-4 pl-2">
+                      {info.name}
+                    </th>
+                    <td className="flex w-9/12 items-center py-4 pl-2">
+                      <div className="flex flex-col">
+                        {Array.isArray(info.value)
+                          ? info.value.map((value, i) => (
+                              <li key={i}>{value}</li>
+                            ))
+                          : info.value}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </TabPanel>
         </TabPanels>
       </TabGroup>

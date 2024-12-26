@@ -188,6 +188,25 @@ export default function ProductOptions({
     }
   };
 
+  const unitPriority: { [key: string]: number } = { MB: 0, GB: 1, TB: 2 };
+
+  const sortBySize = (options: string[]): string[] => {
+    return options.sort((a, b) => {
+      // 용량 정보를 분리하고, 없으면 null 반환
+      const aMatch = a.match(/(\d+)(MB|GB|TB)/);
+      const bMatch = b.match(/(\d+)(MB|GB|TB)/);
+
+      // 용량 단위가 있으면 우선순위로 정렬하고, 없으면 그냥 정렬하지 않음
+      const aSize = aMatch
+        ? unitPriority[aMatch[2] as keyof typeof unitPriority]
+        : Infinity;
+      const bSize = bMatch
+        ? unitPriority[bMatch[2] as keyof typeof unitPriority]
+        : Infinity;
+      return aSize - bSize;
+    });
+  };
+
   return (
     <div className="w-full">
       <div className="flex flex-col gap-6 md:items-center md:gap-4">
@@ -218,7 +237,7 @@ export default function ProductOptions({
             <SelectOption
               key={index}
               name={key}
-              options={Object.keys(value).sort()}
+              options={sortBySize(Object.keys(value))}
               value={selectedOptions[key]}
               onChange={handleSelectedOptions}
             />

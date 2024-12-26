@@ -8,6 +8,48 @@ export default function ProductDescription({ product }: { product: any }) {
     }),
   );
 
+  const fieldMappings = [
+    { field: 'brand', name: '제조 회사', format: (value: string) => value },
+    {
+      field: 'release',
+      name: '출시 연도',
+      format: (value: string) => `${value}년`,
+    },
+    {
+      field: 'opt_color',
+      name: '제품 색상',
+      format: (value: Record<string, number>) => Object.keys(value).join('/'),
+    },
+    {
+      field: 'opt_storage',
+      name: '저장 용량',
+      format: (value: Record<string, number>) => Object.keys(value).join('/'),
+    },
+    { field: 'size', name: '화면크기', format: (value: string) => value },
+    {
+      field: 'feature',
+      name: '지원 기능',
+      format: (value: Record<string, number>) => Object.keys(value).join('/'),
+    },
+    {
+      field: 'watch',
+      name: '지원 기능',
+      format: (value: Record<string, number>) => Object.keys(value).join('/'),
+    },
+    {
+      field: 'earphone',
+      name: '지원 기능',
+      format: (value: Record<string, number>) => Object.keys(value).join('/'),
+    },
+  ];
+
+  const transformedData = fieldMappings
+    .filter(({ field }) => product[field] !== undefined)
+    .map(({ field, name, format }) => ({
+      name,
+      value: format(product[field]),
+    }));
+
   const returnExchaneInfo = [
     { name: '판매자 지정택배사', value: 'CJ대한통운' },
     { name: '반품배송비', value: '편도 3,000원' },
@@ -42,6 +84,7 @@ export default function ProductDescription({ product }: { product: any }) {
       <TabGroup className="mb-8 min-h-[800px]">
         <TabList className="mb-9 flex h-11 w-full gap-24 border-b text-2xl font-extrabold text-gray md:justify-center md:gap-10">
           <Tab className="data-[selected]:text-black">제품 설명</Tab>
+          <Tab className="data-[selected]:text-black">제품 스펙</Tab>
           <Tab className="data-[selected]:text-black">반품/교환 정보</Tab>
         </TabList>
         <TabPanels id="productDescription">
@@ -55,6 +98,28 @@ export default function ProductDescription({ product }: { product: any }) {
               />
             ))}
           </TabPanel>
+          <TabPanel id="productSpecs">
+            <div className="my-10 flex flex-col gap-5">
+              <div className="text-center text-3xl">제품 상세 스펙</div>
+            </div>
+            <table className="flex w-full justify-center px-10 text-xl">
+              <tbody className="grid w-full grid-cols-1">
+                {transformedData.map((detail, index) => (
+                  <tr
+                    key={index}
+                    className="flex h-12 w-full border border-gray"
+                  >
+                    <th className="flex w-1/3 items-center bg-[#D9D9D9] pl-2">
+                      {detail.name}
+                    </th>
+                    <td className="flex w-2/3 items-center pl-2">
+                      {detail.value}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </TabPanel>
           <TabPanel id="returnExchange" className="w-full">
             <div className="my-10 flex flex-col gap-5">
               <div className="text-center text-3xl">
@@ -65,22 +130,26 @@ export default function ProductDescription({ product }: { product: any }) {
                 반품지 주소 등을 협의하신 후 반품상품을 발송해주시기 바랍니다.
               </div>
             </div>
-            <tbody className="flex w-full flex-col px-10 text-left">
-              {returnExchaneInfo.map((info, index) => (
-                <tr key={index} className="flex w-full border border-gray">
-                  <th className="flex w-3/12 items-center bg-[#D9D9D9] py-4 pl-2">
-                    {info.name}
-                  </th>
-                  <td className="flex w-9/12 items-center py-4 pl-2">
-                    <div className="flex flex-col">
-                      {Array.isArray(info.value)
-                        ? info.value.map((value, i) => <li key={i}>{value}</li>)
-                        : info.value}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+            <table>
+              <tbody className="flex w-full flex-col px-10 text-left text-xl">
+                {returnExchaneInfo.map((info, index) => (
+                  <tr key={index} className="flex w-full border border-gray">
+                    <th className="flex w-3/12 items-center bg-[#D9D9D9] py-4 pl-2">
+                      {info.name}
+                    </th>
+                    <td className="flex w-9/12 items-center py-4 pl-2">
+                      <div className="flex flex-col">
+                        {Array.isArray(info.value)
+                          ? info.value.map((value, i) => (
+                              <li key={i}>{value}</li>
+                            ))
+                          : info.value}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </TabPanel>
         </TabPanels>
       </TabGroup>

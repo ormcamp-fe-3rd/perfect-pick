@@ -48,13 +48,13 @@ function BottomSheetFeature({
           <div className="w-max-[480px] block w-full justify-center space-y-8 text-center">
             <InputString
               bgColor="white"
-              value={firstPrice ?? ''}
+              value={firstPrice || ''}
               onChange={(e) => onPriceChange?.(e.target.value, 'first')}
             ></InputString>
             <div>~</div>
             <InputString
               bgColor="white"
-              value={secondPrice ?? ''}
+              value={secondPrice || ''}
               onChange={(e) => onPriceChange?.(e.target.value, 'second')}
             ></InputString>
             <div className="absolute bottom-[20px] right-[50px] flex space-x-16">

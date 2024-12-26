@@ -91,13 +91,13 @@ function DefaultOption({ type, onApplyClick }: OptionProps) {
           <div className="mr-9 flex w-full">
             <InputString
               width="w-full lg:max-w-[330px]"
-              value={firstPrice ?? ''} // 값이 없을 때 빈 문자열 처리
+              value={firstPrice || ''} // 값이 없을 때 빈 문자열 처리
               onChange={(e) => handlePriceChange(e.target.value, 'first')}
             />
             <p className="px-[90px] text-[28px]">~</p>
             <InputString
               width="w-full lg:max-w-[330px]"
-              value={secondPrice ?? ''} // 값이 없을 때 빈 문자열 처리
+              value={secondPrice || ''} // 값이 없을 때 빈 문자열 처리
               onChange={(e) => handlePriceChange(e.target.value, 'second')}
             />
           </div>

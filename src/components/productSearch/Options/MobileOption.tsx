@@ -35,6 +35,8 @@ function MobileOption({ type, onApplyClick }: OptionProps) {
     secondPrice,
     selectedTitle,
     handleItemClick,
+    handlePriceChange,
+    handleTitleChange,
   } = SharedOption(type, typedOptionsData);
 
   const handleApplyClick = () => {
@@ -107,7 +109,12 @@ function MobileOption({ type, onApplyClick }: OptionProps) {
           category={bottomSheetCategory}
           categoryTag={bottomSheetCategoryTag}
           onItemClick={handleItemClick}
-          onClose={handleCloseBottomSheet}
+          isOpen={handleCloseBottomSheet}
+          onPriceChange={handlePriceChange}
+          onTitleChange={handleTitleChange}
+          firstPrice={firstPrice}
+          secondPrice={secondPrice}
+          selectedTitle={selectedTitle}
         />
       </BottomSheet>
 

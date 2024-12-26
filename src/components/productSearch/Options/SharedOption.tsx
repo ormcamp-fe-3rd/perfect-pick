@@ -42,12 +42,11 @@ export const SharedOption = (
 
   const handlePriceChange = (price: string, type: 'first' | 'second') => {
     const parsedPrice = parseFloat(price);
-    if (!isNaN(parsedPrice)) {
-      if (type === 'first') {
-        setFirstPrice(parsedPrice);
-      } else {
-        setSecondPrice(parsedPrice);
-      }
+    console.log(parsedPrice);
+    if (type === 'first') {
+      setFirstPrice(parsedPrice);
+    } else {
+      setSecondPrice(parsedPrice);
     }
   };
 

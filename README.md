@@ -35,9 +35,9 @@ firebase deploy
 
 ### 호스팅 사이트
 
-```bash
 https://perfect-pick-b3766.web.app/
-```
+
+<br>
 
 ### 테스트 계정 ( 마이페이지 주문 상세내역)
 - ID  : idtest1234

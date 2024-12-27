@@ -60,7 +60,7 @@ function ProductDetailPage() {
 
   if (productData) {
     return (
-      <div className="mx-10">
+      <div className="mx-10 min-w-[395px]">
         <div className="mx-auto mt-9 max-w-[1400px] lg:mt-6">
           <div className="flex gap-10 lg:flex-col">
             <div className="flex-grow-[2]">

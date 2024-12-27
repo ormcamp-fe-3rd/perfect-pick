@@ -82,13 +82,13 @@ export default function ProductDescription({ product }: { product: any }) {
   return (
     <>
       <TabGroup className="mb-8 min-h-[800px]">
-        <TabList className="mb-9 flex h-11 w-full gap-24 border-b text-2xl font-extrabold text-gray md:justify-center md:gap-10">
+        <TabList className="mb-9 flex h-11 w-full gap-24 border-b text-2xl font-extrabold text-gray md:justify-center md:gap-10 md:text-lg">
           <Tab className="data-[selected]:text-black">제품 설명</Tab>
           <Tab className="data-[selected]:text-black">제품 스펙</Tab>
           <Tab className="data-[selected]:text-black">반품/교환 정보</Tab>
         </TabList>
         <TabPanels id="productDescription">
-          <TabPanel className="flex w-full flex-col items-center px-10">
+          <TabPanel className="flex w-full flex-col items-center px-10 md:px-1">
             {Object.entries(productDetailImages).map(([key, value]) => (
               <img
                 key={key}
@@ -100,9 +100,11 @@ export default function ProductDescription({ product }: { product: any }) {
           </TabPanel>
           <TabPanel id="productSpecs">
             <div className="my-10 flex flex-col gap-5">
-              <div className="text-center text-3xl">제품 상세 스펙</div>
+              <div className="text-center text-3xl md:text-2xl">
+                제품 상세 스펙
+              </div>
             </div>
-            <table className="flex w-full justify-center px-10 text-xl">
+            <table className="flex w-full justify-center px-10 text-xl lg:px-1">
               <tbody className="grid w-full grid-cols-1">
                 {transformedData.map((detail, index) => (
                   <tr
@@ -122,16 +124,16 @@ export default function ProductDescription({ product }: { product: any }) {
           </TabPanel>
           <TabPanel id="returnExchange" className="w-full">
             <div className="my-10 flex flex-col gap-5">
-              <div className="text-center text-3xl">
+              <div className="text-center text-3xl md:text-2xl">
                 퍼펙트픽 반품/교환 안내
               </div>
-              <div className="text-center text-2xl">
+              <div className="text-center text-2xl md:text-xl">
                 반품 시 먼저 판매자와 연락하셔서 반품사유, 택배사, 배송비,
                 반품지 주소 등을 협의하신 후 반품상품을 발송해주시기 바랍니다.
               </div>
             </div>
             <table>
-              <tbody className="flex w-full flex-col px-10 text-left text-xl">
+              <tbody className="flex w-full flex-col px-10 text-left text-xl lg:px-1">
                 {returnExchaneInfo.map((info, index) => (
                   <tr key={index} className="flex w-full border border-gray">
                     <th className="flex w-3/12 items-center bg-[#D9D9D9] py-4 pl-2">

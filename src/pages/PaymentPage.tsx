@@ -112,19 +112,19 @@ function PaymentPage() {
   }
 
   return (
-    <div className="mx-auto mt-16 box-content flex max-w-[1204px] flex-col gap-24 px-5">
-      <div className="lg:px-10">
+    <div className="mx-auto mt-16 box-content flex min-w-[490px] max-w-[1204px] flex-col gap-24 px-5">
+      <div className="lg:px-2">
         <h2 className="text-[36px] lg:text-center">구매자/배송지 정보</h2>
         <ShippingAddress
           userData={userData}
           onAddressInput={handleAddressInput}
         />
       </div>
-      <div className="lg:px-10">
+      <div className="lg:px-2">
         <h2 className="mb-10 text-[36px] lg:text-center">주문 정보</h2>
         <OrderDetails key="orderDetails" cartData={checkoutItems} />
       </div>
-      <div className="flex justify-between gap-20 lg:flex-col lg:gap-24 lg:px-10">
+      <div className="flex justify-between gap-20 lg:flex-col lg:gap-24 lg:px-2">
         <div className="flex-grow-[2]">
           <h2 className="mb-10 text-[36px] lg:text-center">결제 수단</h2>
           <PaymentOptions

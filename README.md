@@ -43,6 +43,8 @@ https://perfect-pick-b3766.web.app/
 - ID  : idtest1234
 - Password : pwdtest1234!
 
+<br>
+
 ## 🛠️ 기술 스택
 
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/tailwindCSS-06B6D4?style=for-the-badge&logo=tailwindCSS&logoColor=white"> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white"> <img src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white"> <img src="https://img.shields.io/badge/HeadlessUI-gray?style=for-the-badge&logo=HeadlessUI"> <img src="https://img.shields.io/badge/firebase-DD2C00?style=for-the-badge&logo=firebase"> 

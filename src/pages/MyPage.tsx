@@ -4,7 +4,7 @@ import WelcomeMessage from '@/components/myPage/WelcomeMessage';
 
 function MyPage() {
   return (
-    <div className="m-auto w-full max-w-[1400px] px-10">
+    <div className="m-auto w-full min-w-[395px] max-w-[1400px] px-10">
       <h1 className="mb-[67px] mt-16 text-center text-3xl font-semibold">
         마이페이지
       </h1>

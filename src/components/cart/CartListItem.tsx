@@ -63,11 +63,13 @@ export default function CartListItem({
           </div>
         </div>
         <div className="relative flex h-full items-center justify-center border-r lg:border-0">
-          <div className="absolute left-20 hidden text-2xl lg:block">수량:</div>
+          <div className="absolute left-20 hidden w-full text-2xl lg:block">
+            수량:
+          </div>
           <div className="flex w-full justify-center lg:w-52">
             <CustomStepper
               shape="round"
-              frameStyle="size-10 lg:size-7"
+              frameStyle="size-10"
               numberStyle="text-2xl lg:text-xl"
               defaultValue={item.amount}
               onChange={handleQuantityChange}

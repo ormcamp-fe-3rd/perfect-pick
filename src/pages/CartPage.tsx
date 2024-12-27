@@ -51,7 +51,7 @@ function CartPage() {
   };
 
   return (
-    <div className="mx-auto flex w-full max-w-[1400px] flex-col lg:px-5">
+    <div className="mx-auto flex w-full min-w-[395px] max-w-[1400px] flex-col lg:px-5">
       <h2 className="mt-16 w-full text-center text-3xl font-extrabold">
         장바구니
       </h2>
@@ -61,7 +61,7 @@ function CartPage() {
         setSelectedItems={setSelectedItems}
       />
       <div className="mx-5 my-20 rounded-[10px] bg-[#D9D9D9] px-4 py-5 text-2xl">
-        <ul className="list-disc pl-10">
+        <ul className="list-disc pl-10 lg:px-1">
           <li>
             장바구니에 최대 {CART_PAGE.MAX_CART_ITEMS}개의 상품을 담을 수
             있습니다.

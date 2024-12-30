@@ -23,8 +23,10 @@ export default function CustomStepper({
     const newAmount =
       action < 0 ? Math.max(1, amount + action) : Math.min(10, amount + action);
 
-    setAmount(newAmount);
-    onChange(newAmount);
+    if (amount !== newAmount) {
+      setAmount(newAmount);
+      onChange(newAmount);
+    }
   };
 
   const shapeProp = shape === 'round' ? 'rounded-full' : '';

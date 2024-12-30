@@ -37,7 +37,10 @@ export default function PaymentPrivacyModal({
         [필수] 결제 서비스 이용 약관, 개인정보 처리 동의 ＞
       </CustomCheckBox>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          tabIndex={0}
+        >
           <div className="absolute inset-0 bg-black opacity-50" />
           <div className="absolute left-1/2 top-1/2 flex h-2/3 w-2/3 max-w-[680px] -translate-x-1/2 -translate-y-1/2 transform flex-col items-center gap-12 overflow-y-auto rounded-2xl bg-white px-10 py-10 text-lg font-semibold text-gray checked:flex">
             <div>[필수] 개인정보 제공 동의(판매자)</div>

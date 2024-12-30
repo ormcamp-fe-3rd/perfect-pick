@@ -55,15 +55,15 @@ export default function ProductOptions({
     const updatedOptions = { ...selectedOptions, [key]: value };
     setSelectedOptions(updatedOptions);
 
-    const price = calculateTotalPrice(updatedOptions) * itemCount;
-    setTotalPrice(price);
+    const totalPrice = calculatePrice(updatedOptions) * itemCount;
+    setTotalPrice(totalPrice);
   };
 
-  const handleChangeItemCount = (value: number) => {
-    setItemCount(value);
+  const handleChangeItemCount = (count: number) => {
+    setItemCount(count);
 
-    const price = calculateTotalPrice(selectedOptions) * value;
-    setTotalPrice(price);
+    const totalPrice = calculatePrice(selectedOptions) * count;
+    setTotalPrice(totalPrice);
   };
 
   const removeSelectedOption = () => {
@@ -71,7 +71,7 @@ export default function ProductOptions({
     setTotalPrice(0);
   };
 
-  const calculateTotalPrice = (selectedOptions: Record<string, string>) => {
+  const calculatePrice = (selectedOptions: Record<string, string>) => {
     const total = Object.keys(selectedOptions).reduce((acc, key) => {
       if (selectedOptions[key]) {
         acc += optionalPrices[key][selectedOptions[key]];
@@ -79,7 +79,7 @@ export default function ProductOptions({
       return acc;
     }, product.price_sell);
 
-    return total * itemCount;
+    return total;
   };
 
   const selectedOptionsLabel = Object.entries(selectedOptions)

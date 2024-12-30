@@ -62,8 +62,8 @@ export default function CartListItem({
             </div>
           </div>
         </div>
-        <div className="relative flex h-full items-center justify-center border-r lg:border-0">
-          <div className="absolute left-20 hidden w-full text-2xl lg:block">
+        <div className="relative flex h-full items-center justify-center border-r lg:border-0 md:justify-end">
+          <div className="absolute left-20 hidden text-2xl lg:block md:left-10">
             수량:
           </div>
           <div className="flex w-full justify-center lg:w-52">
@@ -76,14 +76,14 @@ export default function CartListItem({
             />
           </div>
         </div>
-        <div className="relative flex h-full items-center justify-center border-r py-3 text-2xl lg:border-0 lg:text-xl">
-          <div className="absolute left-20 hidden text-2xl lg:block">
+        <div className="relative flex h-full items-center justify-center border-r py-3 text-2xl lg:border-0 lg:text-xl md:justify-end">
+          <div className="absolute left-20 hidden text-2xl lg:block md:left-10">
             상품금액:
           </div>
           {totalPrice.toLocaleString()}원
         </div>
-        <div className="relative flex h-full items-center justify-center py-3 text-2xl lg:text-xl">
-          <div className="absolute left-20 hidden text-2xl lg:block">
+        <div className="relative flex h-full items-center justify-center py-3 text-2xl lg:text-xl md:justify-end">
+          <div className="absolute left-20 hidden text-2xl lg:block md:left-10">
             배송비:
           </div>
           <div className="text-center text-2xl lg:text-xl">

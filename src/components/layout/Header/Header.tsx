@@ -14,7 +14,7 @@ export default function Header() {
 
   return (
     <header
-      className={`inner relative z-10 flex h-[121px] flex-wrap items-center justify-between before:absolute before:bottom-0 before:left-1/2 before:h-[1px] before:w-full before:-translate-x-1/2 before:bg-black lg:before:w-[calc(100%-30px)] md:h-[83px] ${isMenuOpen ? '' : 'menu-bg'}`}
+      className={`inner relative z-10 flex h-[121px] min-w-[395px] flex-wrap items-center justify-between before:absolute before:bottom-0 before:left-1/2 before:h-[1px] before:w-full before:-translate-x-1/2 before:bg-black lg:before:w-[calc(100%-30px)] md:h-[83px] ${isMenuOpen ? '' : 'menu-bg'}`}
     >
       <Link
         to={'/'}

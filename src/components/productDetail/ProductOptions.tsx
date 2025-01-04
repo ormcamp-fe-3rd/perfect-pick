@@ -14,6 +14,7 @@ import {
 } from '@firebase/firestore';
 import { CartItemData, Product } from '@/types';
 import { useNavigate } from 'react-router';
+import { calculateSelectedPrice } from '@/utils/price';
 
 interface ProductOptionsProps {
   product: Product;
@@ -55,31 +56,25 @@ export default function ProductOptions({
     const updatedOptions = { ...selectedOptions, [key]: value };
     setSelectedOptions(updatedOptions);
 
-    const totalPrice = calculatePrice(updatedOptions) * itemCount;
+    const totalPrice =
+      calculateSelectedPrice(product, updatedOptions, optionalPrices) *
+      itemCount;
+
     setTotalPrice(totalPrice);
   };
 
   const handleChangeItemCount = (count: number) => {
     setItemCount(count);
 
-    const totalPrice = calculatePrice(selectedOptions) * count;
+    const totalPrice =
+      calculateSelectedPrice(product, selectedOptions, optionalPrices) * count;
+
     setTotalPrice(totalPrice);
   };
 
   const removeSelectedOption = () => {
     setSelectedOptions(initialSelectedOptions);
     setTotalPrice(0);
-  };
-
-  const calculatePrice = (selectedOptions: Record<string, string>) => {
-    const total = Object.keys(selectedOptions).reduce((acc, key) => {
-      if (selectedOptions[key]) {
-        acc += optionalPrices[key][selectedOptions[key]];
-      }
-      return acc;
-    }, product.price_sell);
-
-    return total;
   };
 
   const selectedOptionsLabel = Object.entries(selectedOptions)

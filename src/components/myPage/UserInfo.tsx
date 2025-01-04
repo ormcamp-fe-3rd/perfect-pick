@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import SearchAddress from '@/components/common/SearchAddress';
+import searchAddress from '@/utils/searchAddress';
 import { getUserInfo, updateUserAddress, updateUserPassword } from '@/firebase';
 
 import UserInfoInput from './UserInfoInput';
@@ -84,7 +84,7 @@ export default function UserInfo() {
   };
 
   const handleSearchAddress = async () => {
-    const searchedAddress = (await SearchAddress()) || '';
+    const searchedAddress = (await searchAddress()) || '';
     setNewAddress(searchedAddress);
   };
 

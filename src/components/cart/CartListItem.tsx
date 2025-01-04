@@ -1,6 +1,7 @@
 import CartCheckBox from '@/components/cart/CartCheckBox';
 import CustomStepper from '@/components/common/CustomStepper';
 import { CartItemData } from '@/types';
+import { optionLabel } from '@/utils/optionLabel';
 import { Link } from 'react-router';
 
 interface CartData extends CartItemData {
@@ -28,11 +29,7 @@ export default function CartListItem({
     onQuantityChange(item.id, newQuantity);
   };
 
-  const optionsLabel = Object.entries(item.option)
-    .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
-    .filter(([, value]) => value)
-    .map(([, value]) => value)
-    .join('/');
+  const itemOptionLabel = optionLabel(item.option);
 
   return (
     <>
@@ -56,7 +53,7 @@ export default function CartListItem({
                   {item.product_title}
                 </div>
                 <div className="text-lg font-semibold">
-                  옵션: {optionsLabel}
+                  옵션: {itemOptionLabel}
                 </div>
               </div>
             </div>

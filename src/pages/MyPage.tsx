@@ -1,6 +1,7 @@
 import OrderHistory from '@/components/myPage/OrderHistory';
 import UserInfo from '@/components/myPage/UserInfo';
 import WelcomeMessage from '@/components/myPage/WelcomeMessage';
+import LogoutButton from '@/components/myPage/LogoutButton';
 
 function MyPage() {
   return (
@@ -20,6 +21,9 @@ function MyPage() {
       <div className="mt-12">
         <h2 className="text-2xl font-bold">주문 상세 내역</h2>
         <OrderHistory />
+      </div>
+      <div>
+        <LogoutButton />
       </div>
     </div>
   );

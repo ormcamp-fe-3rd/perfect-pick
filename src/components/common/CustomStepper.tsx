@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface CustomStepperProps {
   shape?: 'round' | 'square';
@@ -19,13 +19,16 @@ export default function CustomStepper({
 }: CustomStepperProps) {
   const [amount, setAmount] = useState(defaultValue);
 
+  useEffect(() => {
+    onChange(amount);
+  }, [amount]);
+
   const adjustButtonClick = (action: number) => {
     const newAmount =
       action < 0 ? Math.max(1, amount + action) : Math.min(10, amount + action);
 
     if (amount !== newAmount) {
       setAmount(newAmount);
-      onChange(newAmount);
     }
   };
 

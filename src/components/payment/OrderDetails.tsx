@@ -1,4 +1,5 @@
 import { CartData } from '@/types';
+import { optionLabel } from '@/utils/optionLabel';
 
 interface OrderDetailsProps {
   cartData: CartData[];
@@ -21,15 +22,6 @@ export default function OrderDetails({ cartData }: OrderDetailsProps) {
     return sum + total;
   }, 0);
 
-  const optionsLabel = (item: Record<string, string>) => {
-    if (!item) return '';
-    return Object.entries(item)
-      .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
-      .filter(([, value]) => value)
-      .map(([, value]) => value)
-      .join('/');
-  };
-
   return (
     <>
       <div className="grid h-12 grid-cols-10 items-center text-center text-xl font-semibold lg:hidden">
@@ -47,7 +39,7 @@ export default function OrderDetails({ cartData }: OrderDetailsProps) {
             {item.product_title}
           </div>
           <div className="col-span-4 lg:col-span-1">
-            옵션: {optionsLabel(item.option)}
+            옵션: {optionLabel(item.option)}
           </div>
           <div className="col-span-1 text-center lg:col-span-1 lg:text-start">
             {item.amount}개

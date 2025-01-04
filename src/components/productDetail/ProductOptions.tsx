@@ -14,6 +14,8 @@ import {
 } from '@firebase/firestore';
 import { CartItemData, Product } from '@/types';
 import { useNavigate } from 'react-router';
+import { calculateSelectedPrice } from '@/utils/price';
+import { optionLabel } from '@/utils/optionLabel';
 
 interface ProductOptionsProps {
   product: Product;
@@ -55,15 +57,20 @@ export default function ProductOptions({
     const updatedOptions = { ...selectedOptions, [key]: value };
     setSelectedOptions(updatedOptions);
 
-    const price = calculateTotalPrice(updatedOptions) * itemCount;
-    setTotalPrice(price);
+    const totalPrice =
+      calculateSelectedPrice(product, updatedOptions, optionalPrices) *
+      itemCount;
+
+    setTotalPrice(totalPrice);
   };
 
-  const handleChangeItemCount = (value: number) => {
-    setItemCount(value);
+  const handleChangeItemCount = (count: number) => {
+    setItemCount(count);
 
-    const price = calculateTotalPrice(selectedOptions) * value;
-    setTotalPrice(price);
+    const totalPrice =
+      calculateSelectedPrice(product, selectedOptions, optionalPrices) * count;
+
+    setTotalPrice(totalPrice);
   };
 
   const removeSelectedOption = () => {
@@ -71,28 +78,7 @@ export default function ProductOptions({
     setTotalPrice(0);
   };
 
-  const calculateTotalPrice = (selectedOptions: Record<string, string>) => {
-    const total = Object.keys(selectedOptions).reduce((acc, key) => {
-      if (selectedOptions[key]) {
-        acc += optionalPrices[key][selectedOptions[key]];
-      }
-      return acc;
-    }, product.price_sell);
-
-    return total * itemCount;
-  };
-
-  const selectedOptionsLabel = Object.entries(selectedOptions)
-    .sort(([keyA], [keyB]) => {
-      if (!!keyA && !!keyB) {
-        // keyA와 keyB가 모두 truthy인지 확인
-        return keyA.localeCompare(keyB);
-      }
-      return 0; // keyA 또는 keyB가 falsy라면 기본 정렬 순서를 유지
-    })
-    .filter(([, value]) => value)
-    .map(([, value]) => value)
-    .join('/');
+  const selectedOptionsLabel = optionLabel(selectedOptions);
 
   const checkRequiredOptionsSelected = Object.entries(selectedOptions)
     .filter(([key]) => key !== 'additional')

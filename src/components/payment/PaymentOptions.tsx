@@ -41,6 +41,7 @@ export default function PaymentOptions({
           <label
             htmlFor={id}
             className="flex h-full w-full items-center justify-center"
+            tabIndex={0}
           >
             {label}
           </label>

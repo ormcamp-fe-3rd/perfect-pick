@@ -10,6 +10,7 @@ import {
   updateDoc,
   doc,
   deleteDoc,
+  getDoc,
 } from '@firebase/firestore';
 import { CartData, CartItemData } from '@/types';
 
@@ -122,20 +123,27 @@ export default function CartTable({
         const updatedCart = currentCart.map((item: CartData) => {
           return item.id === itemId ? { ...item, amount: newQuantity } : item;
         });
-        sessionStorage.setItem('cart', JSON.stringify(updatedCart));
-        setCartData(updatedCart);
-        alert('수량이 변경되었습니다.');
+        if (JSON.stringify(currentCart) !== JSON.stringify(updatedCart)) {
+          sessionStorage.setItem('cart', JSON.stringify(updatedCart));
+          setCartData(updatedCart);
+          alert('수량이 변경되었습니다.');
+        }
         return;
       }
 
       const cartItemRef = doc(db, 'carts', itemId);
-      await updateDoc(cartItemRef, { amount: newQuantity });
+      const cartDoc = await getDoc(cartItemRef);
+      const currentItemData = cartDoc.data();
 
-      const updatedCart = cartData.map((item) =>
-        item.id === itemId ? { ...item, amount: newQuantity } : item,
-      );
-      setCartData(updatedCart);
-      alert('수량이 변경되었습니다.');
+      if (currentItemData?.amount !== newQuantity) {
+        await updateDoc(cartItemRef, { amount: newQuantity });
+
+        const updatedCart = cartData.map((item) =>
+          item.id === itemId ? { ...item, amount: newQuantity } : item,
+        );
+        setCartData(updatedCart);
+        alert('수량이 변경되었습니다.');
+      }
     } catch (error) {
       console.error('Error updating quantity', error);
     }

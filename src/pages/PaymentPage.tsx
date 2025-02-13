@@ -8,8 +8,10 @@ import ShippingAddress from '@/components/payment/ShippingAddress';
 import { db, getUserInfo } from '@/firebase';
 import { CartData, CartItemData, UserData } from '@/types';
 import { collection, getDocs, query, where } from '@firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 function PaymentPage() {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState<UserData | null>(null);
   const [checkoutItems, setCheckoutItems] = useState<CartData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -59,7 +61,7 @@ function PaymentPage() {
     const fetchCheckoutItems = async () => {
       try {
         if (!checkoutData.length && !checkoutDataId.length) {
-          window.history.back();
+          navigate('/cart');
         }
 
         if (checkoutData.length > 0) {

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import CustomCheckBox from '@/components/payment/CustomCheckBox';
 import ShippingInput from '@/components/payment/ShippingInput';
 import { UserData } from '@/types';
-import SearchAddress from '@/components/common/SearchAddress';
+import searchAddress from '@/utils/searchAddress';
 
 interface ShippingAddressProps {
   userData: UserData | null;
@@ -58,7 +58,7 @@ export default function ShippingAddress({
   };
 
   const handleSearchAddress = async () => {
-    const searchedAddress = (await SearchAddress()) || '';
+    const searchedAddress = (await searchAddress()) || '';
     updateInputValues('baseAddress', searchedAddress);
   };
 

@@ -75,6 +75,7 @@ export default function ProductOptions({
 
   const removeSelectedOption = () => {
     setSelectedOptions(initialSelectedOptions);
+    setItemCount(1);
     setTotalPrice(0);
   };
 
